@@ -1,436 +1,380 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+@charset "UTF-8";
 
-a{
-    text-decoration:none;
-}
-
-ul{
-    list-style:none;
-    padding:0;
-    margin:0;
-}
-
-address{
-    font-style:normal;
-}
+/* ===================================================
+   HomePick Footer
+=================================================== */
 
 .footer{
-    width:100%;
+
+    background:linear-gradient(
+        180deg,
+        #234a87 0%,
+        #163864 100%
+    );
+
+    color:#fff;
+
 }
 
-/* ===================
-Top
-=================== */
-
-.footer-top{
-
-    background:#f6c400;
-    padding:18px 0;
-}
-
-.footer-policy{
-
-    display:flex;
-    justify-content:center;
-    gap:40px;
-}
-
-.footer-policy a{
-
-    color:#111;
-    font-weight:700;
-    font-size:15px;
-}
-
-/* ===================
-Bottom
-=================== */
+/* ==========================================
+    Footer Main
+========================================== */
 
 .footer-main{
 
-    background:#222;
-    color:#9c9c9c;
-    padding:65px 0;
+    padding:90px 0 70px;
+
+}
+
+.footer-main>.container{
+
+    max-width:1320px;
+
+}
+
+/* ==========================================
+    Left
+========================================== */
+
+.footer-left{
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:100%;
+
 }
 
 .footer-logo{
 
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:35px;
+
+}
+
+.footer-logo img{
+
+    width:72px;
+
+    height:72px;
+
+    object-fit:contain;
+
+}
+
+.footer-logo h2{
+
+    font-size:34px;
+
     color:#fff;
-    font-size:52px;
-    font-weight:800;
-    margin-bottom:25px;
+
+    letter-spacing:-1px;
+
 }
 
 .footer-logo span{
 
-    color:#fff;
-}
-
-.sns{
-
-    display:flex;
-    gap:15px;
-    margin-bottom:30px;
-}
-
-.sns a{
-
-    width:42px;
-    height:42px;
-
-    border-radius:50%;
-    background:#fff;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    color:#222;
-    font-size:20px;
-
-    transition:.3s;
-}
-
-.sns a:hover{
-
-    background:#f6c400;
-}
-
-address{
-
-    line-height:2;
-    font-size:15px;
-}
-
-address span{
-
-    margin-right:12px;
-}
-
-.footer-main h3{
-
-    color:#fff;
-    font-size:20px;
-    margin-bottom:20px;
-}
-
-.footer-main li{
-
-    margin-bottom:12px;
-}
-
-.footer-main li a{
-
-    color:#9d9d9d;
-    transition:.3s;
-}
-
-.footer-main li a:hover{
-
-    color:#fff;
-}
-
-/* ===================
-Responsive
-=================== */
-
-@media (max-width:991px){
-
-.footer-main{
-
-    text-align:center;
-}
-
-.sns{
-
-    justify-content:center;
-}
-
-.footer-policy{
-
-    flex-direction:column;
-    gap:10px;
-}
-
-.footer-main .row>.col-4{
-
-    margin-bottom:30px;
-}
-
-}
-
-@media (max-width:576px){
-
-.footer-logo{
-
-    font-size:36px;
-}
-
-.footer-main h3{
-
-    font-size:18px;
-}
-
-address{
-
-    font-size:14px;
-    line-height:1.8;
-}
-
-/* ======================================
-   Footer
-====================================== */
-
-.footer {
-    background: var(--color-footer);
-    color: var(--color-white);
-    padding-top: 80px;
-    font-family: var(--font-body);
-}
-
-.footer .container {
-    position: relative;
-}
-
-/* ======================================
-   Logo
-====================================== */
-
-.footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 28px;
-}
-
-.footer-logo img {
-    width: 64px;
-    height: 64px;
-}
-
-.footer-logo h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-}
-
-.footer-logo span {
-    display: block;
-    color: rgba(255,255,255,.75);
-    font-size: .9rem;
-}
-
-/* ======================================
-   Description
-====================================== */
-
-.footer-desc {
-    color: rgba(255,255,255,.75);
-    margin-bottom: 40px;
-    line-height: 1.9;
-}
-
-/* ======================================
-   Customer Center
-====================================== */
-
-.customer {
-    margin-bottom: 35px;
-}
-
-.customer small {
-    color: #9eb7dd;
-    margin-bottom: 8px;
-}
-
-.customer h4 {
-    color: white;
-    margin-bottom: 6px;
-    font-size: 1.25rem;
-}
-
-.customer span {
-    color: rgba(255,255,255,.65);
-    font-size: .9rem;
-}
-
-/* ======================================
-   SNS
-====================================== */
-
-.sns {
-    display: flex;
-    gap: 15px;
-}
-
-.sns a {
-    width: 45px;
-    height: 45px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 50%;
-    background: rgba(255,255,255,.08);
-
-    transition: .3s;
-}
-
-.sns a:hover {
-    background: white;
-    color: var(--color-footer);
-    transform: translateY(-3px);
-}
-
-/* ======================================
-   Sitemap
-====================================== */
-
-.footer h5 {
-    color: #fff;
-    font-size: 1.1rem;
-    margin-bottom: 25px;
-}
-
-.footer ul li {
-    margin-bottom: 15px;
-}
-
-.footer ul li:last-child {
-    margin-bottom: 0;
-}
-
-.footer ul li a {
-    color: rgba(255,255,255,.75);
-    transition: .25s;
-}
-
-.footer ul li a:hover {
-    color: white;
-    padding-left: 8px;
-}
-
-/* ======================================
-   Family Site
-====================================== */
-
-.family-site {
-    background: rgba(255,255,255,.05);
-
-    border-radius: 18px;
-
-    padding: 28px;
-
-    margin-bottom: 30px;
-}
-
-.family-site small {
-    color: #88b0ff;
-    letter-spacing: 1px;
-}
-
-.family-site h5 {
-    margin: 10px 0 15px;
-}
-
-.family-site p {
-    color: rgba(255,255,255,.7);
-
-    margin-bottom: 20px;
-
-    font-size: .92rem;
-
-    line-height: 1.7;
-}
-
-.family-site .form-select {
-
-    background: white;
-
-    border: none;
-
-    font-size: .9rem;
-
-}
-
-/* ======================================
-   Checklist Card
-====================================== */
-
-.check-card {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 20px;
-
-    border-radius: 18px;
-
-    background: linear-gradient(
-        135deg,
-        #295ca8,
-        #16345d
-    );
-
-    color: white;
-
-    transition: .3s;
-
-}
-
-.check-card:hover {
-
-    color: white;
-
-    transform: translateY(-5px);
-
-    box-shadow: 0 12px 35px rgba(0,0,0,.25);
-
-}
-
-.check-card>div:first-child {
-
-    width: 54px;
-
-    height: 54px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,.12);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:1.4rem;
-
-}
-
-.check-card strong {
-
     display:block;
 
-    font-size:15px;
-
-}
-
-.check-card span {
-
-    display:block;
-
-    font-size:13px;
+    margin-top:4px;
 
     color:rgba(255,255,255,.75);
+
+    font-size:14px;
+
+}
+
+.footer-desc{
+
+    color:rgba(255,255,255,.82);
+
+    line-height:2;
+
+    margin-bottom:40px;
+
+}
+
+/* ==========================================
+    Customer
+========================================== */
+
+.footer-customer{
+
+    margin-bottom:40px;
+
+}
+
+.footer-customer small{
+
+    color:#B9D5FF;
+
+    margin-bottom:10px;
+
+}
+
+.footer-customer strong{
+
+    display:block;
+
+    font-size:24px;
+
+    margin-bottom:8px;
+
+}
+
+.footer-customer span{
+
+    color:rgba(255,255,255,.6);
+
+}
+
+/* ==========================================
+    SNS
+========================================== */
+
+.footer-sns{
+
+    display:flex;
+
+    gap:16px;
+
+}
+
+.footer-sns a{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.12);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+
+    color:#fff;
+
+}
+
+.footer-sns a:hover{
+
+    background:#fff;
+
+    color:#214E97;
+
+    transform:translateY(-4px);
+
+}
+
+/* ==========================================
+    Menu
+========================================== */
+
+.footer-menu{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:50px;
+
+    height:100%;
+
+    padding-left:30px;
+
+}
+
+.footer-menu section{
+
+    flex:1;
+
+}
+
+.footer-menu h3{
+
+    font-size:18px;
+
+    margin-bottom:28px;
+
+    color:#fff;
+
+}
+
+.footer-menu ul li{
+
+    margin-bottom:16px;
+
+}
+
+.footer-menu ul li:last-child{
+
+    margin-bottom:0;
+
+}
+
+.footer-menu a{
+
+    color:rgba(255,255,255,.72);
+
+    font-size:15px;
+
+}
+
+.footer-menu a:hover{
+
+    color:#fff;
+
+    padding-left:8px;
+
+}
+
+/* ==========================================
+    Right
+========================================== */
+
+.footer-right{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+/* ==========================================
+    Family Site
+========================================== */
+
+.family-site{
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
+
+    padding:28px;
+
+}
+
+.family-site small{
+
+    color:#87B6FF;
+
+    letter-spacing:1px;
+
+    font-size:12px;
+
+}
+
+.family-site h3{
+
+    margin:14px 0;
+
+    font-size:22px;
+
+}
+
+.family-site p{
+
+    color:rgba(255,255,255,.75);
+
+    margin-bottom:22px;
+
+    line-height:1.8;
+
+}
+
+.family-site select{
+
+    border:none;
+
+    height:50px;
+
+    border-radius:14px;
+
+}
+
+/* ==========================================
+    Card
+========================================== */
+
+.check-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:24px;
+
+    border-radius:22px;
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #3D79DD,
+
+        #1E4C9B
+
+    );
+
+    color:#fff;
+
+}
+
+.check-card>div:first-child{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:24px;
+
+}
+
+.check-card strong{
+
+    display:block;
+
+    margin-bottom:4px;
+
+    font-size:16px;
+
+}
+
+.check-card span{
+
+    color:rgba(255,255,255,.8);
+
+    font-size:14px;
 
 }
 
@@ -438,21 +382,45 @@ address{
 
     margin-left:auto;
 
+    font-size:18px;
+
 }
 
-/* =====================================================
-   Footer Policy
-===================================================== */
+.check-card:hover{
 
-.footer-policy{
+    color:#fff;
 
-    margin-top:80px;
+    transform:translateY(-5px);
 
-    border-top:1px solid rgba(255,255,255,.08);
+    box-shadow:0 18px 40px rgba(0,0,0,.25);
+
+}
+
+/* ==========================================
+    Divider
+========================================== */
+
+.footer-main{
 
     border-bottom:1px solid rgba(255,255,255,.08);
 
-    padding:22px 0;
+}
+
+/* ===================================================
+   Footer Policy
+=================================================== */
+
+.footer-policy{
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.footer-policy .container{
+
+    max-width:1320px;
+
+    padding:24px 15px;
 
 }
 
@@ -470,38 +438,44 @@ address{
 
 }
 
-.footer-policy a{
-
-    color:rgba(255,255,255,.82);
-
-    font-size:15px;
-
-    transition:.3s;
-
-}
-
-.footer-policy a:hover{
-
-    color:#ffffff;
-
-}
-
-.footer-policy span{
+.footer-policy nav span{
 
     color:rgba(255,255,255,.25);
 
 }
 
+.footer-policy nav a{
 
-/* =====================================================
-   Company Information
-===================================================== */
+    color:rgba(255,255,255,.82);
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+.footer-policy nav a:hover{
+
+    color:#ffffff;
+
+}
+
+
+/* ===================================================
+   Company
+=================================================== */
 
 .footer-company{
 
-    padding:35px 0 45px;
+    padding:40px 0 50px;
 
     text-align:center;
+
+}
+
+.footer-company .container{
+
+    max-width:1320px;
 
 }
 
@@ -509,29 +483,29 @@ address{
 
     color:rgba(255,255,255,.78);
 
-    font-size:14px;
+    font-size:15px;
 
-    line-height:1.9;
+    margin-bottom:14px;
 
-    margin-bottom:15px;
+    line-height:1.8;
 
 }
 
-.footer-contact{
-
-    color:rgba(255,255,255,.60);
+.footer-company address{
 
     font-style:normal;
 
-    font-size:14px;
+    color:rgba(255,255,255,.65);
 
     line-height:2;
 
     margin-bottom:20px;
 
+    font-size:14px;
+
 }
 
-.copyright{
+.footer-company p{
 
     color:rgba(255,255,255,.45);
 
@@ -542,27 +516,35 @@ address{
 }
 
 
-/* =====================================================
-   Hover Effect
-===================================================== */
+/* ===================================================
+   Hover
+=================================================== */
 
 .family-site{
 
-    transition:.35s;
+    transition:
+
+        transform .3s,
+
+        box-shadow .3s,
+
+        background-color .3s;
 
 }
 
 .family-site:hover{
 
-    transform:translateY(-4px);
+    transform:translateY(-5px);
 
-    box-shadow:0 15px 35px rgba(0,0,0,.20);
+    box-shadow:0 20px 40px rgba(0,0,0,.22);
+
+    background:rgba(255,255,255,.11);
 
 }
 
 .footer-logo img{
 
-    transition:.3s;
+    transition:transform .35s;
 
 }
 
@@ -573,36 +555,71 @@ address{
 }
 
 
-/* =====================================================
-   Tablet (1200)
-===================================================== */
+/* ===================================================
+   Accessibility
+=================================================== */
+
+.footer a:focus{
+
+    outline:3px solid #7EB6FF;
+
+    outline-offset:4px;
+
+}
+
+.footer select:focus{
+
+    border-color:#8fc0ff;
+
+    box-shadow:0 0 0 .2rem rgba(111,168,255,.25);
+
+}
+
+
+/* ===================================================
+   1200px
+=================================================== */
 
 @media (max-width:1200px){
 
-    .footer{
+    .footer-main{
 
-        padding-top:65px;
+        padding:70px 0 60px;
+
+    }
+
+    .footer-menu{
+
+        gap:35px;
+
+        padding-left:10px;
 
     }
 
     .family-site{
 
-        padding:22px;
+        padding:24px;
 
     }
 
 }
 
 
-/* =====================================================
-   Bootstrap lg (992)
-===================================================== */
+/* ===================================================
+   992px
+=================================================== */
 
 @media (max-width:992px){
 
-    .footer{
+    .footer-main{
 
         text-align:center;
+
+    }
+
+    .footer-left{
+
+        align-items:center;
 
     }
 
@@ -612,42 +629,54 @@ address{
 
     }
 
-    .sns{
+    .footer-sns{
 
         justify-content:center;
 
     }
 
-    .customer{
+    .footer-menu{
 
-        margin-bottom:30px;
+        display:none;
+
+    }
+
+    .footer-right{
+
+        margin-top:20px;
+
+        align-items:center;
 
     }
 
     .family-site{
 
-        margin-top:20px;
+        width:420px;
+
+        max-width:100%;
 
     }
 
     .check-card{
 
-        margin-top:20px;
+        width:420px;
+
+        max-width:100%;
 
     }
 
 }
 
 
-/* =====================================================
-   Bootstrap md (768)
-===================================================== */
+/* ===================================================
+   768px
+=================================================== */
 
 @media (max-width:768px){
 
-    .footer{
+    .footer-main{
 
-        padding-top:55px;
+        padding:60px 0 50px;
 
     }
 
@@ -655,35 +684,33 @@ address{
 
         flex-direction:column;
 
-        gap:10px;
+        text-align:center;
 
     }
 
     .footer-logo img{
 
-        width:56px;
+        width:64px;
 
-        height:56px;
+        height:64px;
 
     }
 
-    .footer-logo h3{
+    .footer-logo h2{
 
-        font-size:28px;
+        font-size:30px;
 
     }
 
     .footer-desc{
 
-        max-width:320px;
-
-        margin:0 auto 35px;
+        margin-bottom:35px;
 
     }
 
-    .family-site{
+    .footer-customer strong{
 
-        width:100%;
+        font-size:22px;
 
     }
 
@@ -692,8 +719,6 @@ address{
         flex-direction:column;
 
         text-align:center;
-
-        gap:15px;
 
     }
 
@@ -701,20 +726,22 @@ address{
 
         margin-left:0;
 
+        margin-top:10px;
+
     }
 
 }
 
 
-/* =====================================================
-   Bootstrap sm (576)
-===================================================== */
+/* ===================================================
+   576px
+=================================================== */
 
 @media (max-width:576px){
 
-    .footer{
+    .footer-main{
 
-        padding-top:45px;
+        padding:50px 0 40px;
 
     }
 
@@ -726,9 +753,15 @@ address{
 
     }
 
-    .footer-policy span{
+    .footer-policy nav span{
 
         display:none;
+
+    }
+
+    .footer-company{
+
+        padding:30px 0 35px;
 
     }
 
@@ -738,7 +771,7 @@ address{
 
     }
 
-    .footer-contact{
+    .footer-company address{
 
         font-size:13px;
 
@@ -746,32 +779,46 @@ address{
 
     }
 
-    .copyright{
+    .footer-company p{
 
         font-size:12px;
 
     }
 
-    .sns{
+    .footer-sns{
 
         gap:12px;
 
     }
 
-    .sns a{
+    .footer-sns a{
 
         width:42px;
 
         height:42px;
+
+        font-size:16px;
+
+    }
+
+    .family-site{
+
+        padding:20px;
+
+    }
+
+    .check-card{
+
+        padding:20px;
 
     }
 
 }
 
 
-/* =====================================================
-   Bootstrap xxl (1400)
-===================================================== */
+/* ===================================================
+   1400px
+=================================================== */
 
 @media (min-width:1400px){
 
@@ -780,52 +827,5 @@ address{
         max-width:1320px;
 
     }
-
-}
-
-
-/* =====================================================
-   Accessibility
-===================================================== */
-
-.footer a:focus{
-
-    outline:3px solid #6fa8ff;
-
-    outline-offset:4px;
-
-}
-
-.form-select:focus{
-
-    box-shadow:none;
-
-    border-color:#4b87ff;
-
-}
-
-
-/* =====================================================
-   Animation
-===================================================== */
-
-.footer *{
-
-    transition:all .25s ease;
-
-}
-
-
-/* =====================================================
-   Selection
-===================================================== */
-
-.footer ::selection{
-
-    background:#4c8dff;
-
-    color:#fff;
-
-}
 
 }

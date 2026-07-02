@@ -1,36 +1,44 @@
-/* ===================================================
-   Common CSS
-   Project : ZipAi
-=================================================== */
+@charset "UTF-8";
 
-/* ==========================
-   Google Font Variable
-========================== */
+/* ==========================================
+   HomePick Common CSS
+   HTML5 + CSS3 + Bootstrap5
+========================================== */
+
+/* ===========================
+   CSS Variables
+=========================== */
 
 :root{
 
-    /* Color */
+    /* Colors */
 
-    --color-primary:#18345D;
-    --color-primary-light:#2E5FA8;
+    --primary:#214E97;
+    --primary-light:#3F7CE8;
 
-    --color-white:#ffffff;
+    --footer-bg:#173A70;
+    --footer-bg-dark:#0F2C57;
 
-    --color-light:#F7F8FC;
+    --white:#ffffff;
 
-    --color-border:#E6EAF3;
+    --black:#222222;
 
-    --color-text:#212529;
+    --gray-100:#f8f9fa;
+    --gray-200:#eceff3;
+    --gray-300:#d8dce3;
+    --gray-400:#b4bcc8;
+    --gray-500:#9aa3b0;
+    --gray-600:#737d89;
+    --gray-700:#515c69;
 
-    --color-text-light:#8B95A7;
+    --text:#2b2f33;
+    --text-light:#7c8794;
 
-    --color-title:#FFFFFF;
+    --border:#e7e9ef;
 
-    --color-hover:#4A7CF3;
+    --success:#00b86b;
 
-    --color-policy:#132A4B;
-
-    --color-footer:#1C355E;
+    --warning:#ffbe00;
 
 
     /* Font */
@@ -42,126 +50,123 @@
 
     /* Font Size */
 
-    --fs-xs:12px;
-
-    --fs-sm:14px;
-
-    --fs-md:16px;
-
-    --fs-lg:18px;
-
-    --fs-xl:22px;
-
-    --fs-2xl:30px;
+    --fs-12:.75rem;
+    --fs-13:.8125rem;
+    --fs-14:.875rem;
+    --fs-15:.9375rem;
+    --fs-16:1rem;
+    --fs-18:1.125rem;
+    --fs-20:1.25rem;
+    --fs-24:1.5rem;
+    --fs-28:1.75rem;
+    --fs-32:2rem;
 
 
     /* Weight */
 
-    --fw-light:300;
-
-    --fw-normal:400;
-
-    --fw-medium:500;
-
-    --fw-bold:700;
+    --fw-300:300;
+    --fw-400:400;
+    --fw-500:500;
+    --fw-600:600;
+    --fw-700:700;
 
 
     /* Radius */
 
-    --radius-sm:6px;
-
-    --radius-md:10px;
-
-    --radius-lg:16px;
-
-    --radius-xl:20px;
+    --radius-sm:8px;
+    --radius:12px;
+    --radius-lg:18px;
+    --radius-xl:24px;
 
 
     /* Shadow */
 
     --shadow-sm:0 2px 8px rgba(0,0,0,.08);
 
-    --shadow-md:0 6px 20px rgba(0,0,0,.12);
+    --shadow:0 10px 25px rgba(0,0,0,.12);
+
+    --shadow-lg:0 18px 40px rgba(0,0,0,.18);
 
 
-    /* Animation */
+    /* Transition */
 
     --transition:.3s ease;
-
-
-    /* Bootstrap Breakpoints */
-
-    --sm:576px;
-
-    --md:768px;
-
-    --lg:992px;
-
-    --xl:1200px;
-
-    --xxl:1400px;
 
 }
 
 
-/* ==========================
+/* ===========================
    Reset
-========================== */
+=========================== */
 
-*{
+*,
+*::before,
+*::after{
 
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
 
 }
 
 
+/* ===========================
+   HTML
+=========================== */
+
 html{
 
     scroll-behavior:smooth;
 
+    font-size:16px;
+
 }
 
+
+/* ===========================
+   Body
+=========================== */
 
 body{
 
     font-family:var(--font-body);
 
-    font-size:var(--fs-md);
+    font-size:var(--fs-16);
 
-    color:var(--color-text);
+    color:var(--text);
+
+    background:#fff;
 
     line-height:1.7;
 
-    background:#fff;
+    overflow-x:hidden;
+
+    -webkit-font-smoothing:antialiased;
 
 }
 
 
-/* ==========================
+/* ===========================
    Typography
-========================== */
+=========================== */
 
 h1,h2,h3,h4,h5,h6{
+
+    margin:0;
 
     font-family:var(--font-title);
 
     font-weight:700;
 
-    margin-bottom:0;
+    line-height:1.3;
 
 }
-
 
 p{
 
-    margin-bottom:0;
+    margin:0;
 
 }
-
 
 small{
 
@@ -169,10 +174,16 @@ small{
 
 }
 
+strong{
 
-/* ==========================
+    font-weight:700;
+
+}
+
+
+/* ===========================
    Link
-========================== */
+=========================== */
 
 a{
 
@@ -180,35 +191,44 @@ a{
 
     color:inherit;
 
-    transition:var(--transition);
+    transition:
+
+        color .3s,
+
+        background-color .3s,
+
+        transform .3s;
 
 }
 
 a:hover{
 
-    color:var(--color-hover);
+    text-decoration:none;
 
 }
 
 
-/* ==========================
+/* ===========================
    Image
-========================== */
+=========================== */
 
 img{
 
+    display:block;
+
     max-width:100%;
 
-    display:block;
+    height:auto;
 
 }
 
 
-/* ==========================
+/* ===========================
    List
-========================== */
+=========================== */
 
-ul{
+ul,
+ol{
 
     list-style:none;
 
@@ -219,51 +239,39 @@ ul{
 }
 
 
-/* ==========================
-   Button
-========================== */
-
-.btn-common{
-
-    background:var(--color-primary);
-
-    color:#fff;
-
-    border:none;
-
-    border-radius:var(--radius-md);
-
-    padding:12px 24px;
-
-    transition:var(--transition);
-
-}
-
-.btn-common:hover{
-
-    background:var(--color-hover);
-
-}
-
-
-/* ==========================
+/* ===========================
    Form
-========================== */
+=========================== */
+
+input,
+select,
+textarea,
+button{
+
+    font:inherit;
+
+}
+
+button{
+
+    cursor:pointer;
+
+}
 
 .form-select{
 
+    height:50px;
+
     border-radius:12px;
 
-    height:48px;
-
-    font-size:14px;
+    font-size:15px;
 
 }
 
 
-/* ==========================
-   Container
-========================== */
+/* ===========================
+   Bootstrap Container
+=========================== */
 
 .container{
 
@@ -272,25 +280,30 @@ ul{
 }
 
 
-/* ==========================
+/* ===========================
+   Demo
+=========================== */
+
+.demo-content{
+
+    min-height:70vh;
+
+}
+
+
+/* ===========================
    Utility
-========================== */
+=========================== */
 
-.text-light-gray{
+.text-primary{
 
-    color:var(--color-text-light);
-
-}
-
-.border-top-light{
-
-    border-top:1px solid rgba(255,255,255,.08);
+    color:var(--primary)!important;
 
 }
 
-.border-bottom-light{
+.text-muted{
 
-    border-bottom:1px solid rgba(255,255,255,.08);
+    color:var(--text-light)!important;
 
 }
 
@@ -306,63 +319,133 @@ ul{
 
 }
 
-.shadow-md{
+.shadow{
 
-    box-shadow:var(--shadow-md);
+    box-shadow:var(--shadow);
+
+}
+
+.shadow-lg{
+
+    box-shadow:var(--shadow-lg);
 
 }
 
 
-/* ==========================
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#b9c1cc;
+
+    border-radius:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf0f5;
+
+}
+
+
+/* ===========================
+   Selection
+=========================== */
+
+::selection{
+
+    background:#2E69D6;
+
+    color:#fff;
+
+}
+
+
+/* ===========================
+   Accessibility
+=========================== */
+
+a:focus,
+button:focus,
+input:focus,
+select:focus{
+
+    outline:3px solid #71A7FF;
+
+    outline-offset:3px;
+
+}
+
+
+/* ===========================
    Responsive
-========================== */
+=========================== */
+
+/* 1400 */
 
 @media (max-width:1400px){
 
-    .container{
+.container{
 
-        padding-inline:30px;
-
-    }
+    padding-inline:24px;
 
 }
+
+}
+
+/* 1200 */
 
 @media (max-width:1200px){
 
-    html{
+html{
 
-        font-size:15px;
-
-    }
+    font-size:15px;
 
 }
+
+}
+
+/* 992 */
 
 @media (max-width:992px){
 
-    html{
+html{
 
-        font-size:14px;
-
-    }
+    font-size:14px;
 
 }
+
+}
+
+/* 768 */
 
 @media (max-width:768px){
 
-    body{
+.container{
 
-        text-align:center;
-
-    }
+    padding-inline:22px;
 
 }
 
+}
+
+/* 576 */
+
 @media (max-width:576px){
 
-    .container{
+.container{
 
-        padding-inline:20px;
+    padding-inline:16px;
 
-    }
+}
 
 }
