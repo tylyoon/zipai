@@ -1,0 +1,368 @@
+/* ===================================================
+   Common CSS
+   Project : ZipAi
+=================================================== */
+
+/* ==========================
+   Google Font Variable
+========================== */
+
+:root{
+
+    /* Color */
+
+    --color-primary:#18345D;
+    --color-primary-light:#2E5FA8;
+
+    --color-white:#ffffff;
+
+    --color-light:#F7F8FC;
+
+    --color-border:#E6EAF3;
+
+    --color-text:#212529;
+
+    --color-text-light:#8B95A7;
+
+    --color-title:#FFFFFF;
+
+    --color-hover:#4A7CF3;
+
+    --color-policy:#132A4B;
+
+    --color-footer:#1C355E;
+
+
+    /* Font */
+
+    --font-title:'Montserrat',sans-serif;
+
+    --font-body:'Noto Sans KR',sans-serif;
+
+
+    /* Font Size */
+
+    --fs-xs:12px;
+
+    --fs-sm:14px;
+
+    --fs-md:16px;
+
+    --fs-lg:18px;
+
+    --fs-xl:22px;
+
+    --fs-2xl:30px;
+
+
+    /* Weight */
+
+    --fw-light:300;
+
+    --fw-normal:400;
+
+    --fw-medium:500;
+
+    --fw-bold:700;
+
+
+    /* Radius */
+
+    --radius-sm:6px;
+
+    --radius-md:10px;
+
+    --radius-lg:16px;
+
+    --radius-xl:20px;
+
+
+    /* Shadow */
+
+    --shadow-sm:0 2px 8px rgba(0,0,0,.08);
+
+    --shadow-md:0 6px 20px rgba(0,0,0,.12);
+
+
+    /* Animation */
+
+    --transition:.3s ease;
+
+
+    /* Bootstrap Breakpoints */
+
+    --sm:576px;
+
+    --md:768px;
+
+    --lg:992px;
+
+    --xl:1200px;
+
+    --xxl:1400px;
+
+}
+
+
+/* ==========================
+   Reset
+========================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    font-family:var(--font-body);
+
+    font-size:var(--fs-md);
+
+    color:var(--color-text);
+
+    line-height:1.7;
+
+    background:#fff;
+
+}
+
+
+/* ==========================
+   Typography
+========================== */
+
+h1,h2,h3,h4,h5,h6{
+
+    font-family:var(--font-title);
+
+    font-weight:700;
+
+    margin-bottom:0;
+
+}
+
+
+p{
+
+    margin-bottom:0;
+
+}
+
+
+small{
+
+    display:block;
+
+}
+
+
+/* ==========================
+   Link
+========================== */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+    transition:var(--transition);
+
+}
+
+a:hover{
+
+    color:var(--color-hover);
+
+}
+
+
+/* ==========================
+   Image
+========================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+
+/* ==========================
+   List
+========================== */
+
+ul{
+
+    list-style:none;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+/* ==========================
+   Button
+========================== */
+
+.btn-common{
+
+    background:var(--color-primary);
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:var(--radius-md);
+
+    padding:12px 24px;
+
+    transition:var(--transition);
+
+}
+
+.btn-common:hover{
+
+    background:var(--color-hover);
+
+}
+
+
+/* ==========================
+   Form
+========================== */
+
+.form-select{
+
+    border-radius:12px;
+
+    height:48px;
+
+    font-size:14px;
+
+}
+
+
+/* ==========================
+   Container
+========================== */
+
+.container{
+
+    max-width:1320px;
+
+}
+
+
+/* ==========================
+   Utility
+========================== */
+
+.text-light-gray{
+
+    color:var(--color-text-light);
+
+}
+
+.border-top-light{
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.border-bottom-light{
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.rounded-lg{
+
+    border-radius:var(--radius-lg);
+
+}
+
+.shadow-sm{
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.shadow-md{
+
+    box-shadow:var(--shadow-md);
+
+}
+
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width:1400px){
+
+    .container{
+
+        padding-inline:30px;
+
+    }
+
+}
+
+@media (max-width:1200px){
+
+    html{
+
+        font-size:15px;
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    html{
+
+        font-size:14px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    body{
+
+        text-align:center;
+
+    }
+
+}
+
+@media (max-width:576px){
+
+    .container{
+
+        padding-inline:20px;
+
+    }
+
+}

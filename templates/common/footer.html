@@ -1,220 +1,272 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Footer</title>
 
     <!-- Bootstrap5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-          rel="stylesheet">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <!-- footer css -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
     <link rel="stylesheet"
-          href="/static/css/footer.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 </head>
 
 <body>
 
 <footer class="footer">
 
-    <!-- Top -->
-    <div class="footer-top">
-        <div class="container">
+    <div class="container">
 
-            <ul class="footer-policy list-inline mb-0">
+        <div class="row gy-5">
 
-                <li class="list-inline-item">
-                    <a href="#">이용약관</a>
-                </li>
+            <!-- Left -->
+            <div class="col-12 col-lg-4 text-center text-lg-start">
 
-                <li class="list-inline-item">
-                    <a href="#">개인정보처리방침</a>
-                </li>
+                <div class="footer-logo">
 
-                <li class="list-inline-item">
-                    <a href="#">멤버십 이용약관</a>
-                </li>
+                    <img src="{% static 'img/logo.svg' %}" alt="ZipAi">
 
-            </ul>
+                    <div>
+
+                        <h3>ZipAi</h3>
+                        <span>집아이</span>
+
+                    </div>
+
+                </div>
+
+                <p class="footer-desc">
+                    데이터를 찾고,
+                    안전하게 계약하는<br>
+                    생활밀착형 부동산 플랫폼
+                </p>
+
+                <div class="customer">
+
+                    <small>
+
+                        <i class="fa-solid fa-headset"></i>
+
+                        고객센터
+
+                    </small>
+
+                    <h4>평일 09:00~18:00</h4>
+
+                    <span>주말 · 공휴일 휴무</span>
+
+                </div>
+
+                <div class="sns">
+
+                    <a href="#" aria-label="Blog">
+                        <i class="fa-solid fa-blog"></i>
+                    </a>
+
+                    <a href="#" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <a href="#" aria-label="Youtube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+
+                    <a href="#" aria-label="Kakao">
+                        <i class="fa-solid fa-comment"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Sitemap -->
+            <div class="col-lg-6 d-none d-lg-block">
+
+                <div class="row">
+
+                    <div class="col">
+
+                        <h5>매물 서비스</h5>
+
+                        <ul>
+
+                            <li><a href="#">지도에서 집 찾기</a></li>
+
+                            <li><a href="#">안심 매물</a></li>
+
+                            <li><a href="#">관심 매물</a></li>
+
+                            <li><a href="#">매물 등록 문의</a></li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="col">
+
+                        <h5>계약 안전</h5>
+
+                        <ul>
+
+                            <li><a href="#">안전 진단 결과</a></li>
+
+                            <li><a href="#">계약 체크리스트</a></li>
+
+                            <li><a href="#">전세가율 계산기</a></li>
+
+                            <li><a href="#">안전 계약가이드</a></li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="col">
+
+                        <h5>ZipAi 안내</h5>
+
+                        <ul>
+
+                            <li><a href="#">서비스 소개</a></li>
+
+                            <li><a href="#">공지사항</a></li>
+
+                            <li><a href="#">자주 묻는 질문</a></li>
+
+                            <li><a href="#">제휴 · 광고 문의</a></li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Right -->
+            <div class="col-12 col-lg-2">
+
+                <div class="family-site">
+
+                    <small>OFFICIAL LINKS</small>
+
+                    <h5>부동산 패밀리사이트</h5>
+
+                    <p>
+                        계약 및 분양한 공공 서비스를<br>
+                        ZipAi에서 바로 확인하세요.
+                    </p>
+
+                    <select class="form-select">
+
+                        <option selected>
+                            패밀리사이트 선택
+                        </option>
+
+                        <option>HomePick</option>
+
+                        <option>ZipAi Blog</option>
+
+                    </select>
+
+                </div>
+
+                <a href="#" class="check-card">
+
+                    <div>
+
+                        <i class="fa-solid fa-clipboard-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <strong>계약 전 5분 안전점검</strong>
+
+                        <span>체크리스트 시작하기</span>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
 
         </div>
+
     </div>
 
-    <!-- Bottom -->
-    <div class="footer-main">
+    <!-- 이용약관 -->
+
+    <div class="footer-policy">
 
         <div class="container">
 
-            <div class="row gy-5">
+            <nav>
 
-                <!-- Left -->
-                <div class="col-lg-7">
+                <a href="#">이용약관</a>
 
-                    <h2 class="footer-logo">
-                        MEGA <span>COFFEE</span>
-                    </h2>
+                <span>|</span>
 
-                    <div class="sns">
+                <a href="#" class="fw-bold">
+                    개인정보처리방침
+                </a>
 
-                        <a href="#" aria-label="블로그">
-                            <i class="bi bi-chat-left-text"></i>
-                        </a>
+                <span>|</span>
 
-                        <a href="#" aria-label="페이스북">
-                            <i class="bi bi-facebook"></i>
-                        </a>
+                <a href="#">매물등록 이용약관</a>
 
-                        <a href="#" aria-label="인스타그램">
-                            <i class="bi bi-instagram"></i>
-                        </a>
+            </nav>
 
-                        <a href="#" aria-label="스마트스토어">
-                            <i class="bi bi-bag"></i>
-                        </a>
+        </div>
 
-                    </div>
+    </div>
 
-                    <address>
+    <!-- 회사정보 -->
 
-                        <strong>(주) 엠지씨글로벌</strong>
+    <div class="footer-company">
 
-                        <span>대표자 김대영</span>
+        <div class="container">
 
-                        <span>창업상담 1588-0656</span>
+            <div class="footer-company-info">
 
-                        <span>고객센터 1588-8298</span>
+                (주) 집아이 · 대표자 : 홍길동 ·
+                사업자등록번호 : 123-45-67890
 
-                        <br>
+            </div>
 
-                        <span>FAX 02-325-5199</span>
+            <address class="footer-contact">
 
-                        <span>사업자등록번호 105-87-51367</span>
+                서울특별시 강남구 테헤란로 123 홈픽빌딩 1층<br>
 
-                        <br>
+                중개상담 : 1588-0000 · 고객센터 : 1588-1111 ·
+                FAX : 02-123-4567
 
-                        <span>
-                            서울특별시 강남구 강남대로 518
-                            11층, 13층
-                        </span>
+            </address>
 
-                        <span>
-                            개인정보보호 책임자 정명찬
-                        </span>
+            <div class="copyright">
 
-                    </address>
-
-                </div>
-
-                <!-- Right -->
-                <div class="col-lg-5">
-
-                    <div class="row">
-
-                        <div class="col-4">
-
-                            <h3>메가 스토리</h3>
-
-                            <ul>
-
-                                <li><a href="#">브랜드</a></li>
-
-                                <li><a href="#">BI</a></li>
-
-                                <li><a href="#">오시는 길</a></li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="col-4">
-
-                            <h3>메뉴소개</h3>
-
-                            <ul>
-
-                                <li><a href="#">음료</a></li>
-
-                                <li><a href="#">푸드</a></li>
-
-                                <li><a href="#">상품</a></li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="col-4">
-
-                            <h3>매장</h3>
-
-                            <ul>
-
-                                <li><a href="#">매장찾기</a></li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="col-4 mt-4">
-
-                            <h3>창업안내</h3>
-
-                            <ul>
-
-                                <li><a href="#">개설비용</a></li>
-
-                                <li><a href="#">인테리어</a></li>
-
-                                <li><a href="#">창업문의</a></li>
-
-                                <li><a href="#">창업뉴스</a></li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="col-4 mt-4">
-
-                            <h3>메가소식</h3>
-
-                            <ul>
-
-                                <li><a href="#">공지사항</a></li>
-
-                                <li><a href="#">이벤트</a></li>
-
-                                <li><a href="#">FAQ</a></li>
-
-                                <li><a href="#">고객의 소리</a></li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="col-4 mt-4">
-
-                            <h3>제휴문의</h3>
-
-                            <ul>
-
-                                <li><a href="#">상품제안</a></li>
-
-                                <li><a href="#">마케팅 제휴</a></li>
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                © 2026 ZipAi. ALL RIGHTS RESERVED.
 
             </div>
 
@@ -224,7 +276,7 @@
 
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

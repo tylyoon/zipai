@@ -181,4 +181,651 @@ address{
     line-height:1.8;
 }
 
+/* ======================================
+   Footer
+====================================== */
+
+.footer {
+    background: var(--color-footer);
+    color: var(--color-white);
+    padding-top: 80px;
+    font-family: var(--font-body);
+}
+
+.footer .container {
+    position: relative;
+}
+
+/* ======================================
+   Logo
+====================================== */
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.footer-logo img {
+    width: 64px;
+    height: 64px;
+}
+
+.footer-logo h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.footer-logo span {
+    display: block;
+    color: rgba(255,255,255,.75);
+    font-size: .9rem;
+}
+
+/* ======================================
+   Description
+====================================== */
+
+.footer-desc {
+    color: rgba(255,255,255,.75);
+    margin-bottom: 40px;
+    line-height: 1.9;
+}
+
+/* ======================================
+   Customer Center
+====================================== */
+
+.customer {
+    margin-bottom: 35px;
+}
+
+.customer small {
+    color: #9eb7dd;
+    margin-bottom: 8px;
+}
+
+.customer h4 {
+    color: white;
+    margin-bottom: 6px;
+    font-size: 1.25rem;
+}
+
+.customer span {
+    color: rgba(255,255,255,.65);
+    font-size: .9rem;
+}
+
+/* ======================================
+   SNS
+====================================== */
+
+.sns {
+    display: flex;
+    gap: 15px;
+}
+
+.sns a {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+
+    transition: .3s;
+}
+
+.sns a:hover {
+    background: white;
+    color: var(--color-footer);
+    transform: translateY(-3px);
+}
+
+/* ======================================
+   Sitemap
+====================================== */
+
+.footer h5 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.footer ul li {
+    margin-bottom: 15px;
+}
+
+.footer ul li:last-child {
+    margin-bottom: 0;
+}
+
+.footer ul li a {
+    color: rgba(255,255,255,.75);
+    transition: .25s;
+}
+
+.footer ul li a:hover {
+    color: white;
+    padding-left: 8px;
+}
+
+/* ======================================
+   Family Site
+====================================== */
+
+.family-site {
+    background: rgba(255,255,255,.05);
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    margin-bottom: 30px;
+}
+
+.family-site small {
+    color: #88b0ff;
+    letter-spacing: 1px;
+}
+
+.family-site h5 {
+    margin: 10px 0 15px;
+}
+
+.family-site p {
+    color: rgba(255,255,255,.7);
+
+    margin-bottom: 20px;
+
+    font-size: .92rem;
+
+    line-height: 1.7;
+}
+
+.family-site .form-select {
+
+    background: white;
+
+    border: none;
+
+    font-size: .9rem;
+
+}
+
+/* ======================================
+   Checklist Card
+====================================== */
+
+.check-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #295ca8,
+        #16345d
+    );
+
+    color: white;
+
+    transition: .3s;
+
+}
+
+.check-card:hover {
+
+    color: white;
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 12px 35px rgba(0,0,0,.25);
+
+}
+
+.check-card>div:first-child {
+
+    width: 54px;
+
+    height: 54px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.12);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:1.4rem;
+
+}
+
+.check-card strong {
+
+    display:block;
+
+    font-size:15px;
+
+}
+
+.check-card span {
+
+    display:block;
+
+    font-size:13px;
+
+    color:rgba(255,255,255,.75);
+
+}
+
+.check-card>.fa-arrow-right{
+
+    margin-left:auto;
+
+}
+
+/* =====================================================
+   Footer Policy
+===================================================== */
+
+.footer-policy{
+
+    margin-top:80px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    padding:22px 0;
+
+}
+
+.footer-policy nav{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+}
+
+.footer-policy a{
+
+    color:rgba(255,255,255,.82);
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.footer-policy a:hover{
+
+    color:#ffffff;
+
+}
+
+.footer-policy span{
+
+    color:rgba(255,255,255,.25);
+
+}
+
+
+/* =====================================================
+   Company Information
+===================================================== */
+
+.footer-company{
+
+    padding:35px 0 45px;
+
+    text-align:center;
+
+}
+
+.footer-company-info{
+
+    color:rgba(255,255,255,.78);
+
+    font-size:14px;
+
+    line-height:1.9;
+
+    margin-bottom:15px;
+
+}
+
+.footer-contact{
+
+    color:rgba(255,255,255,.60);
+
+    font-style:normal;
+
+    font-size:14px;
+
+    line-height:2;
+
+    margin-bottom:20px;
+
+}
+
+.copyright{
+
+    color:rgba(255,255,255,.45);
+
+    font-size:13px;
+
+    letter-spacing:.5px;
+
+}
+
+
+/* =====================================================
+   Hover Effect
+===================================================== */
+
+.family-site{
+
+    transition:.35s;
+
+}
+
+.family-site:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.20);
+
+}
+
+.footer-logo img{
+
+    transition:.3s;
+
+}
+
+.footer-logo:hover img{
+
+    transform:rotate(-5deg) scale(1.05);
+
+}
+
+
+/* =====================================================
+   Tablet (1200)
+===================================================== */
+
+@media (max-width:1200px){
+
+    .footer{
+
+        padding-top:65px;
+
+    }
+
+    .family-site{
+
+        padding:22px;
+
+    }
+
+}
+
+
+/* =====================================================
+   Bootstrap lg (992)
+===================================================== */
+
+@media (max-width:992px){
+
+    .footer{
+
+        text-align:center;
+
+    }
+
+    .footer-logo{
+
+        justify-content:center;
+
+    }
+
+    .sns{
+
+        justify-content:center;
+
+    }
+
+    .customer{
+
+        margin-bottom:30px;
+
+    }
+
+    .family-site{
+
+        margin-top:20px;
+
+    }
+
+    .check-card{
+
+        margin-top:20px;
+
+    }
+
+}
+
+
+/* =====================================================
+   Bootstrap md (768)
+===================================================== */
+
+@media (max-width:768px){
+
+    .footer{
+
+        padding-top:55px;
+
+    }
+
+    .footer-logo{
+
+        flex-direction:column;
+
+        gap:10px;
+
+    }
+
+    .footer-logo img{
+
+        width:56px;
+
+        height:56px;
+
+    }
+
+    .footer-logo h3{
+
+        font-size:28px;
+
+    }
+
+    .footer-desc{
+
+        max-width:320px;
+
+        margin:0 auto 35px;
+
+    }
+
+    .family-site{
+
+        width:100%;
+
+    }
+
+    .check-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        gap:15px;
+
+    }
+
+    .check-card>.fa-arrow-right{
+
+        margin-left:0;
+
+    }
+
+}
+
+
+/* =====================================================
+   Bootstrap sm (576)
+===================================================== */
+
+@media (max-width:576px){
+
+    .footer{
+
+        padding-top:45px;
+
+    }
+
+    .footer-policy nav{
+
+        flex-direction:column;
+
+        gap:10px;
+
+    }
+
+    .footer-policy span{
+
+        display:none;
+
+    }
+
+    .footer-company-info{
+
+        font-size:13px;
+
+    }
+
+    .footer-contact{
+
+        font-size:13px;
+
+        line-height:1.8;
+
+    }
+
+    .copyright{
+
+        font-size:12px;
+
+    }
+
+    .sns{
+
+        gap:12px;
+
+    }
+
+    .sns a{
+
+        width:42px;
+
+        height:42px;
+
+    }
+
+}
+
+
+/* =====================================================
+   Bootstrap xxl (1400)
+===================================================== */
+
+@media (min-width:1400px){
+
+    .footer .container{
+
+        max-width:1320px;
+
+    }
+
+}
+
+
+/* =====================================================
+   Accessibility
+===================================================== */
+
+.footer a:focus{
+
+    outline:3px solid #6fa8ff;
+
+    outline-offset:4px;
+
+}
+
+.form-select:focus{
+
+    box-shadow:none;
+
+    border-color:#4b87ff;
+
+}
+
+
+/* =====================================================
+   Animation
+===================================================== */
+
+.footer *{
+
+    transition:all .25s ease;
+
+}
+
+
+/* =====================================================
+   Selection
+===================================================== */
+
+.footer ::selection{
+
+    background:#4c8dff;
+
+    color:#fff;
+
+}
+
 }
