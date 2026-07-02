@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zipai 부동산 푸터</title>
+    <!-- 11. 파비콘 추가 (인라인 SVG 활용) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏢</text></svg>">
+    
+    <!-- 부트스트랩 5 CSS (2. 중단점 사용을 위한 연결) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- 6. FontAwesome (아이콘 적용) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 3. 외부 스타일시트 연결 -->
+    <link rel="stylesheet" href="../../static/css/footer.css">
+</head>
+<body>
+    <!-- 본문 콘텐츠 영역 (테스트용 공간 확보) -->
+    <div style="min-height: 80vh; padding: 50px; text-align: center; font-family: 'Noto Sans KR', sans-serif;">
+        <h1>zipai 부동산 본문 영역입니다</h1>
+        <p>아래로 스크롤하여 푸터를 확인하세요.</p>
+    </div>
+
+    <!-- 13. 우측 하단 투더탑 버튼 (플로팅) -->
+    <button id="floatingTopBtn" class="floating-top-btn" aria-label="Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- 푸터 시작 -->
+    <footer class="site-footer">
+        <!-- 상단 영역: 링크 및 이미지 속 탑 버튼 -->
+        <div class="footer-top">
+            <div class="container-fluid container-xl">
+                <div class="top-inner">
+                    <!-- 10. 모바일에서 사이트맵 메뉴 숨김 (d-none d-md-flex) -->
+                    <ul class="sitemap-menu d-none d-md-flex">
+                        <li><a href="#">회사소개</a></li>
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#" class="fw-bold text-white">개인정보처리방침</a></li>
+                        <li><a href="#">온라인 부동산 광고 자율규약</a></li>
+                    </ul>
+                    <!-- 첨부 이미지의 우측 상단 TOP 버튼 UI 유지 -->
+                    <div class="top-img-btn d-none d-md-flex" onclick="window.scrollTo(0,0);">
+                        <i class="fas fa-angle-up"></i>
+                        <span>TOP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 영역: 고객센터, 회사정보, 패밀리사이트, SNS -->
+        <div class="footer-bottom">
+            <div class="container-fluid container-xl">
+                <div class="row bottom-inner">
+                    <!-- 좌측: 고객센터 -->
+                    <div class="col-12 col-lg-3 customer-center">
+                        <h3 class="cc-title">고객센터</h3>
+                        <h2 class="cc-number">1234-5678</h2>
+                        <p class="cc-time">운영시간 : 09:20 ~ 17:50<br>점심시간 : 13:10 ~ 14:00<br>토요일, 일요일, 공휴일 휴무</p>
+                    </div>
+                    
+                    <!-- 중앙: 회사 정보 -->
+                    <div class="col-12 col-lg-6 company-info">
+                        <div class="info-text">
+                            <span>사업자 번호: 123-45-56789</span>
+                            <span>통신판매업신고번호: 제2026-경기성남-12345호</span>
+                            <span>대표: 집아이</span><br>
+                            <span>주소: 경기 성남시 분당구 돌마로 73 우방코아 7층 (주)zipai</span>
+                        </div>
+                        <div class="copyright">
+                            &copy; zipai, Inc. All rights reserved.
+                        </div>
+                    </div>
+
+                    <!-- 우측: 패밀리사이트 및 SNS -->
+                    <div class="col-12 col-lg-3 extra-info">
+                        <!-- 12. 패밀리사이트 추가 (홈픽부동산 등 5개 항목) -->
+                        <div class="family-site">
+                            <select class="form-select form-select-sm" aria-label="Family Site" onchange="if(this.value) window.open(this.value, '_blank');">
+                                <option selected value="">Family Site</option>
+                                <option value="#1">zipai 부동산 중개법인</option>
+                                <option value="#2">zipai 인테리어 솔루션</option>
+                                <option value="#3">zipai 이사/청소</option>
+                                <option value="#4">zipai 파이낸스 대출</option>
+                                <option value="#5">zipai 프라퍼티 매니지먼트</option>
+                            </select>
+                        </div>
+                        <!-- SNS 아이콘 -->
+                        <div class="sns-icons">
+                            <a href="#" aria-label="Naver Blog"><i class="fa-brands fa-neos"></i></a>
+                            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 플로팅 투더탑 스크립트 -->
+    <script>
+        const topBtn = document.getElementById('floatingTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                topBtn.classList.add('show');
+            } else {
+                topBtn.classList.remove('show');
+            }
+        });
+        topBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+/* 5. 폰트 구글 CDN (제목용/내용용 2가지) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+/* 7. 색상과 폰트는 CSS 변수를 사용 (공통 설정) */
+:root {
+    /* 4. 팔레트 컬러 적용 */
+    --primary-color: #2465E8;     /* 강조/호버 색상 */
+    --accent-color: #25436E;      /* 푸터 메인 배경색 */
+    --secondary-color: #6C757D;   /* 선, 비활성 요소 색상 */
+    --bg-color: #f8f9fa;          /* 밝은 텍스트 색상 */
+
+    /* 폰트 변수 */
+    --font-title: 'Inter', sans-serif;       /* 영문/숫자/강조용 (sans-serif) */
+    --font-body: 'Noto Sans KR', sans-serif; /* 한글 본문용 (sans-serif) */
+
+    /* Bootstrap 5 중단점 참고용 (실제 미디어 쿼리에서 활용) */
+    --bp-sm: 576px;
+    --bp-md: 768px;
+    --bp-lg: 992px;
+    --bp-xl: 1200px;
+    --bp-xxl: 1400px;
+}
+
+* {
+    box-sizing: border-box;
+}
