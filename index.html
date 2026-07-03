@@ -12,30 +12,86 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="static/css/footer.css">
+  <!-- ㅡㅡㅡㅡㅡ header ㅡㅡㅡㅡㅡㅡㅡ -->
+  <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="static/css/header.css">
 </head>
 <body>
 <<<<<<< HEAD
-     <header>
-        <h1><a href="/index.html">ZipAI</a></h1>
-        <ul>
-            <li><a href="./templates/sub/sub1.html">서브1.html</a></li>
-            <li><a href="./templates/sub/sub2.html">서브2.html</a></li>
-            <li><a href="./templates/sub/sub4.html">서브4.html</a></li>
-        </ul>
-    </header>
-    <section>
-        <h2>메인 섹션1</h2>
-    </section>
-    <section>
-        <h2>메인 섹션2</h2>
-    </section>
-    <section>
-        <h2>메인 섹션3</h2>
-        
-    </section>
-    <footer>
-        <p>Copyright 2026 HomePick. All rights reserved.</p>
-    </footer>   
+       <div class="zipai-header" role="banner">
+    <div class="header-utility">
+      <div class="common-container utility-inner">
+        <div class="utility-message">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          <span>안심할 수 있는 부동산 거래, ZipAI가 함께합니다.</span>
+        </div>
+        <div class="utility-links">
+          <a href="#">공지사항</a>
+          <a href="#">고객센터</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <div class="common-container header-inner">
+        <a class="header-logo" href="index.html" aria-label="ZipAI 홈으로 이동">
+          <span class="header-logo-mark" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+          <span class="header-logo-copy"><strong>ZipAI</strong><small>집을 아는 가장 쉬운 방법</small></span>
+        </a>
+
+        <button class="mobile-menu-button" type="button" aria-label="전체 메뉴 열기" aria-expanded="false" aria-controls="primaryMenu">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="header-menu" id="primaryMenu" role="navigation" aria-label="주요 메뉴">
+          <div class="menu-links">
+            <a class="active" href="index.html">매물 찾기</a>
+            <a href="sub33.html">안전 진단</a>
+            <a href="jeonse-calculator.html">전세 계산기</a>
+            <a href="contract-guide.html">계약 가이드</a>
+            <a href="checklist.html">체크리스트</a>
+          </div>
+          <div class="header-actions">
+            <button class="icon-button" type="button" aria-label="검색">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            </button>
+            <a class="login-button" href="#">
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+              로그인
+            </a>
+            <a class="listing-button" href="#">
+              <i class="fa-solid fa-house-circle-check" aria-hidden="true"></i>
+              매물 등록
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-preview">
+    <div class="common-container preview-inner">
+      <span>ZIPAI UI COMPONENT</span>
+      <h1>좋은 집을 찾는 첫걸음</h1>
+      <p>안전한 매물 탐색부터 계약 준비까지 한곳에서 확인하세요.</p>
+    </div>
+  </div>
+
+  <script>
+    const menuButton = document.querySelector('.mobile-menu-button');
+    const headerMenu = document.querySelector('.header-menu');
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = headerMenu.classList.toggle('is-open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.setAttribute('aria-label', isOpen ? '전체 메뉴 닫기' : '전체 메뉴 열기');
+      menuButton.querySelector('i').className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    });
+  </script>
 =======
   <main class="footer-preview" aria-label="푸터 미리보기 영역">
     <div class="common-container">
