@@ -1,18 +1,28 @@
-# 홈픽부동산 Footer 작업 문서
+# 홈픽부동산 구현내용
 
 ## 파일 구조
 
 ```text
-footer.html
+
 static/
 ├─ css/
 │  ├─ common.css
 │  └─ footer.css
+|  ├─ header.css
+|  └─ headertwo.css  
 └─ images/
-   └─ favicon.svg
+|  └─ favicon.
+|
+templates/
+   └─footer.html
+   └─test.html
+   └─header.html
+   └─headertwo.html
+
+   
 ```
 
-## 구현 내용
+## Footer 작업 구현 내용
 
 - 홈픽부동산 브랜드 CTA, 회사 정보, 사이트맵, 고객센터, 정책 링크, SNS 영역 구성
 - 실제 공공 부동산 서비스 5개를 패밀리사이트로 연결
