@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세 - zipai 부동산</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../static/css/board.css">
+</head>
+<body>
+    <div class="board-container">
+        <!-- 게시글 헤더 -->
+        <div class="detail-header">
+            <h3 class="detail-title">허위매물 신고는 어떻게 하나요?</h3>
+            <div class="detail-info d-flex flex-wrap">
+                <span><i class="far fa-user"></i> 홍길동</span>
+                <span><i class="far fa-clock"></i> 2026.07.07 14:30</span>
+                <span><i class="far fa-eye"></i> 조회수 45</span>
+            </div>
+        </div>
+
+        <!-- 게시글 본문 -->
+        <div class="detail-content">
+            안녕하세요.<br><br>
+            어제 강남구 역삼동 매물을 보고 부동산에 연락했는데, 이미 나간 매물이라고 하면서 다른 비싼 매물을 자꾸 보여주려고 하네요.<br>
+            이런 경우 명백한 허위매물 같은데 플랫폼 내에서 신고하는 기능이 따로 있을까요?<br><br>
+            안전한 부동산 거래 환경을 위해 조치 부탁드립니다.<br>
+            감사합니다.
+        </div>
+
+        <!-- 버튼 영역 (목록, 수정, 삭제) -->
+        <div class="d-flex justify-content-between mt-4">
+            <a href="qna.html" class="btn btn-outline-custom"><i class="fas fa-list me-2"></i>목록으로</a>
+            <div>
+                <!-- 작성자 본인 또는 관리자일 때만 노출되는 버튼 그룹 -->
+                <a href="write.html" class="btn btn-outline-custom me-2"><i class="fas fa-edit me-2"></i>수정</a>
+                <button type="button" class="btn btn-outline-danger" id="btnDelete"><i class="fas fa-trash-alt me-2"></i>삭제</button>
+            </div>
+        </div>
+
+        <!-- 댓글 영역 -->
+        <div class="comment-section">
+            <h5 class="comment-count"><i class="far fa-comment-dots me-2"></i>댓글 2</h5>
+            
+            <ul class="comment-list">
+                <li class="comment-item">
+                    <div class="d-flex justify-content-between">
+                        <div class="comment-author">관리자 (zipai)</div>
+                        <div class="comment-date">2026.07.07 15:10</div>
+                    </div>
+                    <div class="comment-text">
+                        안녕하세요 홍길동님. 불편을 드려 죄송합니다. 허위매물 신고는 매물 상세 페이지 우측 상단의 '🚨허위매물 신고' 버튼을 통해 접수해 주시면 저희 운영팀에서 즉각 확인 후 페널티 조치를 취하고 있습니다. 추가 문의사항이 있으시면 언제든 남겨주세요!
+                    </div>
+                </li>
+                <li class="comment-item">
+                    <div class="d-flex justify-content-between">
+                        <div class="comment-author">홍길동</div>
+                        <div class="comment-date">2026.07.07 16:05</div>
+                    </div>
+                    <div class="comment-text">
+                        네 상세페이지에서 찾았습니다. 빠른 답변 감사합니다. 방금 신고 접수했습니다.
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 댓글 입력 폼 -->
+            <form id="commentForm" class="mt-4 bg-light p-4 rounded">
+                <div class="mb-3">
+                    <label for="commentInput" class="form-label fw-bold">댓글 남기기</label>
+                    <textarea class="form-control" id="commentInput" rows="3" placeholder="타인을 비방하거나 욕설이 포함된 댓글은 삭제될 수 있습니다."></textarea>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary-custom px-4">등록</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../../static/js/board.js"></script>
+</body>
+</html>
