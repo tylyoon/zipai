@@ -25,6 +25,11 @@
   --transition-fast: 180ms ease;
   --radius-sm: 8px;
   --radius-md: 14px;
+
+  --primary-color: #2465E8;     /* 강조/호버 색상 */
+  --accent-color: #25436E;      /* 푸터 메인 배경색 */
+  --secondary-color: #6C757D;   /* 선, 비활성 요소 색상 */
+  --bg-color: #f8f9fa;          /* 밝은 텍스트 색상 */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
