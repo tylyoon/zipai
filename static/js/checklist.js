@@ -4,7 +4,7 @@
   const questions = [
     { step: 0, title: '등기부등본을 직접 발급해 확인했나요?', help: '인터넷등기소 또는 등기소에서 계약 직전 발급본을 확인하세요.', action: '최신 등기부등본을 발급해 소유권과 근저당을 확인하세요.', link: 'contract-guide.html', options: [['확인했어요','safe'],['아직이에요','danger'],['잘 모르겠어요','caution']] },
     { step: 0, title: '계약 상대방이 등기부상 소유자와 일치하나요?', help: '대리인이라면 위임장과 인감증명서가 필요해요.', action: '계약 상대방의 신분과 적법한 대리권을 다시 확인하세요.', link: 'contract-guide.html', options: [['일치해요','safe'],['일치하지 않아요','danger'],['확인 전이에요','caution']] },
-    { step: 0, title: '주변 매매 시세와 전세가율을 확인했나요?', help: '같은 면적의 최근 실거래가를 2곳 이상에서 비교하세요.', action: '실거래가를 바탕으로 전세가율을 계산해 보세요.', link: 'jeonse-calculator.html', options: [['확인했어요','safe'],['확인 안 했어요','danger'],['시세가 불분명해요','caution']] },
+    { step: 0, title: '주변 매매 시세와 전세가율을 확인했나요?', help: '같은 면적의 최근 실거래가를 2곳 이상에서 비교하세요.', action: '실거래가를 바탕으로 전세가율을 계산해 보세요.', link: 'charter-rate-calculator.html', options: [['확인했어요','safe'],['확인 안 했어요','danger'],['시세가 불분명해요','caution']] },
     { step: 0, title: '임대인의 국세·지방세 체납 여부를 확인했나요?', help: '체납 세금은 보증금보다 먼저 변제될 수 있어요.', action: '임대인에게 국세·지방세 납세증명서를 요청하세요.', link: 'contract-guide.html', options: [['확인했어요','safe'],['체납이 있어요','danger'],['확인 전이에요','caution']] },
     { step: 1, title: '계약 당일 등기부등본을 다시 확인했나요?', help: '그 사이 새 근저당이나 압류가 생겼는지 살펴보세요.', action: '계약서 작성 직전 등기부등본을 한 번 더 발급하세요.', link: 'contract-guide.html', options: [['확인했어요','safe'],['변동이 있어요','danger'],['확인 전이에요','caution']] },
     { step: 1, title: '전세대출·보증보험 불가 시 반환 특약이 있나요?', help: '목적물 문제로 가입이 거절되면 계약금을 돌려받는 내용이에요.', action: '대출·보증보험 가입 불가 시 계약금 반환 특약을 넣으세요.', link: 'contract-guide.html', options: [['있어요','safe'],['없어요','danger'],['협의 중이에요','caution']] },
@@ -75,7 +75,7 @@
     }).filter(Boolean).sort(function (a, b) { return a.level === b.level ? 0 : a.level === 'danger' ? -1 : 1; });
     safeStorage.set('zipdosoChecklistResult', { answers: answers, counts: counts, score: score, risks: risks, savedAt: new Date().toISOString() });
     safeStorage.set('zipdosoChecklistDraft', answers);
-    window.location.href = 'sub33.html';
+    window.location.href = 'fraud_result.html';
   }
 
   createQuestions();

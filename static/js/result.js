@@ -42,7 +42,7 @@
   const riskList = document.getElementById('riskList');
   let risks = (result.risks || []).slice(0, 5);
   if (ratio && ratio.ratio >= 70) {
-    risks.unshift({ title: '전세가율이 ' + ratio.ratio.toFixed(1) + '%예요', action: ratio.ratio >= 80 ? '깡통전세 위험이 높습니다. 보증금 조정이나 다른 매물을 검토하세요.' : '선순위 채권과 보증보험 가입 가능 여부를 추가로 확인하세요.', link: 'jeonse-calculator.html', level: ratio.ratio >= 80 ? 'danger' : 'caution' });
+    risks.unshift({ title: '전세가율이 ' + ratio.ratio.toFixed(1) + '%예요', action: ratio.ratio >= 80 ? '깡통전세 위험이 높습니다. 보증금 조정이나 다른 매물을 검토하세요.' : '선순위 채권과 보증보험 가입 가능 여부를 추가로 확인하세요.', link: 'charter-rate-calculator.html', level: ratio.ratio >= 80 ? 'danger' : 'caution' });
   }
   if (!risks.length) {
     riskList.innerHTML = '<div class="empty-state"><div class="empty-icon">✓</div><strong>현재 발견된 주의 항목이 없어요</strong><p>계약 당일에도 권리관계가 바뀌지 않았는지 다시 확인하세요.</p></div>';
@@ -51,6 +51,7 @@
   riskList.innerHTML = risks.map(function (risk) {
     const label = risk.level === 'danger' ? '!' : '?';
     const title = risk.unanswered ? '[미응답] ' + risk.title : risk.title;
-    return '<article class="risk-item ' + risk.level + '"><span class="risk-level">' + label + '</span><div><h3>' + title + '</h3><p>' + risk.action + '</p></div><a href="' + risk.link + '">확인 방법 →</a></article>';
+    const link = window.ZipaiAuth && window.ZipaiAuth.resolvePage ? window.ZipaiAuth.resolvePage(risk.link) : risk.link;
+    return '<article class="risk-item ' + risk.level + '"><span class="risk-level">' + label + '</span><div><h3>' + title + '</h3><p>' + risk.action + '</p></div><a href="' + link + '">확인 방법 →</a></article>';
   }).join('');
 })();
