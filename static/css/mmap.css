@@ -140,7 +140,7 @@ P {
 }
 
 
-
+/* 플랫폼별 사이즈 */
 @media (max-width: 991.98px) {
   .header-inner { min-height: 72px; flex-wrap: wrap; gap: 0; }
   .mobile-menu-button { display: flex; }
