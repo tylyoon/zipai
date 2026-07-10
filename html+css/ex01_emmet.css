@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+/* 
+선택자 {속성: 값;}
+*/
+
+/* w100 */
+div {width: 100px;}
+/* w100% 또는 w100p */
+div {width: 100%;}
+/* m10 */
+div {margin: 10px;}
+/* m10-20 */
+div {margin: 10px 20-px;}
+/* m10-20-30 */
+div {margin: 10px 20px 30px;}
+/* m10-20-30-40 */
+div {margin: 10px 20px 30px 40px;}
+/* jcc */
+div {justify-content: center;}
+/* aic */
+div {align-items: center;}
+/* bgi */
+div {background-image: url();}

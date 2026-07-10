@@ -1,0 +1,169 @@
+@charset "utf-8";
+@import url(../css/common.css);
+ 
+/* 로고 */
+.header-inner { display: flex; min-height: 82px; align-items: center; justify-content: space-between; gap: 36px; }
+.header-logo { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; }
+.header-logo-mark { display: flex; width: 42px; height: 42px; border-radius: var(--radius-sm); align-items: center; justify-content: center; color: var(--color-white); background: var(--color-primary); box-shadow: 0 7px 16px rgba(36, 104, 232, .22); }
+.header-logo-copy { display: flex; flex-direction: column; }
+.header-logo strong { color: var(--color-navy); font-family: var(--font-heading); font-size: 23px; line-height: 1; }
+.header-logo small { margin-top: 5px; color: #7d8ca2; font-size: 9px; font-weight: 600; }
+
+/* 검색창 */
+/* 추천 */
+/* 희망사항 */
+.expandable-search {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  transition: width 0.4s ease-in-out;
+}
+
+.expandable-search input {
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  transition: width 0.4s ease-in-out;
+}
+
+/* 마우스를 올리거나 포커스가 되었을 때 가로 길이 확장 */
+.expandable-search:hover,
+.expandable-search input:focus {
+  width: 250px;
+}
+
+/* 버튼 */
+.button{
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.like-btn{
+    width: 50px;
+    height: 25px;
+}
+
+.active {
+    text-decoration: none;
+    color: #000;
+}
+
+/* 매물 이미지 */
+.images {
+    width: 96px;
+    height: 96px;
+    margin: 1px;
+    float: left; /* 이미지를 왼쪽으로 띄움 */
+    margin-right: 15px; /* 그림 오른쪽 여백 */
+    border-radius: 15%;
+    display: flex;
+}
+
+/* 폰트 */
+h3 {
+    font-size: 500; 
+}
+
+P {
+    font-size: 13px;
+}
+
+/* 지도 */
+.map {
+    width: 70%;
+    height: 100vh;
+    float: right;
+    display: flex;
+    justify-content: center;
+    display: block;
+    margin-top: -100px;
+    position: relative;
+    overflow: hidden;
+}
+
+ .scroll-box {
+    width: 490px; /* 고정 너비 */
+    height: 780px; /* 고정 높이 */
+    overflow: auto; /* 내용이 넘칠 때만 스크롤 표시 */
+    border: 1px solid #ccc; /* 테두리 */
+    padding: 10px;
+  }
+
+/* 매물 */
+.oneroom {
+    border: 1px solid grey;
+    line-height: 1.6px;
+    width: 450px;
+    height: 175px;
+    background-color: #ffff;
+}
+.onefiveroom {
+    border: 1px solid grey;
+    line-height: 1.6px;
+    width: 450px;
+    height: 175px;
+    background-color: #ffff;
+}
+.tworoom {
+    border: 1px solid grey;
+    line-height: 1.6px;
+    width: 450px;
+    height: 175px;
+    background-color: #ffff;
+}
+.officetel {
+    border: 1px solid grey;
+    line-height: 1.6px;
+    width: 450px;
+    height: 175px;
+    background-color: #ffff;
+}
+.apartment {
+    border: 1px solid grey;
+    line-height: 1.6px;
+    width: 450px;
+    height: 175px;
+    background-color: #ffff;
+}
+.villa {
+    border: 1px solid grey;
+    line-height: 1.6px;
+    width: 450px;
+    height: 175px;
+    background-color: #ffff;
+}
+
+
+
+@media (max-width: 991.98px) {
+  .header-inner { min-height: 72px; flex-wrap: wrap; gap: 0; }
+  .mobile-menu-button { display: flex; }
+  .header-menu { display: none; width: 100%; flex: 0 0 100%; padding: 7px 0 22px; flex-direction: column; align-items: stretch; gap: 14px; }
+  .header-menu.is-open { display: flex; }
+  .menu-links { flex-direction: column; align-items: stretch; gap: 0; }
+  .menu-links a { min-height: 48px; border-bottom: 1px solid #edf1f6; }
+  .menu-links a::after { top: 50%; right: auto; bottom: auto; left: 0; width: 3px; height: 20px; transform: translateY(-50%) scaleY(0); }
+  .menu-links a:hover, .menu-links a.active { padding-left: 13px; }
+  .menu-links a:hover::after, .menu-links a.active::after { transform: translateY(-50%) scaleY(1); }
+  .header-actions { justify-content: flex-end; }
+  .header-preview { min-height: calc(100vh - 108px); }
+}
+
+@media (max-width: 575.98px) {
+  .utility-inner { justify-content: center; }
+  .utility-message { display: none; }
+  .header-logo small { display: none; }
+  .header-actions { align-items: stretch; }
+  .icon-button { width: 44px; height: 44px; }
+  .login-button, .listing-button { min-height: 44px; flex: 1; padding-right: 10px; padding-left: 10px; }
+  .header-preview { min-height: calc(100vh - 108px); text-align: center; }
+  .preview-inner { align-items: center; }
+  .preview-inner h1 { font-size: 36px; }
+  .preview-inner p { font-size: 14px; }
+}

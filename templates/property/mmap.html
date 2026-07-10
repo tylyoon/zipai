@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추천 매물</title>
+    <link rel="stylesheet" href="../../index.html">
+    <link rel="stylesheet" href="../../static/css/mmap.css">
+    <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="static/css/footer.css">
+</head>
+<body>
+    <a class="header-logo" href="index.html" aria-label="ZipAI 홈으로 이동">
+        <span class="header-logo-mark" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+        <span class="header-logo-copy"><strong>ZipAI</strong><small>집을 아는 가장 쉬운 방법</small></span>
+    </a>
+    <!-- 검색 -->
+    <!-- 희망사항 (wishlist) -->
+    <!-- 추천 (앱 들어가면 검색창 및에 기본으로) -->
+    <div class="search-container">
+        <input type="text" placeholder="검색어를 입력하세요">
+        <button type="submit">검색</button>
+    </div>
+
+    <img class="map" src="../../static/images/mapimage.png" alt="지도 이미지">
+
+    <button class="button" type="button"><a class="active" href="../../templates/property/original.html">일반</a></button>
+    <button class="button" type="button">추천</button>
+    <div class="scroll-box">
+        <div class="oneroom">
+            <img class="images" src="../../static/images/oneroom.png" alt="원룸">
+            <p>원룸</p>
+            <h3>월세 300/30</h3>
+            <p>16.5㎡</p>
+            <p>서울특별시 강남구 역삼동</p>
+            <button class="like-btn" onclick="countLike()">❤️<span id="like-count">0</span></button>
+        </div>
+        <div class="onefiveroom">
+            <img class="images" src="../../static/images/1.5room.png" alt="1.5룸">
+            <p>1.5룸</p>
+            <h3>월세 2000/115</h3>
+            <p>39.67㎡</p>
+            <p>서울특별시 강남구 역삼동</p>
+            <button class="like-btn" onclick="countLike()">❤️<span id="like-count">0</span></button>
+        </div>
+        <div class="tworoom">
+            <img class="images" src="../../static/images/tworoom.png" alt="투룸">
+            <p>투룸</p>
+            <h3>전세 3억</h3>
+            <p>39.6㎡</p>
+            <p>서울특별시 강남구 역삼동</p>
+            <button class="like-btn" onclick="countLike()">❤️<span id="like-count">0</span></button>
+        </div>
+        <div class="officetel">
+            <img class="images" src="../../static/images/officetel.png" alt="오피스텔">
+            <p>오피스텔</p>
+            <h3>1000/80</h3>
+            <p>17.95㎡</p>
+            <p>서울특별시 관악구 신림동</p>
+            <button class="like-btn" onclick="countLike()">❤️<span id="like-count">0</span></button>
+        </div>
+        <div class="apartment">
+            <img class="images" src="../../static/images/apartment.png" alt="아파트">
+            <p>아파트</p>
+            <h3>월세 700/700</h3>
+            <p>113.9㎡</p>
+            <p>서울특별시 관악구 신림동</p>
+            <button class="like-btn" onclick="countLike()">❤️<span id="like-count">0</span></button>
+        </div>
+        <div class="villa">
+            <img class="images" src="../../static/images/villa.png" alt="빌라">
+            <p>빌라</p>
+            <h3>월세 500/42</h3>
+            <p>25㎡</p>
+            <p>서울특별시 금천구 독산동</p>
+            <button class="like-btn" onclick="countLike()">❤️<span id="like-count">0</span></button>
+        </div>
+        
+        <!-- <iframe class="map" src="https://google.com" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+        
+
+    </div>
+
+</body>
+</html>
