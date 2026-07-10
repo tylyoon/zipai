@@ -6,16 +6,13 @@
   <meta name="description" content="ZipAI 안전도 분석 페이지">
   <title>ZipAI | 안전도 분석</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQmlymXh1bTXaQsfnMJOxtCrxYFnm2o=" crossorigin="">
-  <link rel="stylesheet" href="static/css/property.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  <!-- <link rel="stylesheet" href="..//static/css/header.css">
-  <link rel="stylesheet" href="/static/css/footer.css"> -->
-  <link rel="stylesheet" href="static/css/auth.css">
-  <script src="static/js/auth.js" defer></script>
-  <link rel="icon" type="image/svg+xml" href="../static/images/favicon.svg">
+  <link rel="stylesheet" href="../../static/css/auth.css">
+  <script src="../../static/js/auth.js" defer></script>
+  <link rel="icon" type="image/svg+xml" href="../../static/img/favicon.svg">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../../static/css/common.css">
@@ -23,7 +20,7 @@
   <link rel="stylesheet" href="../../static/css/footer.css">
   <link rel="stylesheet" href="../../static/css/safe.css">
 </head>
-<body>
+<body class="has-zipai-footer">
   <div id="top" class="zipai-page">
     <header>
    <div class="zipai-header" role="banner">
@@ -42,7 +39,7 @@
 
     <div class="header-main">
       <div class="common-container header-inner">
-        <a class="header-logo" href="index.html" aria-label="ZipAI 홈으로 이동">
+        <a class="header-logo" href="../../index.html" aria-label="ZipAI 홈으로 이동">
           <span class="header-logo-mark" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
           <span class="header-logo-copy"><strong>ZipAI</strong><small>집을 아는 가장 쉬운 방법</small></span>
         </a>
@@ -55,10 +52,10 @@
           <div class="menu-links">
             <a href="../../index.html">매물 찾기</a>
             <a href="../../templates/defense/fraud_result.html">사기방지</a>
-            <!-- <a href="templates/defense/charter-rate-calculator.html">위험안전도</a> -->
+            <!-- <a href="../../templates/defense/charter-rate-calculator.html">위험안전도</a> -->
             <a href="../../templates/safe/safety.html">위험안전도</a>
             <a href="../../templates/board/finance-policy.html">금융지원정책</a>
-            <a href="templates/defense/checklist.html">미정</a>
+            <a href="../../templates/defense/checklist.html">미정</a>
           </div>
           <div class="header-actions">
             <button class="icon-button" type="button" aria-label="검색">
@@ -336,8 +333,8 @@
           </div>
         </div>
         <div class="cta-actions">
-          <a class="footer-button footer-button-light" href="index.html"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> 지도에서 매물 찾기</a>
-          <a class="footer-button footer-button-outline" href="templates/defense/fraud_result.html"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> 계약 안전 진단</a>
+          <a class="footer-button footer-button-light" href="../../index.html"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> 지도에서 매물 찾기</a>
+          <a class="footer-button footer-button-outline" href="../../templates/defense/fraud_result.html"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> 계약 안전 진단</a>
         </div>
       </div>
     </div>
@@ -345,7 +342,7 @@
     <div class="footer-main">
       <div class="common-container footer-grid">
         <div class="footer-brand-column" aria-label="집아이 소개">
-          <a class="footer-logo" href="index.html" aria-label="집아이 홈">
+          <a class="footer-logo" href="../../index.html" aria-label="집아이 홈">
             <span class="footer-logo-mark" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
             <span><strong>ZipAI</strong><small>집아이</small></span>
           </a>
@@ -369,16 +366,16 @@
           <div>
             <h3>고객센터</h3>
             <ul>
-              <li><a href="templates/board/customer-center.html#inquiry">1:1 문의하기</a></li>
-              <li><a href="templates/board/customer-center.html#inquiry-history">나의 문의내역</a></li>
-              <li><a href="templates/board/customer-center.html#faq">자주 묻는 질문</a></li>
+              <li><a href="../../templates/board/customer-center.html#inquiry">1:1 문의하기</a></li>
+              <li><a href="../../templates/board/customer-center.html#inquiry-history">나의 문의내역</a></li>
+              <li><a href="../../templates/board/customer-center.html#faq">자주 묻는 질문</a></li>
             </ul>
           </div>
           <div>
             <h3>매물 서비스</h3>
             <ul>
-              <li><a href="index.html">지도에서 집 찾기</a></li>
-              <li><a href="index.html">안심 매물</a></li>
+              <li><a href="../../index.html">지도에서 집 찾기</a></li>
+              <li><a href="../../index.html">안심 매물</a></li>
               <li><a href="#">관심 매물</a></li>
               <li><a href="#">매물 등록 문의</a></li>
             </ul>
@@ -386,10 +383,10 @@
           <div>
             <h3>계약 안전</h3>
             <ul>
-              <li><a href="templates/defense/fraud_result.html">안전 진단 결과</a></li>
-              <li><a href="templates/defense/checklist.html">계약 체크리스트</a></li>
-              <li><a href="templates/defense/charter-rate-calculator.html">전세가율 계산기</a></li>
-              <li><a href="templates/defense/contract-guide.html">안전 계약가이드</a></li>
+              <li><a href="../../templates/defense/fraud_result.html">안전 진단 결과</a></li>
+              <li><a href="../../templates/defense/checklist.html">계약 체크리스트</a></li>
+              <li><a href="../../templates/defense/charter-rate-calculator.html">전세가율 계산기</a></li>
+              <li><a href="../../templates/defense/contract-guide.html">안전 계약가이드</a></li>
             </ul>
           </div>
           <div>
@@ -397,7 +394,7 @@
             <ul>
               <li><a href="#">서비스 소개</a></li>
               <li><a href="#">공지사항</a></li>
-              <li><a href="templates/board/customer-center.html#faq">자주 묻는 질문</a></li>
+              <li><a href="../../templates/board/customer-center.html#faq">자주 묻는 질문</a></li>
               <li><a href="#">제휴·광고 문의</a></li>
             </ul>
           </div>
@@ -419,7 +416,7 @@
             </ul>
           </details>
 
-          <a class="safety-shortcut" href="templates/defense/checklist.html">
+          <a class="safety-shortcut" href="../../templates/defense/checklist.html">
             <span><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i></span>
             <div><strong>계약 전 5분 안전점검</strong><small>체크리스트 시작하기</small></div>
             <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
