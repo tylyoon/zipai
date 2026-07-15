@@ -1,24 +1,140 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko" id="pageTop">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="집아이부동산 플랫폼 공통 푸터">
-  <title>집아이 | Footer</title>
-
-  <link rel="icon" type="image/svg+xml" href="../../static/img/favicon.svg">
+  <meta name="description" content="집아이 고객센터 문의 관리 데모 페이지">
+  <title>고객센터 관리 | 집아이</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="../../static/css/header.css">
   <link rel="stylesheet" href="../../static/css/footer.css">
+  <link rel="stylesheet" href="../../static/css/auth.css">
+  <link rel="stylesheet" href="../../static/css/admin.css">
+  <script src="../../static/js/auth.js" defer></script>
+  <script src="../../static/js/admin.js" defer></script>
 </head>
-<body>
-  <main class="footer-preview" aria-label="푸터 미리보기 영역">
-    <div class="common-container">
-      <span class="preview-label">ZIPAI UI COMPONENT</span>
-      <h1>안심할 수 있는 집 찾기,<br>`집아이`에서 시작하세요.</h1>
-      <p>아래는 `집아이`의 공통 푸터 미리보기입니다.</p>
+<body class="has-zipai-footer">
+       <div class="zipai-header" role="banner">
+    <div class="header-utility">
+      <div class="common-container utility-inner">
+        <div class="utility-message">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          <span>안심할 수 있는 부동산 거래, ZipAI가 함께합니다.</span>
+        </div>
+        <div class="utility-links">
+          <a href="#">공지사항</a>
+          <a href="../../templates/board/customer-center.html">고객센터</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <div class="common-container header-inner">
+        <a class="header-logo" href="../../index.html" aria-label="ZipAI 홈으로 이동">
+          <span class="header-logo-mark" aria-hidden="true"><i class="fa-solid fa-house"></i></span>
+          <span class="header-logo-copy"><strong>ZipAI</strong><small>집을 아는 가장 쉬운 방법</small></span>
+        </a>
+
+        <button class="mobile-menu-button" type="button" aria-label="전체 메뉴 열기" aria-expanded="false" aria-controls="primaryMenu">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <div class="header-menu" id="primaryMenu" role="navigation" aria-label="주요 메뉴">
+          <div class="menu-links">
+            <a href="../../index.html">매물 찾기</a>
+            <a href="../../templates/defense/fraud_result.html">사기방지</a>
+            <a href="../../templates/safe/safety.html">위험안전도</a>
+            <a href="../../templates/board/trend1.html">금융지원정책</a>
+            <a href="../../templates/defense/checklist.html">미정</a>
+          </div>
+          <div class="header-actions">
+            <button class="icon-button" type="button" aria-label="검색">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            </button>
+            <a class="login-button" href="../../templates/member/login.html">
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+              로그인
+            </a>
+            <a class="listing-button" href="#">
+              <i class="fa-solid fa-house-circle-check" aria-hidden="true"></i>
+              매물 등록
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menuButton = document.querySelector('.mobile-menu-button');
+    const headerMenu = document.querySelector('.header-menu');
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = headerMenu.classList.toggle('is-open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.setAttribute('aria-label', isOpen ? '전체 메뉴 닫기' : '전체 메뉴 열기');
+      menuButton.querySelector('i').className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    });
+  </script>
+
+  <main class="admin-main">
+    <div class="admin-container">
+      <section class="admin-view admin-denied admin-panel" data-admin-view="denied" hidden>
+        <i class="fa-solid fa-lock" aria-hidden="true"></i>
+        <h1>관리자 권한이 필요합니다</h1>
+        <p>관리자 페이지는 admin 아이디로 로그인한 경우에만 이용할 수 있습니다.</p>
+        <button class="admin-switch" id="adminSwitchAccount" type="button">관리자 계정으로 로그인</button>
+      </section>
+
+      <div class="admin-view" data-admin-view="dashboard" hidden>
+        <div class="admin-heading">
+          <div><p class="admin-eyebrow">ZIPAI ADMIN</p><h1>고객센터 관리</h1><p>접수된 문의를 확인하고 처리 상태를 관리하세요.</p></div>
+          <div class="admin-account"><i class="fa-solid fa-user-tie" aria-hidden="true"></i><strong id="adminUserId"></strong><button class="admin-logout" id="adminLogout" type="button">로그아웃</button></div>
+        </div>
+
+        <section class="admin-stats" aria-label="문의 현황">
+          <article class="admin-stat primary"><span>전체 문의</span><strong><span id="adminTotalCount">0</span><em>건</em></strong></article>
+          <article class="admin-stat"><span>신규 접수</span><strong><span id="adminNewCount">0</span><em>건</em></strong></article>
+          <article class="admin-stat"><span>답변 준비</span><strong><span id="adminProgressCount">0</span><em>건</em></strong></article>
+          <article class="admin-stat success"><span>답변 완료</span><strong><span id="adminCompleteCount">0</span><em>건</em></strong></article>
+        </section>
+
+        <section class="admin-panel">
+          <div class="admin-toolbar">
+            <input id="adminSearch" type="search" placeholder="제목, 이메일, 문의 내용 검색" aria-label="문의 검색">
+            <select id="adminCategoryFilter" aria-label="문의 유형 필터"><option value="">모든 문의 유형</option><option>매물 이용</option><option>계약 안전</option><option>로그인·계정</option><option>서비스 오류</option><option>기타</option></select>
+            <select id="adminStatusFilter" aria-label="처리 상태 필터"><option value="">모든 처리 상태</option><option>접수 완료</option><option>답변 준비</option><option>답변 완료</option></select>
+          </div>
+
+          <div class="admin-workspace">
+            <div class="admin-list-wrap">
+              <div class="admin-list-heading"><h2>문의 목록</h2><span id="adminResultCount">0건</span></div>
+              <div class="admin-empty" id="adminEmpty"><i class="fa-regular fa-folder-open" aria-hidden="true"></i>조건에 맞는 문의가 없습니다.</div>
+              <div class="admin-list" id="adminInquiryList" hidden></div>
+            </div>
+
+            <aside class="admin-detail">
+              <div class="admin-detail-empty" id="adminDetailEmpty"><div><i class="fa-regular fa-message" aria-hidden="true"></i>왼쪽 목록에서 문의를 선택하세요.</div></div>
+              <div class="admin-detail-content" id="adminDetailContent" hidden>
+                <div class="admin-detail-meta"><span id="adminDetailCategory"></span><time id="adminDetailDate"></time></div>
+                <h2 id="adminDetailTitle"></h2>
+                <p class="admin-detail-email" id="adminDetailEmail"></p>
+                <div class="admin-detail-message" id="adminDetailMessage"></div>
+                <label class="admin-reply-control">답변 내용<textarea id="adminReplyMessage" maxlength="1500" placeholder="고객에게 전달할 답변을 입력하세요."></textarea></label>
+                <label class="admin-status-control">처리 상태<select id="adminDetailStatus"><option>접수 완료</option><option>답변 준비</option><option>답변 완료</option></select></label>
+                <div class="admin-detail-actions">
+                  <button class="admin-save" id="adminSaveStatus" type="button">상태 저장</button>
+                  <button class="admin-reply-save" id="adminSaveReply" type="button">답변 저장 및 완료</button>
+                  <button class="admin-delete" id="adminDeleteInquiry" type="button">삭제</button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
 
@@ -150,5 +266,6 @@
   <a class="to-top-button" href="#pageTop" aria-label="페이지 맨 위로 이동">
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i><span>TOP</span>
   </a>
+
 </body>
 </html>
