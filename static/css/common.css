@@ -142,6 +142,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   .zipai-container {
     width: min(100% - 24px, 540px);
   }
+  .top-button {
+    right: 16px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+  }
 }
 
 /* 5. Utility Classes & Shared UI Components */
@@ -241,13 +247,4 @@ ul { margin: 0; padding: 0; list-style: none; }
 .top-button:focus-visible {
   color: var(--zipai-white);
   background: var(--zipai-primary-dark);
-}
-
-@media (max-width: 575.98px) {
-  .top-button {
-    right: 16px;
-    bottom: 16px;
-    width: 44px;
-    height: 44px;
-  }
 }
