@@ -1,9 +1,13 @@
-﻿(function () {
+(function () {
   'use strict';
 
   const STORAGE_KEY = 'zipaiDemoUser';
   const PAGE_PATHS = {
     'index.html': 'index.html',
+    'trend1.html': 'templates/board/trend1.html',
+    'trend2.html': 'templates/board/trend2.html',
+    'trend3.html': 'templates/board/trend3.html',
+    'trend4.html': 'templates/board/trend4.html',
     'finance-policy.html': 'templates/board/finance-policy.html',
     'customer-center.html': 'templates/board/customer-center.html',
     'admin.html': 'templates/admin/admin.html',
@@ -137,7 +141,12 @@
       setHeaderActiveLink('fraud_result.html');
       return;
     }
-    const readyPages = ['index.html', 'finance-policy.html'];
+    const financePages = ['trend1.html', 'trend2.html', 'trend3.html', 'trend4.html', 'finance-policy.html'];
+    if (financePages.includes(currentPage)) {
+      setHeaderActiveLink('trend1.html');
+      return;
+    }
+    const readyPages = ['index.html'];
     setHeaderActiveLink(readyPages.includes(currentPage) ? currentPage : '');
   }
 
