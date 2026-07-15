@@ -1,112 +1,166 @@
 /*
- * ZipAI common design tokens
+ * ZipAI common design tokens & resets
  * Bootstrap 5 breakpoints: sm 576 / md 768 / lg 992 / xl 1200 / xxl 1400
  */
-:root {
-  --color-primary: #2468e8;
-  --color-navy: #13284c;
-  --color-sky: #edf4ff;
 
-  --color-white: #ffffff;
+/* 1. Fonts CDN Import */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* 2. Unified CSS Variables */
+:root {
+  /* Core brand color tokens */
+  --zipai-primary: #2465e8;
+  --zipai-primary-dark: #174fbc;
+  --zipai-navy: #25436e;
+  --zipai-sky: #edf4ff;
+  --zipai-bg: #f8f9fa;
+  --zipai-white: #ffffff;
+  --zipai-border: rgba(108, 117, 125, 0.22);
+  --zipai-soft-blue: rgba(36, 101, 232, 0.08);
+  --zipai-soft-navy: rgba(37, 67, 110, 0.08);
+  --zipai-muted: #6c757d;
+  
+  --zipai-warning: #ffb020;
+  --zipai-danger: #e64b3c;
+  --zipai-safe: #15a66a;
+
+  /* Aliases for general design tokens */
+  --color-primary: var(--zipai-primary);
+  --color-navy: var(--zipai-navy);
+  --color-sky: var(--zipai-sky);
+  --color-white: var(--zipai-white);
   --color-text: #25324a;
-  --color-muted: #94a3b8;
+  --color-muted: var(--zipai-muted);
   --color-line: rgba(255, 255, 255, .14);
 
-  --font-heading: "IBM Plex Sans KR", sans-serif;
-  --font-body: "Noto Sans KR", sans-serif;
+  /* Aliases for trend pages variables */
+  --primary-color: var(--zipai-primary);
+  --accent-color: var(--zipai-navy);
+  --secondary-color: var(--zipai-muted);
+  --bg-color: var(--zipai-bg);
+  --bg-light: var(--zipai-bg);
+  --bg-white: var(--zipai-white);
 
+  /* Typography */
+  --font-heading: "Inter", "Noto Sans KR", sans-serif;
+  --font-body: "Noto Sans KR", "Inter", sans-serif;
+  --zipai-heading-font: var(--font-heading);
+  --zipai-body-font: var(--font-body);
+  --font-title: var(--font-heading);
+
+  /* Spacing and Utilities */
+  --zipai-radius: 8px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --container-gutter: 24px;
+  --transition-fast: 180ms ease;
+  
+  --zipai-shadow: 0 18px 50px rgba(37, 67, 110, 0.12);
+  --zipai-shadow-sm: 0 8px 22px rgba(37, 67, 110, 0.1);
+
+  /* Breakpoints */
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
   --breakpoint-xxl: 1400px;
-
-  --container-gutter: 24px;
-  --transition-fast: 180ms ease;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-
-  --primary-color: #2465E8;     /* 강조/호버 색상 */
-  --accent-color: #25436E;      /* 푸터 메인 배경색 */
-  --secondary-color: #6C757D;   /* 선, 비활성 요소 색상 */
-  --bg-color: #f8f9fa;          /* 밝은 텍스트 색상 */
+  --bs-breakpoint-sm: var(--breakpoint-sm);
+  --bs-breakpoint-md: var(--breakpoint-md);
+  --bs-breakpoint-lg: var(--breakpoint-lg);
+  --bs-breakpoint-xl: var(--breakpoint-xl);
+  --bs-breakpoint-xxl: var(--breakpoint-xxl);
+  --bp-sm: var(--breakpoint-sm);
+  --bp-md: var(--breakpoint-md);
+  --bp-lg: var(--breakpoint-lg);
+  --bp-xl: var(--breakpoint-xl);
+  --bp-xxl: var(--breakpoint-xxl);
 }
 
+/* 3. Global CSS Reset & Base Rules */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; color: var(--color-text); background: var(--color-white); font-family: var(--font-body); line-height: 1.6; word-break: keep-all; }
+body { 
+  min-width: 320px; 
+  margin: 0; 
+  padding: 0;
+  color: #172033; 
+  background: var(--zipai-bg); 
+  font-family: var(--zipai-body-font); 
+  line-height: 1.6; 
+  word-break: keep-all; 
+}
 a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; }
 img, svg { display: block; max-width: 100%; }
 ul { margin: 0; padding: 0; list-style: none; }
 
-.common-container { width: 100%; margin-right: auto; margin-left: auto; padding-right: var(--container-gutter); padding-left: var(--container-gutter); }
-.visually-hidden { position: absolute !important; overflow: hidden !important; width: 1px !important; height: 1px !important; padding: 0 !important; border: 0 !important; margin: -1px !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; }
-
-/* Bootstrap 5 container widths */
-@media (min-width: 576px) { .common-container { max-width: 540px; } }
-@media (min-width: 768px) { .common-container { max-width: 720px; } }
-@media (min-width: 992px) { .common-container { max-width: 960px; } }
-@media (min-width: 1200px) { .common-container { max-width: 1140px; } }
-@media (min-width: 1400px) { .common-container { max-width: 1320px; } }
-
-
-
-/* --------------------------------------- */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Inter:wght@500;600;700;800&display=swap");
-
-:root {
-  --zipai-bg: #f8f9fa;
-  --zipai-navy: #25436e;
-  --zipai-muted: #6c757d;
-  --zipai-primary: #2465e8;
-  --zipai-primary-dark: #174fbc;
-  --zipai-white: #ffffff;
-  --zipai-border: rgba(108, 117, 125, 0.22);
-  --zipai-soft-blue: rgba(36, 101, 232, 0.08);
-  --zipai-soft-navy: rgba(37, 67, 110, 0.08);
-  --zipai-warning: #ffb020;
-  --zipai-danger: #e64b3c;
-  --zipai-safe: #15a66a;
-  --zipai-heading-font: "Inter", "Noto Sans KR", sans-serif;
-  --zipai-body-font: "Noto Sans KR", "Inter", sans-serif;
-  --zipai-radius: 8px;
-  --zipai-shadow: 0 18px 50px rgba(37, 67, 110, 0.12);
-  --zipai-shadow-sm: 0 8px 22px rgba(37, 67, 110, 0.1);
-  --bs-breakpoint-sm: 576px;
-  --bs-breakpoint-md: 768px;
-  --bs-breakpoint-lg: 992px;
-  --bs-breakpoint-xl: 1200px;
-  --bs-breakpoint-xxl: 1400px;
+/* 4. Common Layout Containers */
+.common-container { 
+  width: 100%; 
+  margin-right: auto; 
+  margin-left: auto; 
+  padding-right: var(--container-gutter); 
+  padding-left: var(--container-gutter); 
 }
 
-* {
-  box-sizing: border-box;
+.zipai-container {
+  width: min(100% - 32px, 1320px);
+  margin-inline: auto;
 }
 
-html {
-  scroll-behavior: smooth;
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-body {
-  min-width: 320px;
-  margin: 0;
-  color: #172033;
-  background: var(--zipai-bg);
-  font-family: var(--zipai-body-font);
-  letter-spacing: 0;
+/* Media queries for containers */
+@media (min-width: 576px) { 
+  .common-container { max-width: 540px; } 
+  .container { max-width: 540px; }
+}
+@media (min-width: 768px) { 
+  .common-container { max-width: 720px; } 
+  .container { max-width: 720px; }
+}
+@media (min-width: 992px) { 
+  .common-container { max-width: 960px; } 
+  .container { max-width: 960px; }
+}
+@media (min-width: 1200px) { 
+  .common-container { max-width: 1140px; } 
+  .container { max-width: 1140px; }
+}
+@media (min-width: 1400px) { 
+  .common-container { max-width: 1320px; } 
+  .container { max-width: 1320px; }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@media (max-width: 575.98px) {
+  .zipai-container {
+    width: min(100% - 24px, 540px);
+  }
+  .top-button {
+    right: 16px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+  }
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+/* 5. Utility Classes & Shared UI Components */
+.visually-hidden { 
+  position: absolute !important; 
+  overflow: hidden !important; 
+  width: 1px !important; 
+  height: 1px !important; 
+  padding: 0 !important; 
+  border: 0 !important; 
+  margin: -1px !important; 
+  clip: rect(0, 0, 0, 0) !important; 
+  white-space: nowrap !important; 
 }
 
 .zipai-page {
@@ -114,11 +168,6 @@ textarea {
   background:
     radial-gradient(circle at 8% 12%, rgba(37, 67, 110, 0.08), transparent 26rem),
     linear-gradient(180deg, #ffffff 0%, var(--zipai-bg) 42%);
-}
-
-.zipai-container {
-  width: min(100% - 32px, 1320px);
-  margin-inline: auto;
 }
 
 .zipai-section-title {
@@ -132,6 +181,7 @@ textarea {
   color: var(--zipai-muted);
 }
 
+/* Buttons */
 .zipai-btn {
   display: inline-flex;
   align-items: center;
@@ -168,6 +218,7 @@ textarea {
   border-color: var(--zipai-border);
 }
 
+/* Cards */
 .zipai-card {
   border: 1px solid var(--zipai-border);
   border-radius: var(--zipai-radius);
@@ -175,6 +226,7 @@ textarea {
   box-shadow: var(--zipai-shadow-sm);
 }
 
+/* Top Back-To-Top Button */
 .top-button {
   position: fixed;
   right: 24px;
@@ -195,17 +247,4 @@ textarea {
 .top-button:focus-visible {
   color: var(--zipai-white);
   background: var(--zipai-primary-dark);
-}
-
-@media (max-width: 575.98px) {
-  .zipai-container {
-    width: min(100% - 24px, 540px);
-  }
-
-  .top-button {
-    right: 16px;
-    bottom: 16px;
-    width: 44px;
-    height: 44px;
-  }
 }
