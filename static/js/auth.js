@@ -1,19 +1,22 @@
-(function () {
+﻿(function () {
   'use strict';
 
   const STORAGE_KEY = 'zipaiDemoUser';
   const PAGE_PATHS = {
     'index.html': 'index.html',
+    'finance-policy.html': 'templates/board/finance-policy.html',
     'trend1.html': 'templates/board/trend1.html',
     'trend2.html': 'templates/board/trend2.html',
     'trend3.html': 'templates/board/trend3.html',
     'trend4.html': 'templates/board/trend4.html',
-    'finance-policy.html': 'templates/board/finance-policy.html',
+    'safety.html': 'templates/safe/safety.html',
+    'happy-housing.html': 'templates/board/happy-housing.html',
     'customer-center.html': 'templates/board/customer-center.html',
     'admin.html': 'templates/admin/admin.html',
     'login.html': 'templates/member/login.html',
     'signup.html': 'templates/member/signup.html',
     'mypage.html': 'templates/member/mypage.html',
+    'lifestyle-analysis.html': 'templates/ai/lifestyle-analysis.html',
     'sub33.html': 'templates/defense/fraud_result.html',
     'fraud_result.html': 'templates/defense/fraud_result.html',
     'checklist.html': 'templates/defense/checklist.html',
@@ -93,6 +96,13 @@
       button.replaceChildren(icon, label);
     });
 
+    document.querySelectorAll('.utility-signup-button').forEach(function (button) {
+      button.href = resolvePage('signup.html');
+      const shouldHideSignup = Boolean(user);
+      button.hidden = shouldHideSignup;
+      button.setAttribute('aria-hidden', String(shouldHideSignup));
+    });
+
     document.querySelectorAll('.utility-links').forEach(function (container) {
       let mypageLink = container.querySelector('.utility-mypage');
       let adminLink = container.querySelector('.utility-admin');
@@ -141,12 +151,11 @@
       setHeaderActiveLink('fraud_result.html');
       return;
     }
-    const financePages = ['trend1.html', 'trend2.html', 'trend3.html', 'trend4.html', 'finance-policy.html'];
-    if (financePages.includes(currentPage)) {
+    if (['trend1.html', 'trend2.html', 'trend3.html', 'trend4.html'].includes(currentPage)) {
       setHeaderActiveLink('trend1.html');
       return;
     }
-    const readyPages = ['index.html'];
+    const readyPages = ['index.html', 'finance-policy.html', 'safety.html', 'happy-housing.html', 'lifestyle-analysis.html'];
     setHeaderActiveLink(readyPages.includes(currentPage) ? currentPage : '');
   }
 

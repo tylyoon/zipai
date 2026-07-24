@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko" id="pageTop">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="전세계약 단계별 안전 체크리스트">
-  <title>계약 안전 체크리스트 | 집도소</title>
+  <meta name="description" content="월세와 관리비, 대출이자, 교통비, 초기비용과 주거지원금을 한 번에 비교하는 집아이 AI 주거비 계산기">
+  <title>AI 주거비 계산·비교 | 집아이</title>
   <link rel="stylesheet" href="../../static/css/board.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,10 +13,11 @@
   <link rel="stylesheet" href="../../static/css/footer.css">
   <link rel="stylesheet" href="../../static/css/header.css">
   <link rel="stylesheet" href="../../static/css/auth.css">
+  <link rel="stylesheet" href="../../static/css/lifestyle-analysis.css">
   <script src="../../static/js/auth.js" defer></script>
 </head>
-<body class="has-zipai-footer" data-page="checklist">
-       <div class="zipai-header" role="banner">
+<body class="has-zipai-footer" data-page="housing-cost">
+  <div class="zipai-header" role="banner">
     <div class="header-utility">
       <div class="common-container utility-inner">
         <div class="utility-message">
@@ -26,6 +27,7 @@
         <div class="utility-links">
           <a href="#">공지사항</a>
           <a href="../../templates/board/customer-center.html">고객센터</a>
+          <a class="utility-signup-button" href="../../templates/member/signup.html">회원가입</a>
         </div>
       </div>
     </div>
@@ -48,7 +50,7 @@
             <a href="../../templates/safe/safety.html">위험안전도</a>
             <a href="../../templates/board/trend1.html">금융지원정책</a>
             <a href="../../templates/board/happy-housing.html">행복주택</a>
-            <a href="../../templates/ai/lifestyle-analysis.html">총 주거비 비교</a>
+            <a href="../../templates/ai/lifestyle-analysis.html">AI 주거비 계산·비교</a>
           </div>
           <div class="header-actions">
             <button class="icon-button" type="button" aria-label="검색">
@@ -79,36 +81,92 @@
       menuButton.querySelector('i').className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
     });
   </script>
-  <div class="subnav-wrap"><nav class="subnav" aria-label="사기방지 메뉴"><a href="../../templates/defense/fraud_result.html">안전 진단 결과</a><a class="active" href="../../templates/defense/checklist.html">체크리스트</a><a href="../../templates/defense/charter-rate-calculator.html">전세가율 계산</a><a href="../../templates/defense/contract-guide.html">계약가이드</a></nav></div>
 
-  <main class="page-main">
-    <section class="page-hero"><div class="content-width"><p class="breadcrumb"><a href="../../templates/defense/fraud_result.html">사기방지</a><span>›</span>체크리스트</p><p class="eyebrow">SAFETY CHECKLIST</p><h1>계약 전 5분,<br>위험 신호를 확인하세요</h1><p>아는 항목만 답해도 괜찮아요. 답변은 현재 브라우저에만 저장됩니다.</p></div></section>
+  <main class="page-main lifestyle-page">
+    <section class="lifestyle-workspace" aria-labelledby="costTitle">
+      <div class="content-width">
+        <p class="breadcrumb"><a href="../../index.html">홈</a><span>›</span>AI 주거비 계산·비교</p>
 
-    <section class="section checklist-section"><div class="content-width narrow-width">
-      <div class="progress-panel panel sticky-progress">
-        <div class="progress-info"><div><span id="progressLabel">진행률 0%</span><small id="progressCount">0 / 12 완료</small></div><button class="reset-button" type="button" id="resetChecklist">처음부터</button></div>
-        <div class="progress-track"><i id="progressBar"></i></div>
-        <div class="step-tabs" role="tablist" aria-label="계약 단계"><button type="button" class="active" data-step="0">1. 매물 확인</button><button type="button" data-step="1">2. 계약 당일</button><button type="button" data-step="2">3. 잔금·입주</button></div>
+        <div class="lifestyle-heading">
+          <div>
+            <p class="eyebrow">REAL HOUSING COST</p>
+            <h1 id="costTitle">AI 주거비 계산·비교</h1>
+            <p>표시된 월세만 보지 말고 관리비, 대출이자, 교통비와 초기비용까지 더해 두 집의 실제 부담을 비교해 보세요.</p>
+          </div>
+          <div class="lifestyle-snapshot" aria-label="비용 비교 요약">
+            <div><strong id="snapshotLower">계산 중</strong><span>월 부담이 낮은 집</span></div>
+            <div><strong id="snapshotSaving">0원</strong><span>월 절약액</span></div>
+            <div><strong id="snapshotYearSaving">0원</strong><span>연간 절약액</span></div>
+          </div>
+        </div>
+
+        <form id="housingCostForm">
+          <div class="comparison-inputs">
+            <article class="cost-form panel" data-home="a">
+              <div class="cost-form-heading"><div><span>HOUSE A</span><select id="aFavorite" aria-label="비교할 첫 번째 찜 매물"></select><input name="aName" type="hidden" value=""></div><i class="fa-solid fa-building"></i></div>
+              <div class="cost-fields">
+                <label>보증금 <span><input name="aDeposit" type="number" min="0" step="100" value="1000"> 만원</span></label>
+                <label>보증금 중 대출금 <span><input name="aLoan" type="number" min="0" step="100" value="700"> 만원</span></label>
+                <label>연 대출금리 <span><input name="aRate" type="number" min="0" step="0.1" value="4.0"> %</span></label>
+                <label>월세 <span><input name="aRent" type="number" min="0" step="1" value="55"> 만원</span></label>
+                <label>월 관리비 <span><input name="aMaintenance" type="number" min="0" step="1" value="8"> 만원</span></label>
+                <label>월 공과금 예상 <span><input name="aUtility" type="number" min="0" step="1" value="7"> 만원</span></label>
+                <label>월 교통비 <span><input name="aTransport" type="number" min="0" step="1" value="7"> 만원</span></label>
+                <label>월 주거지원금 <span><input name="aSupport" type="number" min="0" step="1" value="0"> 만원</span></label>
+                <label>중개보수·이사비 <span><input name="aMove" type="number" min="0" step="10" value="80"> 만원</span></label>
+                <label>거주 예정기간 <span><input name="aMonths" type="number" min="1" step="1" value="24"> 개월</span></label>
+              </div>
+            </article>
+
+            <article class="cost-form panel" data-home="b">
+              <div class="cost-form-heading"><div><span>HOUSE B</span><select id="bFavorite" aria-label="비교할 두 번째 찜 매물"></select><input name="bName" type="hidden" value=""></div><i class="fa-solid fa-house"></i></div>
+              <div class="cost-fields">
+                <label>보증금 <span><input name="bDeposit" type="number" min="0" step="100" value="2000"> 만원</span></label>
+                <label>보증금 중 대출금 <span><input name="bLoan" type="number" min="0" step="100" value="1500"> 만원</span></label>
+                <label>연 대출금리 <span><input name="bRate" type="number" min="0" step="0.1" value="4.0"> %</span></label>
+                <label>월세 <span><input name="bRent" type="number" min="0" step="1" value="43"> 만원</span></label>
+                <label>월 관리비 <span><input name="bMaintenance" type="number" min="0" step="1" value="10"> 만원</span></label>
+                <label>월 공과금 예상 <span><input name="bUtility" type="number" min="0" step="1" value="9"> 만원</span></label>
+                <label>월 교통비 <span><input name="bTransport" type="number" min="0" step="1" value="15"> 만원</span></label>
+                <label>월 주거지원금 <span><input name="bSupport" type="number" min="0" step="1" value="0"> 만원</span></label>
+                <label>중개보수·이사비 <span><input name="bMove" type="number" min="0" step="10" value="100"> 만원</span></label>
+                <label>거주 예정기간 <span><input name="bMonths" type="number" min="1" step="1" value="24"> 개월</span></label>
+              </div>
+            </article>
+          </div>
+
+          <div class="cost-actions">
+            <p id="favoriteHelp"><i class="fa-solid fa-circle-info"></i> 매물 찾기에서 찜한 매물을 선택하면 보증금·월세·관리비가 자동 입력됩니다.</p>
+            <div><button class="button button-secondary" id="resetCost" type="button">예시값 초기화</button><button class="button button-primary" type="submit"><i class="fa-solid fa-scale-balanced"></i> 두 집 비교하기</button></div>
+          </div>
+        </form>
+
+        <section class="result-panel panel" aria-live="polite">
+          <div class="result-intro">
+            <div><p class="eyebrow">MONTHLY VERDICT</p><h2 id="resultTitle">두 집의 실제 월 부담을 비교했어요</h2><p id="resultSummary"></p></div>
+            <div class="saving-badge"><span>월 절약 가능</span><strong id="savingAmount">0원</strong></div>
+          </div>
+          <div class="result-cards" id="resultCards"></div>
+        </section>
+
+        <section class="breakdown-panel panel">
+          <div class="panel-heading"><p class="eyebrow">COST BREAKDOWN</p><h2>비용 항목별 비교</h2></div>
+          <div class="comparison-table-wrap">
+            <table class="comparison-table">
+              <thead><tr><th>항목</th><th id="tableNameA">집 A</th><th id="tableNameB">집 B</th><th>차이</th></tr></thead>
+              <tbody id="breakdownBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="guide-grid">
+          <article class="guide-card panel"><i class="fa-solid fa-wallet"></i><div><h3>초기 필요자금 예상액</h3><p>직접 마련할 보증금과 중개보수·이사비를 합한 금액입니다. 대출 실행 전 필요한 자기자금도 별도로 확인해야 합니다.</p><strong id="initialFunds"></strong><p class="estimate-notice"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> 사용자가 입력한 금액을 기준으로 계산한 예상치입니다. 실제 계약금, 대출 가능액, 중개보수와 이사 비용에 따라 달라질 수 있습니다.</p></div></article>
+          <article class="guide-card panel"><i class="fa-solid fa-triangle-exclamation"></i><div><h3>계산 결과 이용 안내</h3><p>공과금, 교통비와 금리는 입력한 예상값을 사용합니다. 실제 계약 전에는 관리비 포함 항목, 대출 조건과 주거지원 자격을 다시 확인하세요.</p><a href="../board/trend1.html">금융지원정책 확인 <i class="fa-solid fa-arrow-right"></i></a></div></article>
+        </section>
       </div>
-
-      <form id="checklistForm" novalidate>
-        <section class="question-step active" data-step-panel="0">
-          <div class="step-heading"><span>STEP 01</span><div><h2>매물 확인 단계</h2><p>계약서를 쓰기 전 집과 임대인의 기본 정보를 확인해요.</p></div></div>
-          <div class="questions" id="questionsStep0"></div>
-        </section>
-        <section class="question-step" data-step-panel="1">
-          <div class="step-heading"><span>STEP 02</span><div><h2>계약 당일 단계</h2><p>권리관계가 바뀌지 않았는지 다시 확인하고 특약을 남겨요.</p></div></div>
-          <div class="questions" id="questionsStep1"></div>
-        </section>
-        <section class="question-step" data-step-panel="2">
-          <div class="step-heading"><span>STEP 03</span><div><h2>잔금·입주 단계</h2><p>보증금의 우선변제권을 갖추고 마지막 변동 사항을 확인해요.</p></div></div>
-          <div class="questions" id="questionsStep2"></div>
-        </section>
-
-        <div class="form-navigation"><button type="button" class="button button-secondary" id="prevStep" disabled>이전 단계</button><button type="button" class="button button-primary" id="nextStep">다음 단계</button><button type="submit" class="button button-primary hidden" id="submitChecklist">진단 결과 보기</button></div>
-      </form>
-    </div></section>
+    </section>
   </main>
+
   <footer class="zipai-footer" aria-labelledby="footerHeading">
     <h2 class="visually-hidden" id="footerHeading">집아이 사이트 정보</h2>
 
@@ -142,13 +200,6 @@
             <strong>평일 09:00–18:00</strong>
             <span>주말·공휴일 휴무</span>
           </div>
-
-          <div class="social-links" aria-label="집아이 소셜미디어">
-            <a href="#" aria-label="집아이 네이버 블로그"><i class="fa-solid fa-blog" aria-hidden="true"></i></a>
-            <a href="#" aria-label="집아이 인스타그램"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-            <a href="#" aria-label="집아이 유튜브"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
-            <a href="#" aria-label="집아이 카카오톡 채널"><i class="fa-solid fa-comment" aria-hidden="true"></i></a>
-          </div>
         </div>
 
         <div class="footer-sitemap" aria-label="사이트맵">
@@ -164,8 +215,8 @@
             <h3>매물 서비스</h3>
             <ul>
               <li><a href="../../index.html">지도에서 집 찾기</a></li>
+              <li><a href="../../templates/ai/lifestyle-analysis.html">AI 주거비 비교</a></li>
               <li><a href="../../index.html">안심 매물</a></li>
-              <li><a href="#">관심 매물</a></li>
               <li><a href="#">매물 등록 문의</a></li>
             </ul>
           </div>
@@ -193,18 +244,6 @@
           <p class="family-eyebrow">OFFICIAL LINKS</p>
           <h3 id="familyHeading">부동산 패밀리사이트</h3>
           <p>계약 전 필요한 공공 서비스를<br>집아이에서 바로 확인하세요.</p>
-
-          <details class="family-dropdown">
-            <summary>패밀리사이트 선택 <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary>
-            <ul>
-              <li><a href="https://rt.molit.go.kr/" target="_blank" rel="noopener noreferrer">국토교통부 실거래가 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></li>
-              <li><a href="https://www.iros.go.kr/" target="_blank" rel="noopener noreferrer">대한민국 법원 인터넷등기소 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></li>
-              <li><a href="https://www.khug.or.kr/jeonse/" target="_blank" rel="noopener noreferrer">HUG 안심전세포털 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></li>
-              <li><a href="https://apply.lh.or.kr/" target="_blank" rel="noopener noreferrer">LH 청약플러스 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></li>
-              <li><a href="https://www.myhome.go.kr/" target="_blank" rel="noopener noreferrer">마이홈포털 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></li>
-            </ul>
-          </details>
-
           <a class="safety-shortcut" href="../../templates/defense/checklist.html">
             <span><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i></span>
             <div><strong>계약 전 5분 안전점검</strong><small>체크리스트 시작하기</small></div>
@@ -237,8 +276,6 @@
   <a class="to-top-button" href="#pageTop" aria-label="페이지 맨 위로 이동">
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i><span>TOP</span>
   </a>
-  <div class="modal-backdrop" id="incompleteModal" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button type="button" class="modal-close" aria-label="닫기">×</button><div class="modal-icon">!</div><h2 id="modalTitle">확인하지 않은 항목이 있어요</h2><p><strong id="missingCount">0개</strong> 항목에 답하면 더 정확한 결과를 볼 수 있어요.<br>그래도 현재 답변으로 결과를 확인할까요?</p><div class="modal-actions"><button type="button" class="button button-secondary modal-close-button">계속 작성하기</button><button type="button" class="button button-primary" id="continueResult">결과 보기</button></div></div></div>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="../../static/js/common.js"></script><script src="../../static/js/checklist.js"></script>
+  <script src="../../static/js/lifestyle-analysis.js"></script>
 </body>
 </html>

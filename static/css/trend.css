@@ -1,5 +1,17 @@
 @import url('common.css');
 
+:root {
+  --primary-color: var(--color-primary);
+  --secondary-color: #64748b;
+  --accent-color: var(--color-navy);
+  --bg-white: var(--color-white);
+  --font-title: var(--font-heading);
+  --zipai-primary: var(--color-primary);
+  --zipai-navy: var(--color-navy);
+  --zipai-muted: #64748b;
+  --zipai-white: var(--color-white);
+}
+
 .trend-wrapper { padding: 40px 0; }
 .page-header { text-align: center; margin-bottom: 40px; }
 .page-header h2 { color: var(--accent-color); font-weight: 700; margin-bottom: 10px; font-family: var(--font-title); }

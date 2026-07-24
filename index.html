@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="지도에서 안전한 집을 찾는 집도소 매물 홈">
   <title>집아이 | 안전한 집 찾기의 시작</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQmlymXh1bTXaQsfnMJOxtCrxYFnm2o=" crossorigin="">
   <link rel="stylesheet" href="static/css/property.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +26,7 @@
         <div class="utility-links">
           <a href="#">공지사항</a>
           <a href="templates/board/customer-center.html">고객센터</a>
+          <a class="utility-signup-button" href="templates/member/signup.html">회원가입</a>
         </div>
       </div>
     </div>
@@ -46,10 +46,10 @@
           <div class="menu-links">
             <a href="index.html">매물 찾기</a>
             <a href="templates/defense/fraud_result.html">사기방지</a>
-            <!-- <a href="templates/defense/charter-rate-calculator.html">위험안전도</a> -->
             <a href="templates/safe/safety.html">위험안전도</a>
             <a href="templates/board/trend1.html">금융지원정책</a>
-            <a href="templates/defense/checklist.html">미정</a>
+            <a href="templates/board/happy-housing.html">행복주택</a>
+            <a href="templates/ai/lifestyle-analysis.html">총 주거비 비교</a>
           </div>
           <div class="header-actions">
             <button class="icon-button" type="button" aria-label="검색">
@@ -59,7 +59,7 @@
               <i class="fa-solid fa-user" aria-hidden="true"></i>
               로그인
             </a>
-            <a class="listing-button" href="#">
+            <a class="listing-button" href="#register-listing" id="openListingRegistration">
               <i class="fa-solid fa-house-circle-check" aria-hidden="true"></i>
               매물 등록
             </a>
@@ -81,6 +81,20 @@
     });
   </script>
 
+  <nav class="property-category-bar" aria-label="매물 카테고리">
+    <div class="property-category-inner">
+      <button type="button" class="property-category active" data-property-category="general" aria-pressed="true">
+        <span class="category-icon"><i class="fa-solid fa-house"></i></span>
+        <span><strong>일반 전·월세</strong><small>중개사·임대인 등록 매물</small></span>
+      </button>
+      <button type="button" class="property-category" data-property-category="public" aria-pressed="false">
+        <span class="category-icon public"><i class="fa-solid fa-building-circle-check"></i></span>
+        <span><strong>LH·공공임대</strong><small>공식 모집공고</small></span>
+      </button>
+      <p class="category-scope"><i class="fa-solid fa-location-dot"></i> 경기도 지역만 제공</p>
+    </div>
+  </nav>
+
   <section class="search-toolbar" aria-label="매물 검색 및 필터">
     <form class="location-search" id="locationSearch">
       <span class="search-icon" aria-hidden="true"></span>
@@ -94,16 +108,17 @@
       <label class="select-chip"><span>방 유형</span><select id="roomFilter" aria-label="방 유형"><option value="all">전체</option><option value="원룸">원룸</option><option value="1.5룸">1.5룸</option><option value="투룸">투룸</option><option value="쓰리룸">쓰리룸</option></select></label>
       <button type="button" class="filter-chip filter-more" id="openFilterButton"><span class="sliders-icon" aria-hidden="true"></span>상세 필터 <b id="activeFilterCount" hidden>0</b></button>
       <button type="button" class="filter-chip saved-homes-filter" id="savedHomesButton" aria-pressed="false"><span aria-hidden="true">♥</span> 찜한 매물 <b id="favoriteCount">0</b></button>
+      <a class="filter-chip" href="templates/ai/lifestyle-analysis.html"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>&nbsp; 찜 매물 비교</a>
     </div>
   </section>
 
   <main class="property-app">
     <aside class="listing-panel" id="listingPanel">
       <div class="listing-heading">
-        <div><p id="locationLabel">서울 관악구 주변</p><h1><strong id="listingCount">0</strong>개의 방을 찾았어요</h1></div>
+        <div><p id="locationLabel">경기도 전체</p><h1><strong id="listingCount">0</strong><span id="listingUnit">개의 방을 찾았어요</span></h1></div>
         <label class="sort-select"><span class="sr-only">정렬</span><select id="sortSelect"><option value="recommended">추천순</option><option value="lowMonthly">월세 낮은순</option><option value="lowDeposit">보증금 낮은순</option><option value="largeArea">넓은 면적순</option><option value="safe">안전점수 높은순</option></select></label>
       </div>
-      <div class="listing-notice"><span>✓</span><p><strong>집도소 안심 매물</strong>은 기본 권리관계를 먼저 확인했어요.</p><a href="templates/defense/fraud_result.html">자세히</a></div>
+      <div class="listing-notice" id="listingNotice"><span>✓</span><p><strong>등록 매물</strong>의 출처와 최종 확인일을 꼭 확인하세요.</p><a href="templates/defense/fraud_result.html">안전 확인</a></div>
       <div class="property-list" id="propertyList" aria-live="polite"></div>
       <div class="list-loading" id="listLoading" hidden><i></i><span>매물을 찾고 있어요</span></div>
     </aside>
@@ -143,6 +158,41 @@
   <div class="sheet-backdrop" id="inquiryModal" aria-hidden="true">
     <section class="inquiry-modal" role="dialog" aria-modal="true" aria-labelledby="inquiryTitle">
       <button type="button" class="sheet-close inquiry-close" aria-label="닫기">×</button><span class="inquiry-icon">집</span><h2 id="inquiryTitle">방문 상담을 신청할까요?</h2><p id="inquiryPropertyName">선택한 매물</p><label>연락받을 휴대폰 번호<input type="tel" id="phoneInput" placeholder="010-0000-0000" maxlength="13"></label><small>데모 화면으로 실제 상담이 접수되지는 않습니다.</small><button type="button" class="apply-filter" id="submitInquiry">상담 신청하기</button>
+    </section>
+  </div>
+
+  <div class="sheet-backdrop" id="listingRegistrationModal" aria-hidden="true">
+    <section class="listing-registration-modal" role="dialog" aria-modal="true" aria-labelledby="listingRegistrationTitle">
+      <header>
+        <div><small>경기도 매물만 등록할 수 있어요</small><h2 id="listingRegistrationTitle">일반 전·월세 매물 등록</h2></div>
+        <button type="button" class="sheet-close registration-close" aria-label="닫기">×</button>
+      </header>
+      <form id="listingRegistrationForm">
+        <div class="registration-grid">
+          <label class="wide">매물 제목<input name="title" required maxlength="60" placeholder="예: 수원역 도보 5분 원룸"></label>
+          <label>시·군
+            <select name="city" required>
+              <option value="">선택</option><option>수원시</option><option>성남시</option><option>고양시</option><option>용인시</option>
+              <option>부천시</option><option>안산시</option><option>안양시</option><option>화성시</option><option>평택시</option>
+              <option>의정부시</option><option>파주시</option><option>김포시</option><option>광명시</option><option>광주시</option>
+              <option>군포시</option><option>하남시</option><option>오산시</option><option>이천시</option><option>안성시</option>
+              <option>의왕시</option><option>양주시</option><option>구리시</option><option>포천시</option><option>동두천시</option>
+              <option>과천시</option><option>여주시</option><option>남양주시</option><option>시흥시</option><option>가평군</option>
+              <option>양평군</option><option>연천군</option>
+            </select>
+          </label>
+          <label>상세 지역<input name="neighborhood" required maxlength="40" placeholder="영통구 매탄동"></label>
+          <label>거래 유형<select name="deal" required><option value="monthly">월세</option><option value="jeonse">전세</option></select></label>
+          <label>방 유형<select name="room" required><option>원룸</option><option>1.5룸</option><option>투룸</option><option>쓰리룸</option></select></label>
+          <label>보증금(만원)<input name="deposit" type="number" required min="0" step="100"></label>
+          <label>월세(만원)<input name="monthly" type="number" min="0" step="1" value="0"></label>
+          <label>전용면적(㎡)<input name="area" type="number" required min="5" step="0.1"></label>
+          <label>층<input name="floor" required maxlength="10" placeholder="3층"></label>
+          <label class="wide">연락처<input name="contact" required maxlength="13" placeholder="010-0000-0000"></label>
+        </div>
+        <p class="registration-help"><i class="fa-solid fa-circle-info"></i> 로컬 시연 버전에서는 선택한 시·군의 대표 위치에 표시됩니다. 운영 시 주소 좌표 변환과 중개사 검증을 서버에서 처리해야 합니다.</p>
+        <button type="submit" class="registration-submit">경기도 매물 등록하기</button>
+      </form>
     </section>
   </div>
 
@@ -272,7 +322,8 @@
     </div>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="static/js/home.js"></script>
+  <script src="static/js/map-config.js"></script>
+  <script src="static/js/naver-map-adapter.js"></script>
+  <script src="static/js/naver-map-loader.js"></script>
 </body>
 </html>

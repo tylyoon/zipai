@@ -11,6 +11,9 @@ body { min-height: 100vh; }
 .utility-links a { position: relative; color: #aebdd1; font-size: 10px; transition: color var(--transition-fast); }
 .utility-links a + a::before { content: ""; position: absolute; top: 50%; left: -10px; width: 1px; height: 9px; background: rgba(255, 255, 255, .18); transform: translateY(-50%); }
 .utility-links a:hover { color: var(--color-white); }
+.utility-links .utility-signup-button { display: inline-flex; min-height: 22px; padding: 0 9px; border: 1px solid rgba(255, 255, 255, .32); border-radius: 999px; align-items: center; color: var(--color-white); font-weight: 700; background: rgba(255, 255, 255, .1); }
+.utility-links .utility-signup-button[hidden] { display: none; }
+.utility-links .utility-signup-button:hover { border-color: rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .18); }
 
 .common-container.header-inner { display: grid; width: 100%; max-width: none; min-height: 82px; padding-right: clamp(20px, 3vw, 52px); padding-left: clamp(20px, 3vw, 52px); align-items: center; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: clamp(16px, 2.4vw, 36px); }
 .header-logo { display: flex; grid-column: 1; justify-self: start; flex: 0 0 auto; align-items: center; gap: 10px; }
