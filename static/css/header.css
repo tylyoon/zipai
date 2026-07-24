@@ -54,6 +54,30 @@ body { min-height: 100vh; }
 .listing-button:hover { background: #1859cc; transform: translateY(-1px); }
 .mobile-menu-button { display: none; width: 42px; height: 42px; border-radius: var(--radius-sm); align-items: center; justify-content: center; color: var(--color-navy); background: var(--color-sky); font-size: 18px; }
 
+body.site-search-open { overflow: hidden; }
+.site-search-dialog[hidden] { display: none; }
+.site-search-dialog { position: fixed; z-index: 1000; inset: 0; display: grid; padding: clamp(18px, 6vh, 64px) 20px; place-items: start center; }
+.site-search-backdrop { position: absolute; inset: 0; background: rgba(12, 27, 49, .58); backdrop-filter: blur(4px); }
+.site-search-panel { position: relative; width: min(680px, 100%); max-height: calc(100vh - clamp(36px, 12vh, 128px)); padding: 28px; overflow-y: auto; border: 1px solid rgba(255, 255, 255, .7); border-radius: 22px; background: #fff; box-shadow: 0 28px 70px rgba(10, 28, 58, .28); }
+.site-search-heading { display: flex; margin-bottom: 20px; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.site-search-heading span { color: var(--color-primary); font-size: 10px; font-weight: 800; letter-spacing: .13em; }
+.site-search-heading h2 { margin: 5px 0 0; color: var(--color-navy); font-family: var(--font-heading); font-size: clamp(22px, 4vw, 30px); }
+.site-search-close { display: flex; width: 38px; height: 38px; flex: 0 0 auto; border: 0; border-radius: 50%; align-items: center; justify-content: center; color: #607089; background: #eef3fa; cursor: pointer; font-size: 17px; }
+.site-search-form { display: flex; height: 56px; border: 2px solid var(--color-primary); border-radius: 13px; align-items: center; overflow: hidden; box-shadow: 0 8px 24px rgba(36, 104, 232, .12); }
+.site-search-form > i { margin-left: 18px; color: var(--color-primary); }
+.site-search-form input { min-width: 0; height: 100%; flex: 1; padding: 0 13px; border: 0; outline: 0; color: var(--color-navy); background: transparent; font-size: 15px; }
+.site-search-form button { height: 40px; margin-right: 7px; padding: 0 18px; border: 0; border-radius: 9px; color: #fff; background: var(--color-primary); cursor: pointer; font-weight: 700; }
+.site-search-guide { margin: 17px 2px 10px; color: #738198; font-size: 12px; }
+.site-search-results { display: grid; gap: 8px; }
+.site-search-result, .site-search-empty { display: flex; min-height: 72px; padding: 13px 15px; border: 1px solid #e4eaf2; border-radius: 12px; align-items: center; gap: 13px; background: #fff; transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast); }
+.site-search-result:hover, .site-search-empty:hover { border-color: #a9c4f7; background: #f6f9ff; transform: translateY(-1px); }
+.site-search-result-icon { display: flex; width: 34px; height: 34px; flex: 0 0 auto; border-radius: 10px; align-items: center; justify-content: center; color: var(--color-primary); background: var(--color-sky); font-size: 12px; }
+.site-search-result > span:last-child, .site-search-empty > span { display: flex; min-width: 0; flex-direction: column; gap: 4px; }
+.site-search-result strong, .site-search-empty strong { color: var(--color-navy); font-size: 14px; }
+.site-search-result small, .site-search-empty small { color: #748298; font-size: 11px; line-height: 1.5; }
+.site-search-empty { color: var(--color-primary); background: #f8faff; }
+.site-search-empty > i { width: 34px; text-align: center; font-size: 21px; }
+
 .header-preview { display: flex; min-height: calc(100vh - 118px); align-items: center; background: linear-gradient(145deg, var(--color-white), var(--color-sky)); }
 .preview-inner { display: flex; flex-direction: column; align-items: flex-start; }
 .preview-inner > span { margin-bottom: 13px; color: var(--color-primary); font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: .14em; }
@@ -90,6 +114,11 @@ body { min-height: 100vh; }
   .preview-inner { align-items: center; }
   .preview-inner h1 { font-size: 36px; }
   .preview-inner p { font-size: 14px; }
+  .site-search-dialog { padding: 10px; align-items: end; }
+  .site-search-panel { width: 100%; max-height: calc(100vh - 20px); padding: 21px 16px 18px; border-radius: 20px; }
+  .site-search-form { height: 52px; }
+  .site-search-form button { padding: 0 14px; }
+  .site-search-result, .site-search-empty { min-height: 68px; padding: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
