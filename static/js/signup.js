@@ -1,10 +1,11 @@
-(function () {
+(async function () {
   'use strict';
 
   const auth = window.ZipaiAuth;
   const form = document.getElementById('signupForm');
 
   if (!auth || !form) return;
+  await auth.ready;
   if (auth.getUser()) {
     window.location.replace(auth.resolvePage('index.html'));
     return;
@@ -22,7 +23,7 @@
   password.addEventListener('input', validatePasswordMatch);
   passwordConfirm.addEventListener('input', validatePasswordMatch);
 
-  form.addEventListener('submit', function (event) {
+  form.addEventListener('submit', async function (event) {
     event.preventDefault();
     validatePasswordMatch();
 
@@ -31,8 +32,27 @@
       return;
     }
 
-    auth.login(form.elements.userId.value);
-    form.reset();
-    window.location.href = auth.resolvePage('index.html');
+    const submit = form.querySelector('[type="submit"]');
+    submit.disabled = true;
+    try {
+      await auth.signup({
+        userId: form.elements.userId.value,
+        email: form.elements.email.value,
+        phone: form.elements.phone.value,
+        password: form.elements.password.value
+      });
+      form.reset();
+      window.location.href = auth.resolvePage('index.html');
+    } catch (error) {
+      let message = form.querySelector('.login-page-error');
+      if (!message) {
+        message = document.createElement('p');
+        message.className = 'login-page-error';
+        form.appendChild(message);
+      }
+      message.textContent = error.message;
+    } finally {
+      submit.disabled = false;
+    }
   });
 })();

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko" id="pageTop">
 <head>
   <meta charset="UTF-8">
@@ -49,7 +49,7 @@
             <a href="../../templates/safe/safety.html">위험안전도</a>
             <a href="trend1.html">금융지원정책</a>
             <a href="happy-housing.html">행복주택</a>
-            <a href="../../templates/ai/lifestyle-analysis.html">총 주거비 비교</a>
+            <a href="../../templates/ai/lifestyle-analysis.html">방 구하기·내놓기</a>
           </div>
           <div class="header-actions">
             <button class="icon-button" type="button" aria-label="검색">
@@ -105,14 +105,24 @@
           <details class="faq-item"><summary>집아이의 매물 정보는 어떻게 확인하나요?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div class="faq-answer"><p>매물 상세 정보와 기본 안전점수를 함께 제공하지만, 계약 전에는 반드시 등기사항과 실제 권리관계를 직접 확인해야 합니다.</p></div></details>
           <details class="faq-item"><summary>찜한 매물은 어디에서 확인할 수 있나요?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div class="faq-answer"><p>로그인 후 상단 마이페이지 또는 메인 화면의 찜한 매물 버튼에서 확인할 수 있습니다.</p></div></details>
           <details class="faq-item"><summary>전세가율 계산 결과는 실제 계약에 사용할 수 있나요?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div class="faq-answer"><p>계산 결과는 참고용입니다. 실제 시세, 선순위 채권과 보증 가입 조건은 관련 기관 및 전문가를 통해 다시 확인하세요.</p></div></details>
-          <details class="faq-item"><summary>로그인 정보는 어디에 저장되나요?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div class="faq-answer"><p>현재 데모 로그인 정보는 사용 중인 브라우저에만 저장되며 실제 회원 서버로 전송되지 않습니다.</p></div></details>
-          <details class="faq-item"><summary>문의 답변은 언제 받을 수 있나요?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div class="faq-answer"><p>현재 문의 기능은 데모입니다. 실제 답변은 발송되지 않으며 접수 내역만 해당 브라우저에 저장됩니다.</p></div></details>
+          <details class="faq-item"><summary>로그인 정보는 어디에 저장되나요?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div class="faq-answer"><p>회원 정보와 세션은 서버의 데이터베이스에 저장되며, 브라우저에는 JavaScript로 읽을 수 없는 세션 쿠키만 발급됩니다.</p></div></details>
+          <details class="faq-item"><summary>문의 답변은 언제 받을 수 있나요?<i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div class="faq-answer"><p>접수된 문의는 관리자가 확인하며, 답변이 등록되면 나의 문의내역에서 확인할 수 있습니다.</p></div></details>
         </div>
       </section>
 
       <section class="customer-section" id="inquiry">
-        <div class="customer-section-heading"><p class="customer-eyebrow">1:1 INQUIRY</p><h2>1:1 문의</h2><p>문의 내용을 남기면 데모 접수 내역에 저장됩니다.</p></div>
-        <div class="inquiry-layout">
+        <div class="customer-section-heading"><p class="customer-eyebrow">1:1 INQUIRY</p><h2>1:1 문의</h2><p>문의 내용과 처리 상태는 회원 계정에 안전하게 저장됩니다.</p></div>
+        <div class="inquiry-member-gate" id="inquiryMemberGate" hidden>
+          <span class="inquiry-gate-symbol"><i class="fa-solid fa-user-lock" aria-hidden="true"></i></span>
+          <p class="customer-eyebrow">MEMBERS ONLY</p>
+          <h3>1:1 문의는 회원만 이용할 수 있습니다</h3>
+          <p>회원가입 또는 로그인 후 문의를 접수하고 나의 문의내역을 안전하게 확인할 수 있습니다.</p>
+          <div class="inquiry-gate-actions">
+            <a class="inquiry-gate-primary" href="../member/signup.html"><i class="fa-solid fa-user-plus" aria-hidden="true"></i><span><strong>회원가입</strong><small>ZipAI 회원으로 시작하기</small></span></a>
+            <a href="../member/login.html"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i><span><strong>로그인하기</strong><small>기존 계정으로 이용하기</small></span></a>
+          </div>
+        </div>
+        <div class="inquiry-layout" id="inquiryMemberContent">
           <div class="inquiry-card">
             <form class="inquiry-form" id="inquiryForm">
               <div class="inquiry-row">
@@ -121,7 +131,7 @@
               </div>
               <label class="inquiry-field">제목<input name="title" type="text" maxlength="60" placeholder="문의 제목을 입력해 주세요" required></label>
               <label class="inquiry-field">문의 내용<textarea name="message" maxlength="1000" placeholder="문의 내용을 자세히 입력해 주세요" required></textarea></label>
-              <label class="inquiry-agree"><input name="agree" type="checkbox" required><span>문의 접수를 위한 이메일 및 문의 내용의 브라우저 저장에 동의합니다.</span></label>
+              <label class="inquiry-agree"><input name="agree" type="checkbox" required><span>문의 처리에 필요한 이메일과 문의 내용의 서버 저장에 동의합니다.</span></label>
               <button class="inquiry-submit" type="submit">문의 접수하기</button>
             </form>
           </div>

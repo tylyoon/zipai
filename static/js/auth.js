@@ -12,6 +12,8 @@
     'safety.html': 'templates/safe/safety.html',
     'happy-housing.html': 'templates/board/happy-housing.html',
     'customer-center.html': 'templates/board/customer-center.html',
+    'community.html': 'templates/board/community.html',
+    'community-detail.html': 'templates/board/community-detail.html',
     'admin.html': 'templates/admin/admin.html',
     'login.html': 'templates/member/login.html',
     'signup.html': 'templates/member/signup.html',
@@ -28,22 +30,8 @@
     'sub33.html': 'fraud_result.html',
     'jeonse-calculator.html': 'charter-rate-calculator.html'
   };
-  const SITE_SEARCH_ITEMS = [
-    { title: '매물 찾기', href: 'index.html', description: '경기도 전·월세와 LH·공공임대 매물을 지역, 역, 학교, 가격 조건으로 찾아보세요.', keywords: '집 방 아파트 원룸 투룸 쓰리룸 월세 전세 보증금 임대 매물 지역 지하철역 학교 경기도 lh 공공임대' },
-    { title: '전세사기 안전 진단', href: 'fraud_result.html', description: '계약 전 위험 요소와 등기·보증금 관련 주의사항을 확인합니다.', keywords: '사기방지 전세사기 위험 진단 등기부등본 근저당 보증금 임대인 안전 계약' },
-    { title: '계약 체크리스트', href: 'checklist.html', description: '집을 보고 계약하기 전 단계별로 확인해야 할 항목을 살펴보세요.', keywords: '체크리스트 계약 준비 서류 특약 등기 집보기 입주 확인' },
-    { title: '전세가율 계산기', href: 'charter-rate-calculator.html', description: '매매가와 보증금을 비교해 전세가율과 위험 수준을 계산합니다.', keywords: '계산기 전세가율 깡통전세 매매가 보증금 위험 계산' },
-    { title: '안전 계약 가이드', href: 'contract-guide.html', description: '집을 알아볼 때부터 잔금과 입주까지 안전한 계약 순서를 안내합니다.', keywords: '계약 가이드 절차 계약서 잔금 입주 전입신고 확정일자 중개사' },
-    { title: '지역 위험·안전도', href: 'safety.html', description: '지역별 치안, CCTV, 비상벨과 생활 안전 정보를 확인하세요.', keywords: '안전도 위험도 치안 범죄 cctv 비상벨 밤길 여성 안전 지역 지도' },
-    { title: '금융지원정책', href: 'trend1.html', description: '청년과 신혼부부를 위한 주거 대출·금융 지원 정보를 알아보세요.', keywords: '금융 정책 지원 대출 이자 청년 신혼부부 전세자금 버팀목 디딤돌' },
-    { title: '행복주택 안내', href: 'happy-housing.html', description: '행복주택 자격, 신청 절차와 모집공고 확인 방법을 안내합니다.', keywords: '행복주택 공공주택 lh 청년 대학생 신혼부부 자격 소득 자산 신청 모집공고' },
-    { title: '총 주거비 비교', href: 'lifestyle-analysis.html', description: '관심 매물의 월세, 관리비와 생활 조건을 함께 비교해 보세요.', keywords: '주거비 비교 생활권 교통 편의시설 관리비 월세 분석 ai 찜 매물' },
-    { title: '고객센터', href: 'customer-center.html', description: '자주 묻는 질문을 확인하고 서비스 이용 문의를 남길 수 있습니다.', keywords: '고객센터 도움말 문의 질문 faq 이용방법 오류 신고 상담 모르는 것' },
-    { title: '로그인', href: 'login.html', description: 'ZipAI 계정으로 로그인합니다.', keywords: '로그인 계정 아이디 회원' },
-    { title: '회원가입', href: 'signup.html', description: 'ZipAI 회원 계정을 만듭니다.', keywords: '회원가입 가입 계정 만들기' },
-    { title: '마이페이지', href: 'mypage.html', description: '내 정보와 문의 내역을 확인합니다.', keywords: '마이페이지 내정보 계정 문의내역 회원정보' }
-  ];
   let memoryUser = null;
+  let authReady;
 
   function getRootPrefix() {
     return window.location.pathname.replace(/\\/g, '/').includes('/templates/') ? '../../' : '';
@@ -65,39 +53,114 @@
     return getRootPrefix() + target + (parts[1] ? '#' + parts[1] : '');
   }
 
-  function clearPersistedUser() {
-    try { localStorage.removeItem(STORAGE_KEY); } catch (error) { /* persisted login cleanup only */ }
-  }
-
   function getUser() {
-    clearPersistedUser();
     try {
-      const value = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null');
-      return value && value.id ? value : memoryUser;
+      const sessionUser = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null');
+      if (sessionUser && sessionUser.id) return sessionUser;
+      const persistedUser = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      if (persistedUser && persistedUser.id) {
+        memoryUser = persistedUser;
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(persistedUser)); } catch (error) { /* 현재 탭에서만 복원 */ }
+        return persistedUser;
+      }
+      return memoryUser;
     } catch (error) {
       return memoryUser;
     }
   }
 
-  function login(userId) {
-    const user = {
-      id: String(userId || '').trim(),
-      loginAt: new Date().toISOString()
-    };
-    memoryUser = user;
-    clearPersistedUser();
-    try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user)); } catch (error) { /* 현재 페이지에서만 유지될 수 있음 */ }
-    return user;
+  function storeUser(user) {
+    const normalized = { ...user, loginAt: user.loginAt || new Date().toISOString() };
+    memoryUser = normalized;
+    try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(normalized)); } catch (error) { /* 현재 페이지에서만 유지될 수 있음 */ }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized)); } catch (error) { /* 현재 탭 로그인은 유지 */ }
+    return normalized;
   }
 
-  function logout() {
+  function clearUser() {
     memoryUser = null;
-    clearPersistedUser();
     try { sessionStorage.removeItem(STORAGE_KEY); } catch (error) { /* 이미 로그아웃된 상태로 처리 */ }
+    try { localStorage.removeItem(STORAGE_KEY); } catch (error) { /* 이미 로그아웃된 상태로 처리 */ }
+  }
+
+  async function requestAuth(path, options) {
+    let response;
+    try {
+      response = await fetch('/api/auth/' + path, {
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        ...options
+      });
+    } catch (error) {
+      throw new Error('인증 서버에 연결할 수 없습니다. node server.js 실행 후 http://127.0.0.1:4173 주소로 접속해 주세요.');
+    }
+    const contentType = String(response.headers.get('content-type') || '');
+    const payload = contentType.includes('application/json')
+      ? await response.json().catch(function () { return {}; })
+      : {};
+    if (!response.ok) {
+      if (!contentType.includes('application/json')) {
+        throw new Error('현재 접속 주소(' + window.location.origin + ')에는 인증 API가 없습니다. http://127.0.0.1:4173/templates/member/signup.html 로 접속해 주세요.');
+      }
+      throw new Error(payload.message || '인증 요청을 처리하지 못했습니다. (HTTP ' + response.status + ')');
+    }
+    return payload;
+  }
+
+  async function refreshUser() {
+    try {
+      const payload = await requestAuth('me', { method: 'GET', headers: {} });
+      if (payload.authenticated && payload.user) storeUser(payload.user);
+      else clearUser();
+    } catch (error) {
+      /* 서버에 연결할 수 없는 경우 현재 화면의 캐시 상태를 유지합니다. */
+    }
+    updateLoginButtons();
+    return getUser();
+  }
+
+  async function login(credentials) {
+    const payload = await requestAuth('login', {
+      method: 'POST',
+      body: JSON.stringify(credentials || {})
+    });
+    return storeUser(payload.user);
+  }
+
+  async function signup(data) {
+    const payload = await requestAuth('signup', {
+      method: 'POST',
+      body: JSON.stringify(data || {})
+    });
+    return storeUser(payload.user);
+  }
+
+  async function logout() {
+    try {
+      await requestAuth('logout', { method: 'POST', body: '{}' });
+    } finally {
+      clearUser();
+      updateLoginButtons();
+    }
   }
 
   function updateLoginButtons() {
     const user = getUser();
+    document.querySelectorAll('.header-actions').forEach(function (container) {
+      let communityLink = container.querySelector('.community-button');
+      if (!communityLink) {
+        communityLink = document.createElement('a');
+        communityLink.className = 'community-button';
+        communityLink.innerHTML = '<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i><span>게시판</span>';
+        const loginButton = container.querySelector('.login-button');
+        container.insertBefore(communityLink, loginButton || container.firstChild);
+      }
+      communityLink.href = resolvePage('community.html');
+      const active = ['community.html', 'community-detail.html'].includes(getCurrentPage());
+      communityLink.classList.toggle('active', active);
+      if (active) communityLink.setAttribute('aria-current', 'page');
+      else communityLink.removeAttribute('aria-current');
+    });
     document.querySelectorAll('.login-button').forEach(function (button) {
       const icon = document.createElement('i');
       const label = document.createElement('span');
@@ -110,6 +173,10 @@
       label.textContent = user ? user.id + '님' : '로그인';
       button.replaceChildren(icon, label);
     });
+    document.querySelectorAll('.listing-button').forEach(function (button) {
+      button.href = resolvePage('index.html#register-listing');
+      button.setAttribute('aria-label', user ? '매물 등록 화면 열기' : '회원 전용 매물 등록 안내 열기');
+    });
 
     document.querySelectorAll('.utility-signup-button').forEach(function (button) {
       button.href = resolvePage('signup.html');
@@ -121,6 +188,8 @@
     document.querySelectorAll('.utility-links').forEach(function (container) {
       let mypageLink = container.querySelector('.utility-mypage');
       let adminLink = container.querySelector('.utility-admin');
+      let notificationLink = container.querySelector('.utility-notifications');
+      let logoutButton = container.querySelector('.utility-logout');
       if (!mypageLink) {
         mypageLink = document.createElement('a');
         mypageLink.className = 'utility-mypage';
@@ -135,11 +204,110 @@
         adminLink.innerHTML = '<i class="fa-solid fa-user-tie" aria-hidden="true"></i><span>관리자</span>';
         container.appendChild(adminLink);
       }
+      if (!notificationLink) {
+        notificationLink = document.createElement('a');
+        notificationLink.className = 'utility-notifications';
+        notificationLink.href = resolvePage('mypage.html') + '#notifications';
+        notificationLink.innerHTML = '<i class="fa-solid fa-bell" aria-hidden="true"></i><span>알림</span>';
+        container.insertBefore(notificationLink, mypageLink);
+      }
+      if (!logoutButton) {
+        logoutButton = document.createElement('button');
+        logoutButton.type = 'button';
+        logoutButton.className = 'utility-logout';
+        logoutButton.innerHTML = '<i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>로그아웃</span>';
+        mypageLink.insertAdjacentElement('afterend', logoutButton);
+        logoutButton.addEventListener('click', async function () {
+          logoutButton.disabled = true;
+          try {
+            await logout();
+            window.location.href = resolvePage('index.html');
+          } catch (error) {
+            logoutButton.disabled = false;
+          }
+        });
+      }
       mypageLink.hidden = !user;
       mypageLink.setAttribute('aria-hidden', String(!user));
-      adminLink.hidden = !user || user.id !== 'admin';
-      adminLink.setAttribute('aria-hidden', String(!user || user.id !== 'admin'));
+      logoutButton.hidden = !user;
+      logoutButton.setAttribute('aria-hidden', String(!user));
+      notificationLink.hidden = !user;
+      notificationLink.setAttribute('aria-hidden', String(!user));
+      adminLink.hidden = !user || user.role !== 'admin';
+      adminLink.setAttribute('aria-hidden', String(!user || user.role !== 'admin'));
+      if (user) {
+        fetch('/api/notifications', { credentials: 'same-origin' })
+          .then(function (response) { return response.ok ? response.json() : null; })
+          .then(function (payload) {
+            const label = notificationLink.querySelector('span');
+            if (label && payload) label.textContent = payload.unreadCount ? '알림 ' + payload.unreadCount : '알림';
+          })
+          .catch(function () { /* 알림 표시는 부가 기능이므로 헤더 렌더링을 유지 */ });
+      }
     });
+  }
+
+  function listingGateElement() {
+    let gate = document.getElementById('listingMemberGate');
+    if (gate) return gate;
+    gate = document.createElement('div');
+    gate.id = 'listingMemberGate';
+    gate.className = 'listing-member-gate';
+    gate.hidden = true;
+    gate.innerHTML =
+      '<section class="listing-member-card" role="dialog" aria-modal="true" aria-labelledby="listingMemberTitle">' +
+        '<button class="listing-member-close" type="button" aria-label="안내 닫기">×</button>' +
+        '<span class="listing-member-symbol"><i class="fa-solid fa-house-lock" aria-hidden="true"></i></span>' +
+        '<small>MEMBERS ONLY</small><h2 id="listingMemberTitle">매물 등록은 회원만 이용할 수 있습니다</h2>' +
+        '<p>회원가입 또는 로그인 후 매물 정보를 안전하게 등록하고 관리할 수 있습니다.</p>' +
+        '<div class="listing-member-actions">' +
+          '<a class="listing-member-primary" href="' + resolvePage('signup.html') + '"><i class="fa-solid fa-user-plus" aria-hidden="true"></i><span><strong>회원가입</strong><small>ZipAI 회원으로 시작하기</small></span></a>' +
+          '<a href="' + resolvePage('login.html') + '"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i><span><strong>로그인하기</strong><small>기존 계정으로 이용하기</small></span></a>' +
+        '</div>' +
+      '</section>';
+    document.body.appendChild(gate);
+    gate.querySelector('.listing-member-close').addEventListener('click', function () {
+      gate.hidden = true;
+      document.body.classList.remove('listing-gate-open');
+    });
+    gate.addEventListener('click', function (event) {
+      if (event.target === gate) {
+        gate.hidden = true;
+        document.body.classList.remove('listing-gate-open');
+      }
+    });
+    return gate;
+  }
+
+  function showListingMemberGate() {
+    const gate = listingGateElement();
+    gate.hidden = false;
+    document.body.classList.add('listing-gate-open');
+    gate.querySelector('.listing-member-close').focus();
+  }
+
+  function setupListingAccess() {
+    if (document.documentElement.dataset.listingAccessReady === 'true') return;
+    document.documentElement.dataset.listingAccessReady = 'true';
+    document.addEventListener('click', function (event) {
+      const trigger = event.target.closest('.listing-button,[href$="#register-listing"]');
+      if (!trigger || getUser()) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      showListingMemberGate();
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape') return;
+      const gate = document.getElementById('listingMemberGate');
+      if (gate && !gate.hidden) {
+        gate.hidden = true;
+        document.body.classList.remove('listing-gate-open');
+      }
+    });
+    if (!getUser() && window.location.hash === '#register-listing') {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      showListingMemberGate();
+    }
   }
 
   function getCurrentPage() {
@@ -170,7 +338,7 @@
       setHeaderActiveLink('trend1.html');
       return;
     }
-    const readyPages = ['index.html', 'finance-policy.html', 'safety.html', 'happy-housing.html', 'lifestyle-analysis.html'];
+    const readyPages = ['index.html', 'finance-policy.html', 'safety.html', 'happy-housing.html', 'lifestyle-analysis.html', 'community.html'];
     setHeaderActiveLink(readyPages.includes(currentPage) ? currentPage : '');
   }
 
@@ -286,141 +454,26 @@
     });
   }
 
-  function normalizeSearchText(value) {
-    return String(value || '').toLocaleLowerCase('ko-KR').replace(/\s+/g, ' ').trim();
-  }
-
-  function searchSite(query) {
-    const words = normalizeSearchText(query).split(' ').filter(Boolean);
-    if (!words.length) return SITE_SEARCH_ITEMS.slice(0, 6);
-    return SITE_SEARCH_ITEMS.map(function (item) {
-      const title = normalizeSearchText(item.title);
-      const text = normalizeSearchText([item.title, item.description, item.keywords].join(' '));
-      let score = 0;
-      words.forEach(function (word) {
-        if (title === word) score += 12;
-        else if (title.includes(word)) score += 7;
-        if (text.includes(word)) score += 3;
-      });
-      return { item: item, score: score };
-    }).filter(function (result) {
-      return result.score > 0;
-    }).sort(function (a, b) {
-      return b.score - a.score;
-    }).map(function (result) {
-      return result.item;
-    });
-  }
-
-  function setupSiteSearch() {
-    const buttons = document.querySelectorAll('.zipai-header .icon-button[aria-label="검색"]');
-    if (!buttons.length || document.querySelector('.site-search-dialog')) return;
-
-    const dialog = document.createElement('div');
-    dialog.className = 'site-search-dialog';
-    dialog.hidden = true;
-    dialog.innerHTML =
-      '<div class="site-search-backdrop" data-search-close></div>' +
-      '<section class="site-search-panel" role="dialog" aria-modal="true" aria-labelledby="siteSearchTitle">' +
-        '<div class="site-search-heading">' +
-          '<div><span>ZIPAI 통합검색</span><h2 id="siteSearchTitle">무엇을 찾고 계신가요?</h2></div>' +
-          '<button class="site-search-close" type="button" data-search-close aria-label="검색창 닫기"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>' +
-        '</div>' +
-        '<form class="site-search-form" role="search">' +
-          '<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>' +
-          '<input type="search" autocomplete="off" placeholder="예: 전세사기, 행복주택 자격, 월세 매물" aria-label="사이트 검색어">' +
-          '<button type="submit">검색</button>' +
-        '</form>' +
-        '<p class="site-search-guide">찾고 싶은 서비스나 궁금한 내용을 입력해 보세요.</p>' +
-        '<div class="site-search-results" aria-live="polite"></div>' +
-      '</section>';
-    document.body.appendChild(dialog);
-
-    const input = dialog.querySelector('input');
-    const results = dialog.querySelector('.site-search-results');
-    const guide = dialog.querySelector('.site-search-guide');
-    let previousFocus = null;
-
-    function renderResults(query) {
-      const items = searchSite(query);
-      guide.textContent = query
-        ? (items.length ? items.length + '개의 관련 결과를 찾았어요.' : '일치하는 결과가 없어요. 다른 단어로 검색해 보세요.')
-        : '많이 찾는 서비스를 먼저 보여드려요.';
-      results.replaceChildren();
-      items.forEach(function (item) {
-        const link = document.createElement('a');
-        const icon = document.createElement('span');
-        const copy = document.createElement('span');
-        const title = document.createElement('strong');
-        const description = document.createElement('small');
-        link.className = 'site-search-result';
-        link.href = resolvePage(item.href);
-        icon.className = 'site-search-result-icon';
-        icon.innerHTML = '<i class="fa-solid fa-arrow-right" aria-hidden="true"></i>';
-        title.textContent = item.title;
-        description.textContent = item.description;
-        copy.append(title, description);
-        link.append(icon, copy);
-        results.appendChild(link);
-      });
-      if (!items.length) {
-        const empty = document.createElement('a');
-        empty.className = 'site-search-empty';
-        empty.href = resolvePage('customer-center.html');
-        empty.innerHTML = '<i class="fa-regular fa-circle-question" aria-hidden="true"></i><span><strong>원하는 답을 찾지 못하셨나요?</strong><small>고객센터에서 자주 묻는 질문을 확인하거나 문의해 주세요.</small></span>';
-        results.appendChild(empty);
-      }
-    }
-
-    function openSearch() {
-      previousFocus = document.activeElement;
-      dialog.hidden = false;
-      document.body.classList.add('site-search-open');
-      renderResults(input.value);
-      window.setTimeout(function () { input.focus(); }, 0);
-    }
-
-    function closeSearch() {
-      dialog.hidden = true;
-      document.body.classList.remove('site-search-open');
-      if (previousFocus && previousFocus.focus) previousFocus.focus();
-    }
-
-    buttons.forEach(function (button) {
-      button.setAttribute('aria-haspopup', 'dialog');
-      button.addEventListener('click', openSearch);
-    });
-    dialog.querySelectorAll('[data-search-close]').forEach(function (button) {
-      button.addEventListener('click', closeSearch);
-    });
-    dialog.querySelector('form').addEventListener('submit', function (event) {
-      event.preventDefault();
-      renderResults(input.value);
-    });
-    input.addEventListener('input', function () {
-      renderResults(input.value);
-    });
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && !dialog.hidden) closeSearch();
-    });
-  }
-
   window.ZipaiAuth = {
     getUser: getUser,
     login: login,
+    signup: signup,
     logout: logout,
+    refreshUser: refreshUser,
+    get ready() { return authReady; },
     updateLoginButtons: updateLoginButtons,
     resolvePage: resolvePage
   };
 
   function initAuthUi() {
+    setupListingAccess();
     updateLoginButtons();
     setupPendingHeaderLinks();
     setupHeaderActiveState();
     setupFraudSubnav();
-    setupSiteSearch();
   }
 
+  authReady = refreshUser();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAuthUi);
   else initAuthUi();
 })();

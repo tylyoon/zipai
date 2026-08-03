@@ -4,6 +4,13 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
+const { handleAuthRoute } = require('./backend/auth');
+const { handlePropertyRoute } = require('./backend/property-api');
+const { handleVisitRoute } = require('./backend/visit-api');
+const { handleBoardRoute } = require('./backend/board-api');
+const { handleInquiryRoute } = require('./backend/inquiry-api');
+const { handleAdminRoute } = require('./backend/admin-api');
+const { handleNotificationRoute } = require('./backend/notification-api');
 
 const root = __dirname;
 
@@ -30,8 +37,10 @@ function loadLocalEnv() {
 loadLocalEnv();
 
 const port = Number(process.env.PORT || 4173);
+const host = String(process.env.HOST || '127.0.0.1');
 const serviceKey = String(process.env.PUBLIC_DATA_SERVICE_KEY || '').trim();
 const cache = { expiresAt: 0, items: [] };
+const rateBuckets = new Map();
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -51,6 +60,42 @@ function json(response, status, payload) {
     'Cache-Control': 'no-store'
   });
   response.end(JSON.stringify(payload));
+}
+
+function applySecurityHeaders(response) {
+  response.setHeader('X-Content-Type-Options', 'nosniff');
+  response.setHeader('X-Frame-Options', 'DENY');
+  response.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self)');
+  response.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
+}
+
+function requestOriginAllowed(request) {
+  const origin = request.headers.origin;
+  if (!origin) return true;
+  const forwardedProto = String(request.headers['x-forwarded-proto'] || '').split(',')[0].trim();
+  const protocol = forwardedProto || (request.socket.encrypted ? 'https' : 'http');
+  return origin === `${protocol}://${request.headers.host}`;
+}
+
+function rateLimit(request, response, pathname) {
+  if (!pathname.startsWith('/api/')) return false;
+  const address = request.socket.remoteAddress || 'unknown';
+  const sensitive = pathname === '/api/auth/login' || pathname === '/api/auth/signup';
+  const windowMs = sensitive ? 10 * 60 * 1000 : 60 * 1000;
+  const limit = sensitive ? 30 : 240;
+  const key = `${address}:${sensitive ? 'auth' : 'api'}`;
+  const now = Date.now();
+  let bucket = rateBuckets.get(key);
+  if (!bucket || bucket.resetAt <= now) bucket = { count: 0, resetAt: now + windowMs };
+  bucket.count += 1;
+  rateBuckets.set(key, bucket);
+  response.setHeader('RateLimit-Limit', String(limit));
+  response.setHeader('RateLimit-Remaining', String(Math.max(0, limit - bucket.count)));
+  response.setHeader('RateLimit-Reset', String(Math.ceil(bucket.resetAt / 1000)));
+  if (bucket.count <= limit) return false;
+  json(response, 429, { message: '요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.' });
+  return true;
 }
 
 function dateText(date) {
@@ -268,6 +313,16 @@ function staticFile(request, response) {
     return;
   }
   if (pathname === '/') pathname = '/index.html';
+  const firstSegment = pathname.split('/').filter(Boolean)[0] || '';
+  if (
+    firstSegment.startsWith('.') ||
+    ['backend', 'data', 'docs', 'node_modules', 'ppt'].includes(firstSegment) ||
+    ['/server.js', '/package.json', '/package-lock.json', '/README.md'].includes(pathname)
+  ) {
+    response.writeHead(404);
+    response.end('Not Found');
+    return;
+  }
   const filePath = path.resolve(root, `.${pathname}`);
   if (!filePath.startsWith(root + path.sep)) {
     response.writeHead(403);
@@ -288,8 +343,27 @@ function staticFile(request, response) {
   });
 }
 
-const server = http.createServer((request, response) => {
-  const pathname = new URL(request.url, `http://${request.headers.host || 'localhost'}`).pathname;
+const server = http.createServer(async (request, response) => {
+  applySecurityHeaders(response);
+  let pathname;
+  try {
+    pathname = new URL(request.url, `http://${request.headers.host || 'localhost'}`).pathname;
+  } catch (error) {
+    json(response, 400, { message: '요청 주소가 올바르지 않습니다.' });
+    return;
+  }
+  if (rateLimit(request, response, pathname)) return;
+  if (!['GET', 'HEAD', 'OPTIONS'].includes(request.method) && !requestOriginAllowed(request)) {
+    json(response, 403, { message: '허용되지 않은 요청 출처입니다.' });
+    return;
+  }
+  if (await handleAuthRoute(request, response, pathname)) return;
+  if (await handlePropertyRoute(request, response, pathname)) return;
+  if (await handleVisitRoute(request, response, pathname)) return;
+  if (await handleBoardRoute(request, response, pathname)) return;
+  if (await handleInquiryRoute(request, response, pathname)) return;
+  if (await handleAdminRoute(request, response, pathname)) return;
+  if (await handleNotificationRoute(request, response, pathname)) return;
   if (request.method === 'GET' && pathname === '/api/general-properties') {
     try {
       const items = adminExcelProperties();
@@ -311,7 +385,7 @@ const server = http.createServer((request, response) => {
   staticFile(request, response);
 });
 
-server.listen(port, '127.0.0.1', () => {
-  console.log(`ZipAI Gyeonggi map: http://127.0.0.1:${port}`);
+server.listen(port, host, () => {
+  console.log(`ZipAI Gyeonggi map: http://${host}:${port}`);
   if (!serviceKey) console.log('LH public housing: PUBLIC_DATA_SERVICE_KEY is not configured');
 });

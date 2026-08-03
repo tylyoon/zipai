@@ -1,4 +1,4 @@
-(function () {
+(async function () {
   'use strict';
 
   const auth = window.ZipaiAuth;
@@ -11,6 +11,7 @@
   const logoutButton = document.getElementById('mypageLogout');
 
   if (!auth || !guestView || !memberView || !userId || !loginTime || !favoriteCount || !favoriteCountText || !logoutButton) return;
+  await auth.ready;
 
   function getFavoriteCount() {
     try {
@@ -43,8 +44,8 @@
     auth.updateLoginButtons();
   }
 
-  logoutButton.addEventListener('click', function () {
-    auth.logout();
+  logoutButton.addEventListener('click', async function () {
+    await auth.logout();
     window.location.href = auth.resolvePage('login.html');
   });
 

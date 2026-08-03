@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko" id="pageTop">
 <head>
   <meta charset="UTF-8">
@@ -49,7 +49,7 @@
             <a href="../../templates/safe/safety.html">위험안전도</a>
             <a href="../../templates/board/trend1.html">금융지원정책</a>
             <a href="../../templates/board/happy-housing.html">행복주택</a>
-            <a href="../../templates/ai/lifestyle-analysis.html">총 주거비 비교</a>
+            <a href="../../templates/ai/lifestyle-analysis.html">방 구하기·내놓기</a>
           </div>
           <div class="header-actions">
             <button class="icon-button" type="button" aria-label="검색">
@@ -107,7 +107,7 @@
           <div class="admin-toolbar">
             <input id="adminSearch" type="search" placeholder="제목, 이메일, 문의 내용 검색" aria-label="문의 검색">
             <select id="adminCategoryFilter" aria-label="문의 유형 필터"><option value="">모든 문의 유형</option><option>매물 이용</option><option>계약 안전</option><option>로그인·계정</option><option>서비스 오류</option><option>기타</option></select>
-            <select id="adminStatusFilter" aria-label="처리 상태 필터"><option value="">모든 처리 상태</option><option>접수 완료</option><option>답변 준비</option><option>답변 완료</option></select>
+            <select id="adminStatusFilter" aria-label="처리 상태 필터"><option value="">모든 처리 상태</option><option value="received">접수</option><option value="in_progress">확인 중</option><option value="answered">답변 완료</option></select>
           </div>
 
           <div class="admin-workspace">
@@ -125,7 +125,7 @@
                 <p class="admin-detail-email" id="adminDetailEmail"></p>
                 <div class="admin-detail-message" id="adminDetailMessage"></div>
                 <label class="admin-reply-control">답변 내용<textarea id="adminReplyMessage" maxlength="1500" placeholder="고객에게 전달할 답변을 입력하세요."></textarea></label>
-                <label class="admin-status-control">처리 상태<select id="adminDetailStatus"><option>접수 완료</option><option>답변 준비</option><option>답변 완료</option></select></label>
+                <label class="admin-status-control">처리 상태<select id="adminDetailStatus"><option value="received">접수</option><option value="in_progress">확인 중</option><option value="answered">답변 완료</option></select></label>
                 <div class="admin-detail-actions">
                   <button class="admin-save" id="adminSaveStatus" type="button">상태 저장</button>
                   <button class="admin-reply-save" id="adminSaveReply" type="button">답변 저장 및 완료</button>
@@ -134,6 +134,16 @@
               </div>
             </aside>
           </div>
+        </section>
+
+        <section class="admin-panel">
+          <div class="admin-list-heading"><h2>매물 검토</h2><span>승인·거절·종료 처리</span></div>
+          <div class="admin-list" id="adminPropertyList"></div>
+        </section>
+
+        <section class="admin-panel">
+          <div class="admin-list-heading"><h2>게시글 관리</h2><span>운영 정책 위반 게시글 삭제</span></div>
+          <div class="admin-list" id="adminPostList"></div>
         </section>
       </div>
     </div>

@@ -1,28 +1,29 @@
-(function () {
+(async function () {
   'use strict';
 
-  const STORAGE_KEY = 'zipaiDemoInquiries';
   const form = document.getElementById('inquiryForm');
   const list = document.getElementById('inquiryList');
   const empty = document.getElementById('inquiryEmpty');
   const count = document.getElementById('inquiryCount');
   const toast = document.getElementById('customerToast');
   const userMessage = document.getElementById('customerUserMessage');
+  const memberGate = document.getElementById('inquiryMemberGate');
+  const memberContent = document.getElementById('inquiryMemberContent');
+  const statusLabels = { received: '접수', in_progress: '확인 중', answered: '답변 완료' };
+  if (window.ZipaiAuth) await window.ZipaiAuth.ready;
+  const user = window.ZipaiAuth && window.ZipaiAuth.getUser();
 
   if (!form || !list || !empty || !count || !toast) return;
-
-  function readInquiries() {
-    try {
-      const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-      return Array.isArray(value) ? value : [];
-    } catch (error) {
-      return [];
-    }
+  if (!user) {
+    if (memberGate) memberGate.hidden = false;
+    if (memberContent) memberContent.hidden = true;
+    if (userMessage) userMessage.textContent = '1:1 문의 작성과 문의내역 확인은 로그인 회원만 이용할 수 있습니다.';
+    return;
   }
-
-  function writeInquiries(items) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); } catch (error) { /* 데모 저장이 제한된 환경 */ }
-  }
+  if (memberGate) memberGate.hidden = true;
+  if (memberContent) memberContent.hidden = false;
+  const emailInput = form.elements.email;
+  if (emailInput && !emailInput.value) emailInput.value = user.email || '';
 
   function showToast(message) {
     toast.textContent = message;
@@ -31,14 +32,24 @@
     window.__customerToast = setTimeout(function () { toast.classList.remove('is-visible'); }, 2400);
   }
 
-  function renderHistory() {
-    const items = readInquiries();
+  async function api(path, options) {
+    const response = await fetch(path, {
+      credentials: 'same-origin',
+      headers: options && options.body ? { 'Content-Type': 'application/json' } : {},
+      ...options
+    });
+    const payload = await response.json().catch(function () { return {}; });
+    if (!response.ok) throw new Error(payload.message || '요청을 처리하지 못했습니다.');
+    return payload;
+  }
+
+  function renderHistory(items) {
     list.replaceChildren();
     count.textContent = items.length;
     empty.hidden = items.length > 0;
     list.hidden = items.length === 0;
 
-    items.slice().reverse().forEach(function (item) {
+    items.forEach(function (item) {
       const article = document.createElement('article');
       const top = document.createElement('div');
       const category = document.createElement('span');
@@ -51,47 +62,58 @@
       category.className = 'inquiry-item-category';
       status.className = 'inquiry-item-status';
       category.textContent = item.category;
-      status.textContent = item.status;
+      status.textContent = statusLabels[item.status] || item.status;
       title.textContent = item.title;
       time.dateTime = item.createdAt;
       time.textContent = new Intl.DateTimeFormat('ko-KR', { dateStyle: 'medium' }).format(new Date(item.createdAt));
       answer.className = 'inquiry-item-answer';
-      answer.textContent = item.reply ? '답변: ' + item.reply : '아직 등록된 답변이 없습니다.';
-      answer.classList.toggle('is-pending', !item.reply);
+      answer.textContent = item.answer ? '답변: ' + item.answer : '아직 등록된 답변이 없습니다.';
+      answer.classList.toggle('is-pending', !item.answer);
       top.append(category, status);
       article.append(top, title, time, answer);
       list.appendChild(article);
     });
   }
 
-  form.addEventListener('submit', function (event) {
+  async function loadHistory() {
+    try {
+      const payload = await api('/api/inquiries');
+      renderHistory(payload.items || []);
+    } catch (error) {
+      showToast(error.message);
+    }
+  }
+
+  form.addEventListener('submit', async function (event) {
     event.preventDefault();
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-
+    const button = form.querySelector('[type="submit"]');
     const data = new FormData(form);
-    const items = readInquiries();
-    items.push({
-      id: Date.now(),
-      category: data.get('category'),
-      title: String(data.get('title') || '').trim(),
-      email: String(data.get('email') || '').trim(),
-      message: String(data.get('message') || '').trim(),
-      status: '접수 완료',
-      createdAt: new Date().toISOString()
-    });
-    writeInquiries(items);
-    form.reset();
-    renderHistory();
-    showToast('문의가 접수되었습니다. 데모 환경의 브라우저에 저장했어요.');
+    button.disabled = true;
+    try {
+      await api('/api/inquiries', {
+        method: 'POST',
+        body: JSON.stringify({
+          category: data.get('category'),
+          title: String(data.get('title') || '').trim(),
+          email: String(data.get('email') || '').trim(),
+          message: String(data.get('message') || '').trim()
+        })
+      });
+      form.reset();
+      if (emailInput) emailInput.value = user.email || '';
+      await loadHistory();
+      showToast('문의가 접수되었습니다.');
+    } catch (error) {
+      showToast(error.message);
+    } finally {
+      button.disabled = false;
+    }
   });
 
-  if (userMessage && window.ZipaiAuth) {
-    const user = window.ZipaiAuth.getUser();
-    userMessage.textContent = user ? user.id + '님, 무엇을 도와드릴까요?' : '로그인하면 문의 내역을 같은 브라우저에서 확인할 수 있어요.';
-  }
-
-  renderHistory();
+  if (userMessage) userMessage.textContent = user.id + '님, 무엇을 도와드릴까요?';
+  await loadHistory();
 })();

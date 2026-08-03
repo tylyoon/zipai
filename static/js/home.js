@@ -146,7 +146,7 @@
     } catch (error) { return []; }
   }
 
-  function saveFavorites() {
+  function saveFavorites(syncServer) {
     try { localStorage.setItem('zipdosoFavorites', JSON.stringify(favorites)); } catch (error) { /* local file privacy mode */ }
     try {
       const previous = JSON.parse(localStorage.getItem('zipaiFavoriteProperties') || '[]');
@@ -173,6 +173,29 @@
     } catch (error) { /* local file privacy mode */ }
     const favoriteCount = document.getElementById('favoriteCount');
     if (favoriteCount) favoriteCount.textContent = favorites.length;
+    if (syncServer && window.ZipaiAuth && window.ZipaiAuth.getUser()) {
+      fetch('/api/favorites', {
+        method: 'PUT',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: favorites })
+      }).catch(function () { showToast('찜 목록을 서버에 저장하지 못했습니다.'); });
+    }
+  }
+
+  async function loadServerFavorites() {
+    if (!window.ZipaiAuth) return;
+    await window.ZipaiAuth.ready;
+    if (!window.ZipaiAuth.getUser()) return;
+    try {
+      const response = await fetch('/api/favorites', { credentials: 'same-origin' });
+      if (!response.ok) return;
+      const payload = await response.json();
+      if (Array.isArray(payload.ids) && payload.ids.length) favorites = payload.ids.map(Number);
+      else if (favorites.length) saveFavorites(true);
+      saveFavorites(false);
+      render();
+    } catch (error) { /* 로컬 찜 목록을 유지합니다. */ }
   }
 
   function money(value) {
@@ -655,7 +678,7 @@
   function toggleFavorite(id) {
     if (favorites.includes(id)) favorites = favorites.filter(function (value) { return value !== id; });
     else favorites.push(id);
-    saveFavorites(); render();
+    saveFavorites(true); render();
     if (state.selected === id) openDetail(id, false);
     showToast(favorites.includes(id) ? '찜한 매물에 저장했어요.' : '찜한 매물에서 삭제했어요.');
   }
@@ -1003,8 +1026,13 @@
   }
   listingRegistrationModal.querySelector('.registration-close').addEventListener('click', function () { closeSheet(listingRegistrationModal); });
   listingRegistrationModal.addEventListener('click', function (event) { if (event.target === listingRegistrationModal) closeSheet(listingRegistrationModal); });
-  document.getElementById('listingRegistrationForm').addEventListener('submit', function (event) {
+  document.getElementById('listingRegistrationForm').addEventListener('submit', async function (event) {
     event.preventDefault();
+    if (!window.ZipaiAuth || !window.ZipaiAuth.getUser()) {
+      closeSheet(listingRegistrationModal);
+      if (openListingRegistration) openListingRegistration.click();
+      return;
+    }
     const form = new FormData(this);
     const city = String(form.get('city') || '');
     const center = cityCenters[city];
@@ -1041,6 +1069,22 @@
       verifiedAt: today,
       contact: String(form.get('contact') || '')
     };
+    let serverRegistered;
+    try {
+      const response = await fetch('/api/properties', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(registered)
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.message || '매물을 등록하지 못했습니다.');
+      serverRegistered = payload.item;
+    } catch (error) {
+      showToast(error.message);
+      return;
+    }
+    Object.assign(registered, serverRegistered);
     const stored = getRegisteredProperties();
     stored.unshift(registered);
     localStorage.setItem('zipaiGyeonggiProperties', JSON.stringify(stored));
@@ -1056,6 +1100,6 @@
     savedHomesButton.classList.add('active');
     savedHomesButton.setAttribute('aria-pressed', 'true');
   }
-  if (window.location.hash === '#register-listing') openSheet(listingRegistrationModal);
-  initMap(); saveFavorites(); render(); updateFilterBadge(); loadAdminExcelProperties();
+  if (window.location.hash === '#register-listing' && window.ZipaiAuth && window.ZipaiAuth.getUser()) openSheet(listingRegistrationModal);
+  initMap(); saveFavorites(false); render(); updateFilterBadge(); loadAdminExcelProperties(); loadServerFavorites();
 })();
