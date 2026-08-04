@@ -563,3 +563,139 @@ PORT
 ```
 
 LH API가 필요하지 않다면 인증키 없이 서버를 실행해 일반 매물과 나머지 화면을 확인할 수 있습니다.
+
+---
+
+## 2026-08-04 배포 및 백엔드 연동 작업
+
+### 운영 구성
+
+정적 프론트엔드는 Netlify에서 제공하고, 동적 기능은 Render의 Spring Boot API와 Aiven MySQL을 통해 처리하도록 구성했습니다.
+
+```text
+사용자
+  ↓
+Netlify (HTML, CSS, JavaScript, Naver Maps)
+  ↓ /api/* 프록시
+Render Free Web Service (Java 21, Spring Boot 3.5.4, Tomcat 10.1)
+  ↓ JDBC + SSL
+Aiven MySQL 8.4
+```
+
+사용자는 Netlify 사이트에만 접속하며 로그인, 회원가입, 찜, 매물 등록, 문의, 커뮤니티, 방문 예약 및 관리자 기능의 `/api/*` 요청은 Render 백엔드로 전달됩니다.
+
+### 적용 기술
+
+- Java 21
+- Spring Boot 3.5.4
+- Spring Data JPA 및 일부 `JdbcTemplate` 쿼리
+- Thymeleaf 및 내장 Tomcat 10.1
+- MySQL 8.4와 Flyway 마이그레이션
+- Gradle Wrapper와 Docker 멀티 스테이지 빌드
+- GitHub Actions 빌드 검증 및 Render 배포 훅 지원
+- Netlify 외부 API 프록시
+
+### 배포 주소 및 상태 확인
+
+Render 백엔드 상태 확인 주소:
+
+```text
+https://zipai-jb4z.onrender.com/api/health
+```
+
+정상 응답:
+
+```json
+{"status":"ok"}
+```
+
+Netlify 재배포 후에는 Production URL에 `/api/health`를 붙여 프록시 연결을 확인합니다.
+
+```text
+https://<netlify-production-domain>/api/health
+```
+
+### 추가 및 변경된 파일
+
+| 파일                                | 역할                                                               |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| `Dockerfile`                      | Java 21에서 Spring Boot JAR을 빌드하고 경량 JRE 이미지로 실행      |
+| `.dockerignore`                   | Docker 빌드에서 개발·로그·로컬 비밀 파일 제외                    |
+| `render.yaml`                     | Render 무료 Web Service, 상태 확인 경로 및 필수 환경변수 선언      |
+| `netlify.toml`                    | Netlify의`/api/*` 요청을 Render 백엔드로 프록시                  |
+| `.github/workflows/ci-deploy.yml` | Gradle 테스트, JAR·Docker 빌드 검증 및 선택적 Render 배포 훅 실행 |
+| `HealthController.java`           | `/api/health` 상태 확인 API 제공                                 |
+| `PublicHousingController.java`    | Spring Boot에서 LH 공공임대 API 조회 및 10분 캐시 제공             |
+
+### 추가 및 정리된 API
+
+| 경로                        | 방식             | 설명                                      |
+| --------------------------- | ---------------- | ----------------------------------------- |
+| `/api/health`             | GET              | 백엔드 실행 상태 확인                     |
+| `/api/general-properties` | GET              | MySQL에 저장된 승인 매물 조회             |
+| `/api/public-housing`     | GET              | LH 공공임대 모집공고 조회                 |
+| `/api/auth/*`             | GET/POST         | 로그인 세션, 회원가입, 로그인 및 로그아웃 |
+| `/api/favorites`          | GET/PUT          | 사용자 찜 목록 조회 및 저장               |
+| `/api/properties`         | POST             | 사용자 매물 등록                          |
+| `/api/inquiries`          | GET/POST         | 사용자 문의 조회 및 등록                  |
+| `/api/community/*`        | GET/POST/PUT     | 커뮤니티 글, 댓글 및 좋아요               |
+| `/api/visits`             | GET/POST/PATCH   | 방문 예약 등록 및 상태 처리               |
+| `/api/room-offers`        | GET/POST         | 방 내놓기 등록 및 조회                    |
+| `/api/admin/*`            | GET/PATCH/DELETE | 관리자 문의, 매물 및 커뮤니티 관리        |
+
+### Render 환경변수
+
+Render 대시보드에 다음 환경변수를 설정합니다. 실제 비밀번호와 인증키는 저장소나 문서에 기록하지 않습니다.
+
+```env
+SERVER_HOST=0.0.0.0
+COOKIE_SECURE=true
+DB_URL=jdbc:mysql://<aiven-host>:<port>/defaultdb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&sslMode=REQUIRED
+DB_USERNAME=<aiven-database-user>
+DB_PASSWORD=<aiven-database-password>
+JAVA_TOOL_OPTIONS=-Xms64m -Xmx320m
+PUBLIC_DATA_SERVICE_KEY=<optional-decoded-public-data-key>
+```
+
+`PUBLIC_DATA_SERVICE_KEY`가 없으면 나머지 서비스는 실행할 수 있지만 LH 공공임대 API 기능은 사용할 수 없습니다.
+
+### 데이터베이스 초기화
+
+Spring Boot가 Aiven MySQL에 처음 연결되면 Flyway가 `src/main/resources/db/migration`의 SQL을 실행하여 사용자, 매물, 찜, 방문 예약, 커뮤니티, 문의 및 알림 테이블을 생성합니다. 운영 데이터베이스에는 `ddl-auto: validate`를 사용합니다.
+
+### 보안 주의사항
+
+- Aiven 로그인 비밀번호가 아닌 MySQL 전용 접속 비밀번호를 `DB_PASSWORD`로 사용합니다.
+- 데이터베이스 비밀번호와 API 키는 Render 환경변수에만 저장합니다.
+- `.env`, 실제 인증서 및 비밀값을 Git에 커밋하지 않습니다.
+- Aiven 연결에는 `sslMode=REQUIRED`를 사용합니다.
+- Render 무료 서비스는 고정 송신 IP가 없으므로 현재 Aiven IP 필터를 특정 Render IP로 제한할 수 없습니다. 운영 규모가 커지면 고정 IP 또는 사설 네트워크 환경으로 이전합니다.
+
+### 무료 플랜 제한
+
+- Render 무료 Web Service는 일정 시간 요청이 없으면 중지되며 첫 요청 시 재시작에 약 1분이 걸릴 수 있습니다.
+- Render 무료 인스턴스는 512MB RAM과 제한된 CPU를 사용하므로 Java 힙을 `-Xms64m -Xmx320m`으로 제한했습니다.
+- Aiven 무료 MySQL은 학습, 시연 및 소규모 프로젝트 용도이며 저장공간과 성능에 제한이 있습니다.
+- 트래픽과 데이터가 증가하면 유료 관리형 서비스 또는 EC2 등 별도 인프라로 이전해야 합니다.
+
+### 향후 인프라 이전
+
+현재 프론트엔드와 API 경로를 유지하면서 백엔드와 데이터베이스를 EC2 등으로 이전할 수 있습니다.
+
+1. Aiven MySQL 데이터를 `mysqldump`로 백업합니다.
+2. 새 MySQL 서버에 데이터를 복원합니다.
+3. 새 백엔드의 `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`를 변경합니다.
+4. `netlify.toml`의 프록시 대상을 새 백엔드 주소로 변경합니다.
+5. Netlify의 `/api/health` 및 주요 사용자 기능을 다시 검증합니다.
+
+### 배포 완료 체크리스트
+
+- [X] Naver Maps 허용 도메인에 Netlify Production URL 등록
+- [X] Aiven MySQL 8.4 생성 및 SSL 연결정보 발급
+- [X] Render 무료 Docker Web Service 생성
+- [X] Render `/api/health` 정상 응답 확인
+- [X] Netlify `/api/*` 프록시 설정 추가
+- [ ] Netlify 재배포 후 `/api/health` 응답 확인
+- [ ] Netlify에서 회원가입, 로그인, 로그아웃 및 세션 유지 확인
+- [ ] 찜, 매물 등록, 문의, 커뮤니티 및 방문 예약 기능 확인
+- [ ] GitHub Actions용 `RENDER_DEPLOY_HOOK_URL` Secret 설정
