@@ -31,6 +31,13 @@ public class PropertyController {
         return Map.of("items", properties.findByOwnerIdOrderByIdDesc(user.id).stream().map(this::view).toList());
     }
 
+    @GetMapping("/api/general-properties")
+    Map<String, Object> generalProperties() {
+        List<Map<String, Object>> items = properties.findByStatusOrderByIdDesc("approved")
+            .stream().map(this::view).toList();
+        return Map.of("source", "ZipAI MySQL", "items", items, "count", items.size());
+    }
+
     @PostMapping("/api/properties")
     @ResponseStatus(HttpStatus.CREATED)
     Map<String, Object> create(@RequestBody Map<String, Object> body, HttpSession session) throws Exception {
