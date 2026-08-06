@@ -1,6 +1,8 @@
 server:
   address: ${SERVER_HOST:127.0.0.1}
-  port: ${SERVER_PORT:4173}
+  # Render injects PORT. SERVER_PORT remains available for local development.
+  port: ${PORT:${SERVER_PORT:4173}}
+  forward-headers-strategy: framework
   servlet:
     session:
       timeout: 7d

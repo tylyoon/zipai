@@ -43,3 +43,24 @@ tasks.named('processResources') {
     from('templates') { into 'static/templates' }
     from('templates') { into 'templates' }
 }
+
+tasks.register('resetAdminPassword', JavaExec) {
+    group = 'administration'
+    description = 'Reset an application administrator password using DB_* environment variables.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.zipai.tools.ResetAdminPassword'
+}
+
+tasks.register('listAdminAccounts', JavaExec) {
+    group = 'administration'
+    description = 'List application administrator accounts without modifying the database.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.zipai.tools.ListAdminAccounts'
+}
+
+tasks.register('createAdminAccount', JavaExec) {
+    group = 'administration'
+    description = 'Create a new active application administrator account.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.zipai.tools.CreateAdminAccount'
+}
