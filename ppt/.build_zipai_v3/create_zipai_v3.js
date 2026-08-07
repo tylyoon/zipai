@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const OUT = path.join(ROOT, 'ppt', 'ZipAI_프로젝트_발표자료_v3_수정본.pptx');
-const SCRIPT_OUT = path.join(ROOT, 'ppt', 'ZipAI_발표대본_v3_수정본.txt');
+const OUT = path.join(ROOT, 'ppt', 'ZipAI_프로젝트_발표자료_v3_최종수정본.pptx');
+const SCRIPT_OUT = path.join(ROOT, 'ppt', 'ZipAI_발표대본_v3_최종수정본.txt');
 const pptx = new pptxgen();
 pptx.layout = 'LAYOUT_WIDE';
 pptx.author = 'ZipAI Team';
@@ -86,7 +86,7 @@ function icon(s,n,x,y,color=C.green){s.addShape(pptx.ShapeType.ellipse,{x,y,w:0.
  const ys=[2.08,3.28,4.48]; const labels=[['VIEW','HTML templates · CSS · Vanilla JS',C.blue,C.pale],['API / DOMAIN','Controller → Service → Repository',C.green,C.mint],['DATA','MySQL · Flyway migration · 외부 공공데이터',C.orange,C.peach]];
  labels.forEach((v,i)=>{rect(s,1.0,ys[i],11.3,0.78,v[3],v[3]);pill(s,v[0],1.25,ys[i]+0.22,1.45,C.white,v[2]);tx(s,v[1],3.0,ys[i]+0.22,8.7,0.28,17,C.navy,true);if(i<2)s.addShape(pptx.ShapeType.downArrow,{x:6.32,y:ys[i]+0.86,w:0.42,h:0.3,fill:{color:C.gray},line:{color:C.gray}});});
  tx(s,'대표 코드 흐름',1.0,5.72,2.0,0.28,14,C.green,true);tx(s,'PropertyController → 서비스/저장소 → PropertyListing   |   AuthController → AuthService → UserRepository',2.55,5.69,9.4,0.38,14,C.ink,true);
- addNote(s,5,'프로젝트 구조 및 코드 설계','코드는 화면, API, 도메인 서비스, 저장소와 데이터 계층을 분리했습니다. 예를 들어 매물 요청은 PropertyController에서 받고 서비스와 저장소를 통해 PropertyListing으로 연결됩니다. 인증도 AuthController, AuthService, UserRepository로 역할을 나눴습니다. 이 구조는 현재 구현된 기능을 유지하면서 이후 추천이나 데이터 자동화 모듈을 추가하기 쉽게 합니다.');
+ addNote(s,5,'프로젝트 구조 및 코드 설계','이 페이지는 사용자가 화면에서 버튼을 눌렀을 때, 그 요청이 내부에서 어떻게 처리되는지를 보여 줍니다. 예를 들어 사용자가 매물을 검색한다고 가정해 보겠습니다. 먼저 사용자가 보는 웹 화면에서 검색 조건을 입력합니다. 그러면 Controller가 이 요청을 가장 먼저 받아서 어떤 기능이 필요한지 확인합니다. 다음으로 Service가 실제 검색 규칙과 처리 과정을 담당합니다. Repository는 데이터베이스에서 조건에 맞는 매물 정보를 가져옵니다. 마지막으로 MySQL에 저장된 결과가 반대 순서로 화면에 전달되어 사용자가 매물 목록을 보게 됩니다. 쉽게 비유하면 Controller는 접수 창구, Service는 실제 업무 담당자, Repository는 자료를 찾아오는 담당자, 데이터베이스는 자료가 보관된 창고입니다. 이렇게 역할을 나누면 한 부분을 수정해도 다른 기능에 미치는 영향을 줄일 수 있고, 나중에 추천이나 자동 데이터 수집 기능도 더 쉽게 추가할 수 있습니다.');
 }
 
 // 6 journey
