@@ -75,11 +75,13 @@ function arrow(slide, x, y, w, color = C.blue) {
   s.addShape(pptx.ShapeType.arc, { x: 8.8, y: -1.8, w: 6.1, h: 6.1, adjustPoint: 0.28, rotate: 15, fill: { color: C.navy, transparency: 100 }, line: { color: '2E5D86', transparency: 25, width: 25 } });
   s.addShape(pptx.ShapeType.ellipse, { x: 9.75, y: 4.6, w: 3.8, h: 3.8, fill: { color: C.blue, transparency: 12 }, line: { color: C.blue, transparency: 100 } });
   pill(s, 'PROJECT PRESENTATION', 0.78, 0.75, 2.15, '1D4E78', '9FD7FF');
-  s.addText('집을 찾는 순간부터\n계약하는 순간까지', { x: 0.8, y: 1.55, w: 7.6, h: 1.7, fontSize: 34, bold: true, color: C.white, margin: 0, breakLine: false, fit: 'shrink' });
+  // 웹 미리보기에서도 줄 간격이 깨지지 않도록 제목의 각 행을 별도 상자로 배치
+  s.addText('집을 찾는 순간부터', { x: 0.8, y: 1.55, w: 7.6, h: 0.62, fontSize: 34, bold: true, color: C.white, margin: 0, fit: 'shrink' });
+  s.addText('계약하는 순간까지', { x: 0.8, y: 2.28, w: 7.6, h: 0.62, fontSize: 34, bold: true, color: C.white, margin: 0, fit: 'shrink' });
   s.addText('ZipAI', { x: 0.78, y: 3.6, w: 4.0, h: 0.85, fontSize: 52, bold: true, color: '65D6C2', margin: 0 });
   s.addText('청년을 위한 통합 주거 의사결정 플랫폼', { x: 0.82, y: 4.53, w: 6.5, h: 0.38, fontSize: 18, color: 'D9EAF7', margin: 0 });
   s.addText('매물 탐색 · 공공주택 · 계약 안전 · 정책 · 생활권 분석', { x: 0.82, y: 5.15, w: 7.0, h: 0.32, fontSize: 13, color: '9FB3C8', margin: 0 });
-  s.addText('2026. 07', { x: 0.82, y: 6.65, w: 1.4, h: 0.24, fontSize: 10, color: '829AB1', margin: 0 });
+  s.addText('2026. 08', { x: 0.82, y: 6.65, w: 1.4, h: 0.24, fontSize: 10, color: '829AB1', margin: 0 });
 }
 
 // 2. Problem
@@ -160,25 +162,30 @@ function arrow(slide, x, y, w, color = C.blue) {
   bullets(s, ['경기 31개 시·군 단위 검색', '거래 유형·보증금·월세 필터', '매물 상세와 출처 확인', '일반 매물 / 공공주택 전환', '반응형 모바일 UI'], 9.06, 3.18, 3.05, 12.5, 'D9EAF7', 0.54);
 }
 
-// 5. Feature ecosystem
+// 5. Complete feature map
 {
   const s = pptx.addSlide('MASTER');
-  addTitle(s, '04  CORE FEATURES', '탐색 이후의 판단을 돕는 기능 생태계', '단순 매물 플랫폼을 넘어 “이 집에 들어가도 되는가?”에 답하도록 설계했습니다.');
+  addTitle(s, '04  ALL FEATURES', '처음부터 계약 이후까지, 8개 기능 영역', '기능이 따로 노는 메뉴가 아니라 사용자의 집 구하기 순서에 맞춰 이어집니다.');
   const features = [
-    ['SAFE', '계약 안전', '전세가율 계산기\n단계별 체크리스트\n안전 계약 가이드', C.orange, 'FFF0EA'],
-    ['LH', '공공주택 연동', 'LH 공고 조회\n경기 지역 필터\n원문 링크 확인', C.blue, C.lightBlue],
-    ['POLICY', '주거 정책', '대출·보증·급여\n신청 준비사항\n공식기관 안내', C.green, C.mint],
-    ['AI', '생활권 분석', '교통·편의 비교\n우선순위 입력\n모의 분석 결과', C.cyan, 'E7F8FA']
+    ['01', '매물 탐색', '지도·목록·조건 필터\n상세 조회·찜하기', C.blue, C.lightBlue],
+    ['02', '공공주택', 'LH 공고·행복주택\n지역 검색·원문 확인', C.green, C.mint],
+    ['03', '계약 안전', '3단계 체크리스트\n전세가율·계약 가이드', C.orange, 'FFF0EA'],
+    ['04', '지역 안전', 'CCTV·비상벨·치안시설\n밤길·주의구간 시각화', C.cyan, 'E7F8FA'],
+    ['05', '금융·정책', '대출·보증·월세지원\n금리 계산·상환표', C.green, C.mint],
+    ['06', '회원 서비스', '가입·로그인·마이페이지\n찜·문의·알림 관리', C.blue, C.lightBlue],
+    ['07', '방문·소통', '방문 예약·승인/거절\n커뮤니티·댓글·좋아요', C.orange, 'FFF0EA'],
+    ['08', '운영 관리', '매물 등록·문의 답변\n회원·공고·예약 관리', C.cyan, 'E7F8FA']
   ];
   features.forEach((f, i) => {
-    const x = 0.75 + i * 3.08;
-    rounded(s, x, 2.08, 2.72, 3.85, C.white);
-    pill(s, f[0], x + 0.23, 2.34, 0.9, f[4], f[3]);
-    s.addText(f[1], { x: x + 0.23, y: 3.08, w: 2.25, h: 0.4, fontSize: 18, bold: true, color: C.navy, margin: 0 });
-    s.addText(f[2], { x: x + 0.23, y: 3.8, w: 2.18, h: 1.22, fontSize: 12.5, color: C.muted, breakLine: false, margin: 0.02, valign: 'mid' });
-    s.addShape(pptx.ShapeType.line, { x: x + 0.23, y: 5.35, w: 2.16, h: 0, line: { color: f[3], width: 3 } });
+    const col = i % 4, row = Math.floor(i / 4);
+    const x = 0.75 + col * 3.08, y = 2.0 + row * 2.15;
+    rounded(s, x, y, 2.72, 1.82, C.white);
+    pill(s, f[0], x + 0.2, y + 0.2, 0.58, f[4], f[3]);
+    s.addText(f[1], { x: x + 0.92, y: y + 0.24, w: 1.55, h: 0.28, fontSize: 15.5, bold: true, color: C.navy, margin: 0, fit: 'shrink' });
+    s.addText(f[2], { x: x + 0.22, y: y + 0.83, w: 2.25, h: 0.62, fontSize: 10.8, color: C.muted, breakLine: false, margin: 0.02, valign: 'mid' });
+    s.addShape(pptx.ShapeType.line, { x: x + 0.22, y: y + 1.58, w: 2.18, h: 0, line: { color: f[3], width: 2.5 } });
   });
-  s.addText('각 기능은 공통 헤더와 메뉴로 연결되어 사용자가 주거 여정을 이탈하지 않도록 구성', { x: 1.25, y: 6.35, w: 10.85, h: 0.32, fontSize: 14, bold: true, color: C.ink, align: 'center', margin: 0 });
+  s.addText('핵심: 집을 찾는 기능 + 위험을 판단하는 기능 + 실제 행동으로 옮기는 기능', { x: 1.25, y: 6.4, w: 10.85, h: 0.3, fontSize: 14, bold: true, color: C.blue, align: 'center', margin: 0 });
 }
 
 // 6. Happy housing
@@ -205,60 +212,83 @@ function arrow(slide, x, y, w, color = C.blue) {
   s.addText('공식 자격 판정이 아닌 사전 점검 도구', { x: 6.95, y: 5.99, w: 5.28, h: 0.23, fontSize: 13.5, bold: true, color: C.white, align: 'center', margin: 0 });
 }
 
-// 7. Architecture
+// 7. Feature explanation — discovery and public support
 {
   const s = pptx.addSlide('MASTER');
-  addTitle(s, '06  TECHNOLOGY', '가벼운 구조로 외부 데이터와 정적 UI를 연결', '별도 프레임워크 없이 HTML·CSS·JavaScript와 Node.js 내장 모듈로 구현했습니다.');
-  const boxes = [
-    [0.75, 2.45, 2.55, 2.55, 'CLIENT', 'HTML · CSS · JS', ['반응형 UI', '지도·필터', 'localStorage'], C.lightBlue, C.blue],
-    [5.38, 2.45, 2.55, 2.55, 'SERVER', 'Node.js', ['정적 파일 제공', 'API 중계', '오류·캐시 처리'], C.mint, C.green],
-    [10.0, 1.95, 2.55, 1.6, 'DATA', '관리자 Excel', ['10건 시연 매물'], C.yellow, C.orange],
-    [10.0, 4.12, 2.55, 1.6, 'EXTERNAL', '공공데이터포털', ['LH 모집공고 API'], 'FFF0EA', C.red]
+  addTitle(s, '06  HOW IT WORKS', '매물 탐색과 공공주택 기능은 이렇게 작동합니다', '화면의 기능 이름보다 사용자가 실제로 무엇을 하고 무엇을 얻는지 중심으로 설명합니다.');
+  const groups = [
+    { y: 2.05, no: 'A', title: '일반 매물 찾기', color: C.blue, light: C.lightBlue,
+      cols: [['사용자가 하는 일', '지역·거래유형·보증금·월세·방 종류와 옵션을 선택'], ['ZipAI가 하는 일', '조건에 맞는 매물만 목록과 지도에 동시에 표시하고 상세·찜 기능 제공'], ['얻는 장점', '후보를 빠르게 좁히고 위치와 가격을 한 화면에서 비교']] },
+    { y: 4.28, no: 'B', title: 'LH·행복주택 찾기', color: C.green, light: C.mint,
+      cols: [['사용자가 하는 일', '거주 희망 지역을 고르고 모집공고·신청자격을 확인'], ['ZipAI가 하는 일', 'LH 공고와 원문 링크를 보여주고 나이·무주택·소득·자산을 사전 점검'], ['얻는 장점', '공고문 전체를 읽기 전에 신청 가능성이 있는 기회를 먼저 선별']] }
   ];
-  boxes.forEach(b => {
-    rounded(s, b[0], b[1], b[2], b[3], C.white);
-    pill(s, b[4], b[0]+0.22, b[1]+0.24, 0.9, b[7], b[8]);
-    s.addText(b[5], { x:b[0]+0.22,y:b[1]+0.84,w:b[2]-0.44,h:0.36,fontSize:18,bold:true,color:C.navy,margin:0,fit:'shrink'});
-    const lines = b[6] instanceof Array ? b[6] : [];
-    lines.forEach((t,j)=>s.addText('• '+t,{x:b[0]+0.24,y:b[1]+1.4+j*0.34,w:b[2]-0.45,h:0.22,fontSize:10.5,color:C.muted,margin:0}));
+  groups.forEach(g=>{
+    rounded(s,0.75,g.y,11.85,1.85,C.white);
+    iconCircle(s,g.no,1.02,g.y+0.26,g.color,C.white,0.52);
+    s.addText(g.title,{x:1.72,y:g.y+0.28,w:2.4,h:0.32,fontSize:18,bold:true,color:C.navy,margin:0});
+    g.cols.forEach((c,i)=>{const x=4.05+i*2.74; if(i>0) arrow(s,x-0.38,g.y+0.84,0.25,'B9CAD9'); pill(s,c[0],x,g.y+0.22,1.35,g.light,g.color); s.addText(c[1],{x,y:g.y+0.75,w:2.35,h:0.7,fontSize:10.5,color:C.ink,margin:0.02,fit:'shrink',valign:'mid'});});
   });
-  arrow(s, 3.62, 3.5, 1.35, C.blue);
-  s.addText('fetch / JSON', { x:3.65,y:3.15,w:1.25,h:0.18,fontSize:9,color:C.muted,align:'center',margin:0});
-  arrow(s, 8.25, 2.63, 1.32, C.orange);
-  arrow(s, 8.25, 4.75, 1.32, C.orange);
-  s.addText('/api/general-properties', { x:7.9,y:2.25,w:1.7,h:0.2,fontSize:8.5,color:C.muted,align:'center',margin:0});
-  s.addText('/api/public-housing', { x:7.95,y:4.38,w:1.65,h:0.2,fontSize:8.5,color:C.muted,align:'center',margin:0});
-  rounded(s, 2.55, 5.75, 7.9, 0.64, 'EEF3F8', 'EEF3F8');
-  s.addText('서비스 키는 서버에서만 관리  ·  LH 응답은 10분 캐시  ·  Excel ZIP/XML 직접 파싱', { x:2.85,y:5.95,w:7.3,h:0.22,fontSize:12,bold:true,color:C.ink,align:'center',margin:0});
+  s.addText('예시  |  “월세 60만 원 이하” 후보 검색 → 지도 비교 → LH 공고 확인 → 행복주택 자격 사전 점검', {x:1.1,y:6.48,w:11.1,h:0.24,fontSize:12.5,bold:true,color:C.blue,align:'center',margin:0,fit:'shrink'});
 }
 
-// 8. Implementation footprint
+// 8. Feature explanation — safety and action
 {
   const s = pptx.addSlide('MASTER');
-  addTitle(s, '07  IMPLEMENTATION', '프로젝트를 구성하는 주요 모듈', '화면별 CSS·JavaScript를 분리하고, 공통 UI와 데이터 접근을 연결했습니다.');
+  addTitle(s, '07  HOW IT WORKS', '안전 판단부터 방문·소통까지 이렇게 이어집니다', '각 기능의 결과가 다음 행동으로 연결되도록 구성한 것이 ZipAI의 핵심입니다.');
+  const items = [
+    ['계약 안전', '매매가·보증금·근저당 입력, 체크리스트 수행', '전세가율과 위험 등급, 빠진 확인 항목을 안내', '계약 전에 위험 신호를 스스로 발견', C.orange, 'FFF0EA'],
+    ['지역 안전', '주소와 분석 반경, 확인할 안전 항목 선택', 'CCTV·비상벨·치안시설·밤길 지표를 지도와 점수로 표시', '가격 외에 실제 생활 안전성까지 비교', C.green, C.mint],
+    ['금융·정책', '대상·목적·대출 조건과 금액 입력', '맞춤 정책을 찾고 금리·월 납입액·상환표 계산', '지원 가능성과 실제 부담을 함께 파악', C.blue, C.lightBlue],
+    ['방문·소통', '매물 찜, 방문 시간 예약, 문의·게시글 작성', '예약 상태·알림·답변·댓글·좋아요를 계정별 관리', '정보 확인 뒤 필요한 행동을 바로 실행', C.cyan, 'E7F8FA']
+  ];
+  const heads=['기능','사용자가 하는 일','ZipAI가 보여주는 결과','사용자 장점'];
+  const xs=[0.75,2.75,6.0,9.45], ws=[2.0,3.25,3.45,3.15];
+  heads.forEach((h,i)=>{s.addShape(pptx.ShapeType.rect,{x:xs[i],y:2.0,w:ws[i],h:0.58,fill:{color:C.navy},line:{color:C.white,width:1}});s.addText(h,{x:xs[i]+0.05,y:2.18,w:ws[i]-0.1,h:0.2,fontSize:11.5,bold:true,color:C.white,align:'center',margin:0});});
+  items.forEach((r,ri)=>r.slice(0,4).forEach((v,i)=>{const y=2.58+ri*0.86;s.addShape(pptx.ShapeType.rect,{x:xs[i],y,w:ws[i],h:0.86,fill:{color:i===0?r[5]:ri%2===0?'F7F9FC':C.white},line:{color:C.line,width:0.7}});s.addText(v,{x:xs[i]+0.12,y:y+0.16,w:ws[i]-0.24,h:0.55,fontSize:i===0?13:10.4,bold:i===0,color:i===0?r[4]:C.ink,align:i===0?'center':'left',valign:'mid',margin:0.02,fit:'shrink'});}));
+  rounded(s,1.65,6.3,10.0,0.48,C.navy,C.navy);
+  s.addText('입력 → 분석·정리 → 이해하기 쉬운 결과 → 찜·예약·문의 등 다음 행동', {x:1.95,y:6.43,w:9.4,h:0.2,fontSize:12.5,bold:true,color:C.white,align:'center',margin:0});
+}
+
+// 9. Competitor comparison
+{
+  const s = pptx.addSlide('MASTER');
+  addTitle(s, '08  DIFFERENCE', '기존 서비스가 정보를 보여준다면, ZipAI는 결정을 연결합니다', '특정 브랜드의 우열이 아니라 대표적인 서비스 유형과 사용자 경험을 비교했습니다.');
+  const heads = ['비교 항목', '일반 부동산 앱', '공공정보 사이트', '단일 안전 서비스', 'ZipAI'];
   const rows = [
-    ['index.html', '메인 지도·매물 목록·카테고리 전환', 'ENTRY'],
-    ['server.js', '정적 서버, Excel 변환, LH API 중계', 'BACKEND'],
-    ['static/js/home.js', '검색·필터·매물 렌더링·등록', 'FRONTEND'],
-    ['templates/defense/*', '체크리스트·계산기·계약 가이드', 'SAFETY'],
-    ['templates/board/*', '정책·행복주택·고객센터', 'CONTENT'],
-    ['templates/ai/*', '생활권 입력과 모의 분석', 'AI UX']
+    ['매물 지도·조건 검색', '●', '△', '—', '●'],
+    ['LH·행복주택·정책', '△', '●', '—', '●'],
+    ['지역 치안·생활 안전', '△', '—', '●', '●'],
+    ['전세사기 자가 점검', '△', '—', '△', '●'],
+    ['방문 예약·커뮤니티', '△', '—', '—', '●'],
+    ['한 흐름으로 연결', '—', '—', '—', '●']
   ];
-  rows.forEach((r, i) => {
-    const y = 2.05 + i * 0.7;
-    if (i % 2 === 0) s.addShape(pptx.ShapeType.roundRect, { x:0.75,y,w:11.85,h:0.54,rectRadius:0.08,fill:{color:'EEF3F8'},line:{color:'EEF3F8'}});
-    pill(s, r[2], 0.95, y+0.1, 1.05, r[2]==='BACKEND'?C.mint:C.lightBlue, r[2]==='BACKEND'?C.green:C.blue);
-    s.addText(r[0], { x:2.3,y:y+0.14,w:3.1,h:0.22,fontSize:12.5,bold:true,color:C.navy,margin:0,fit:'shrink'});
-    s.addText(r[1], { x:5.55,y:y+0.14,w:6.35,h:0.22,fontSize:12.5,color:C.muted,margin:0,fit:'shrink'});
-  });
-  rounded(s, 0.75, 6.35, 11.85, 0.42, C.navy, C.navy);
-  s.addText('의존성 최소화  |  Node.js 18+에서 node server.js 한 줄로 실행', { x:1.1,y:6.46,w:11.1,h:0.17,fontSize:11.5,bold:true,color:C.white,align:'center',margin:0});
+  const xs = [0.75, 4.0, 6.1, 8.2, 10.3], ws = [3.25, 2.1, 2.1, 2.1, 2.3];
+  heads.forEach((h,i)=>{ s.addShape(pptx.ShapeType.rect,{x:xs[i],y:2.0,w:ws[i],h:0.62,fill:{color:i===4?C.blue:C.navy},line:{color:C.white,width:1}}); s.addText(h,{x:xs[i]+0.06,y:2.2,w:ws[i]-0.12,h:0.22,fontSize:11.5,bold:true,color:C.white,align:'center',margin:0,fit:'shrink'}); });
+  rows.forEach((r,ri)=>r.forEach((v,i)=>{ const y=2.62+ri*0.57; s.addShape(pptx.ShapeType.rect,{x:xs[i],y,w:ws[i],h:0.57,fill:{color:i===4?'EDF4FF':ri%2===0?'F5F7FA':C.white},line:{color:C.line,width:0.7}}); s.addText(v,{x:xs[i]+0.08,y:y+0.17,w:ws[i]-0.16,h:0.22,fontSize:i===0?11.2:14,bold:i===0||i===4,color:v==='●'?(i===4?C.blue:C.green):v==='△'?C.orange:v==='—'?'A0AEC0':C.ink,align:i===0?'left':'center',margin:0,fit:'shrink'}); }));
+  s.addText('● 핵심 제공   △ 부분 제공/서비스별 상이   — 주요 목적 아님', { x:0.9,y:6.15,w:5.2,h:0.22,fontSize:9.5,color:C.muted,margin:0 });
+  pill(s, 'ZipAI만의 차이', 6.55, 6.02, 1.45, C.mint, C.green);
+  s.addText('비교→판단→점검→행동이 한 서비스에서 이어짐', { x:8.2,y:6.08,w:4.05,h:0.24,fontSize:10.8,bold:true,color:C.navy,margin:0,fit:'shrink'});
 }
 
-// 9. Limits and roadmap
+// 10. Unique strengths
 {
   const s = pptx.addSlide('MASTER');
-  addTitle(s, '08  NEXT STEP', '프로토타입에서 실제 서비스로 가기 위한 로드맵', '현재 한계를 명확히 정의하고 데이터·신뢰·운영 순서로 확장합니다.');
+  addTitle(s, '09  WHY ZIPAI', 'ZipAI가 사용자에게 주는 4가지 실질적 장점', '정보의 양보다 “잘못된 선택을 줄이는 과정”에 집중합니다.');
+  const cards = [
+    ['1', '검색 시간을 줄입니다', '일반 매물과 공공주택, 정책 정보를\n여러 사이트에서 다시 찾을 필요가 없습니다.', C.blue, C.lightBlue],
+    ['2', '초보자도 판단할 수 있습니다', '어려운 전세가율과 계약 확인 항목을\n계산기·체크리스트·결과 리포트로 풉니다.', C.orange, 'FFF0EA'],
+    ['3', '가격 밖의 위험을 봅니다', 'CCTV·비상벨·치안시설과 밤길 정보를\n지도와 점수로 함께 확인합니다.', C.green, C.mint],
+    ['4', '확인에서 행동으로 이어집니다', '찜하기, 방문 예약, 문의, 커뮤니티까지\n다음 행동을 서비스 안에서 이어갑니다.', C.cyan, 'E7F8FA']
+  ];
+  cards.forEach((c,i)=>{ const x=0.75+(i%2)*6.05,y=2.05+Math.floor(i/2)*2.15; rounded(s,x,y,5.72,1.78,C.white); iconCircle(s,c[0],x+0.28,y+0.3,c[3],C.white,0.55); s.addText(c[1],{x:x+1.05,y:y+0.3,w:4.15,h:0.34,fontSize:18,bold:true,color:C.navy,margin:0}); s.addText(c[2],{x:x+1.05,y:y+0.92,w:4.15,h:0.55,fontSize:11.8,color:C.muted,margin:0,fit:'shrink'}); s.addShape(pptx.ShapeType.line,{x:x+0.3,y:y+1.58,w:5.05,h:0,line:{color:c[3],width:2.5}}); });
+  rounded(s, 2.0, 6.36, 9.35, 0.42, C.navy, C.navy);
+  s.addText('한 문장 요약  |  “어떤 집이 있는지”를 넘어 “이 집을 선택해도 되는지”까지', { x:2.3,y:6.47,w:8.75,h:0.17,fontSize:11.5,bold:true,color:C.white,align:'center',margin:0});
+}
+
+// 11. Limits and roadmap
+{
+  const s = pptx.addSlide('MASTER');
+  addTitle(s, '10  NEXT STEP', '프로토타입에서 실제 서비스로 가기 위한 로드맵', '현재 한계를 명확히 정의하고 데이터·신뢰·운영 순서로 확장합니다.');
   const left = [
     ['브라우저 저장 중심', '회원·매물·문의 데이터가 서버 DB에 영속화되지 않음'],
     ['모의 인증', '로그인·관리자 권한이 실제 보안 인증 구조가 아님'],
@@ -287,17 +317,19 @@ function arrow(slide, x, y, w, color = C.blue) {
   });
 }
 
-// 10. Closing
+// 12. Closing
 {
   const s = pptx.addSlide();
   s.background = { color: C.navy };
   s.addShape(pptx.ShapeType.ellipse, { x: -1.7, y: 4.2, w: 5.2, h: 5.2, fill: { color: '153E63' }, line: { color: '153E63' } });
   s.addShape(pptx.ShapeType.ellipse, { x: 10.2, y: -2.0, w: 5.0, h: 5.0, fill: { color: C.blue, transparency: 22 }, line: { color: C.blue, transparency: 100 } });
   s.addText('ZipAI', { x: 0.8, y: 0.75, w: 2.0, h: 0.55, fontSize: 30, bold: true, color: '65D6C2', margin: 0 });
-  s.addText('집을 찾는 서비스에서\n집을 결정하는 서비스로', { x: 1.45, y: 2.15, w: 10.4, h: 1.3, fontSize: 36, bold: true, color: C.white, align: 'center', margin: 0, fit: 'shrink' });
+  // 두 줄 제목을 분리해 PowerPoint·웹 뷰어 간 줄 높이 차이 제거
+  s.addText('집을 찾는 서비스에서', { x: 1.45, y: 2.15, w: 10.4, h: 0.64, fontSize: 36, bold: true, color: C.white, align: 'center', margin: 0, fit: 'shrink' });
+  s.addText('집을 결정하는 서비스로', { x: 1.45, y: 2.9, w: 10.4, h: 0.64, fontSize: 36, bold: true, color: C.white, align: 'center', margin: 0, fit: 'shrink' });
   s.addText('탐색 · 정책 · 생활권 · 안전을 하나의 사용자 여정으로 연결합니다.', { x: 2.2, y: 3.85, w: 8.95, h: 0.45, fontSize: 17, color: 'B7CCE2', align: 'center', margin: 0 });
   rounded(s, 4.48, 5.1, 4.37, 0.76, '153E63', '2E5D86');
   s.addText('THANK YOU  ·  Q&A', { x: 4.8, y: 5.35, w: 3.75, h: 0.24, fontSize: 15, bold: true, color: C.white, align: 'center', margin: 0 });
 }
 
-pptx.writeFile({ fileName: path.join(__dirname, 'ZipAI_프로젝트_발표자료.pptx') });
+pptx.writeFile({ fileName: path.join(__dirname, 'ZipAI_프로젝트_발표자료_v2.pptx') });
